@@ -107,9 +107,6 @@ class HomeworkView extends Component {
                 </div>);
               })
             }
-            <h4>
-              本课我一共学习了约{homework.time}分钟
-            </h4>
             <p className="text-muted">
               一定要点击微信右上角菜单的分享，分享到微信群，老师才能看到你的作业
             </p>

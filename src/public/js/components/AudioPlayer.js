@@ -52,7 +52,6 @@ class AudioPlayer extends Component {
     const loadingTime = (new Date() - this.initDate) / 1000;
     ajax.post('/api/behaviors/', {
       scope: 'audioLoadedTime',
-      action: 'play',
       value: loadingTime});
     if (this.props.autoplay) {
       this.togglePlay();
@@ -86,7 +85,7 @@ class AudioPlayer extends Component {
     ajax.post('/api/behaviors/', {
       scope: 'audioPlayer',
       action: 'fail',
-      value: JSON.stringify(e)});
+      value: JSON.stringify({code: audio.error.code, src: e.target.currentSrc})});
   }
 
   _onEvent(e) {
