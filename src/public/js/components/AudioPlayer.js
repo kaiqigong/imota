@@ -86,7 +86,7 @@ class AudioPlayer extends Component {
     ajax.post('/api/behaviors/', {
       scope: 'audioPlayer',
       action: 'fail',
-      value: e.toString()});
+      value: JSON.stringify(e)});
   }
 
   _onEvent(e) {

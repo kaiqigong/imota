@@ -73,9 +73,6 @@ export const submitRecordAsync = (payload) => {
     if (!payload.nickname) {
       return dispatch(displayErrors({nickname: '需要输入昵称后才可以提交'}));
     }
-    if (!payload.time) {
-      return dispatch(displayErrors({time: '请输入练习时间'}));
-    }
     dispatch(uploadingRecord(true));
 
     const localIds = payload.localIds.slice();

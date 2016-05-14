@@ -73,16 +73,13 @@ const uploadSingle = async (localId) => {
   });
 };
 
-export const submitRecordAsync = (payload, wxsdk) => {
+export const submitRecordAsync = (payload) => {
   return async (dispatch) => {
     if (!payload.localIds) {
       return dispatch(displayErrors({server: '录音不存在'}));
     }
     if (!payload.nickname) {
       return dispatch(displayErrors({nickname: '需要输入昵称后才可以提交'}));
-    }
-    if (!payload.time) {
-      return dispatch(displayErrors({time: '请输入练习时间'}));
     }
     dispatch(uploadingRecord(true));
 
@@ -178,7 +175,7 @@ export default handleActions({
     state.uploadingRecord = payload;
     return Object.assign({}, state);
   },
-  [END_QUIZ]: (state, {payload}) => {
+  [END_QUIZ]: (state) => {
     state.quizOn = false;
     return Object.assign({}, state);
   },

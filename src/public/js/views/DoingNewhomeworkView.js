@@ -32,11 +32,6 @@ class DoingNewhomeworkView extends Component {
     doingNewhomework: PropTypes.object,
     shifting: PropTypes.object,
     location: PropTypes.object,
-    beginTranslateQuiz: PropTypes.func,
-    cancelSubmit: PropTypes.func,
-    submitRecordAsync: PropTypes.func,
-    endTranslateQuizAsync: PropTypes.func,
-    endQuiz: PropTypes.func,
     toggleAnswerModal: PropTypes.func,
     history: PropTypes.object,
   };

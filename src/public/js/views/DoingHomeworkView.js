@@ -82,8 +82,8 @@ class DoingHomeworkView extends Component {
   }
 
   submit(data) {
+    const time = parseInt(this.props.doingHomework.time, 10);
     const nickname = this.refs.nickname.value;
-    const time = parseInt(this.refs.time.value, 10);
     const payload = Object.assign(data, {nickname, time});
     this.props.submitRecordAsync(payload, this.props.wxsdk);
   }
@@ -115,7 +115,7 @@ class DoingHomeworkView extends Component {
     // if (errMsg) {
     //   console.log('签名失败');
     // }
-    const {lesson, quizOn, errors, showCollectionModal, showMethodModal, showReviewModal, showFeedbackModal, localIds, time} = doingHomework;
+    const {lesson, quizOn, errors, showCollectionModal, showMethodModal, showReviewModal, showFeedbackModal, localIds} = doingHomework;
     const {courseNo, lessonNo} = this.props.params;
     const {query} = this.props.location;
     const type = query.type || 'listen';
@@ -216,23 +216,6 @@ class DoingHomeworkView extends Component {
                 <div className="row">
                   <div className="col-xs-6 col-xs-offset-3">
                     <ErrorTip error={errors.nickname} />
-                  </div>
-                </div>
-                <div className="form-group row">
-                  <label htmlFor="time" className="col-xs-3 form-control-label">时间</label>
-                  <div className="col-xs-6">
-                    <input ref="time" defaultValue={parseInt(time / 1000 / 60, 10)} type="number" className="form-control" id="time" placeholder="时间" pattern="[0-9]*"/>
-                  </div>
-                  <label className="col-xs-3 form-control-label">分钟</label>
-                </div>
-                <div className="row">
-                  <div className="col-xs-6 col-xs-offset-3">
-                    <ErrorTip error={errors.time} />
-                  </div>
-                </div>
-                <div className="form-group row">
-                  <div className="col-xs-6 col-xs-offset-3 small">
-                    这是系统记录你本课的学习时间，可以手动修改
                   </div>
                 </div>
               </div>

@@ -59,7 +59,9 @@ class PronunciationLessonActivityView extends Component {
       complete: (res) => {
         this.localIds.push(res.localId);
         // todo: start another record
-        wx.startRecord();
+        setTimeout(function() {
+          wx.startRecord();
+        }, 100);
       },
       fail: (err) => {
         console.error('views/DoingHomeworkView 100', err.toString());
@@ -76,7 +78,9 @@ class PronunciationLessonActivityView extends Component {
         this.props.endPronunciationHomeworkAsync(this.localIds.slice());
       },
       fail: (err) => {
-        console.log('views/DoingHomeworkView 75', err);
+        console.log('views/PronunciationHomeworkView 79', err);
+        this.props.endRecord(this.localIds);
+        this.props.endPronunciationHomeworkAsync(this.localIds.slice());
       },
     });
   }
@@ -88,8 +92,7 @@ class PronunciationLessonActivityView extends Component {
 
   submit(data) {
     const nickname = this.refs.nickname.value;
-    const time = parseInt(this.refs.time.value, 10);
-    const payload = Object.assign(data, {nickname, time});
+    const payload = Object.assign(data, {nickname});
     this.props.submitRecordAsync(payload);
   }
 
@@ -120,7 +123,7 @@ class PronunciationLessonActivityView extends Component {
 
   render() {
     const {pronunciationLessonActivity, wxsdk} = this.props;
-    const {docs, recording, localIds, lesson, errors, time} = pronunciationLessonActivity;
+    const {docs, recording, localIds, lesson, errors} = pronunciationLessonActivity;
     let {activityIndex} = this.props.params;
     if (!activityIndex) {
       activityIndex = 0;
@@ -280,23 +283,6 @@ class PronunciationLessonActivityView extends Component {
                               <div className="row">
                                 <div className="col-xs-6 col-xs-offset-3">
                                   <ErrorTip error={errors && errors.nickname} />
-                                </div>
-                              </div>
-                              <div className="form-group row">
-                                <label htmlFor="time" className="col-xs-3 form-control-label">时间</label>
-                                <div className="col-xs-6">
-                                  <input ref="time" defaultValue={parseInt(time / 1000 / 60, 10)} type="number" className="form-control" id="time" placeholder="时间" pattern="[0-9]*"/>
-                                </div>
-                                <label className="col-xs-3 form-control-label">分钟</label>
-                              </div>
-                              <div className="row">
-                                <div className="col-xs-6 col-xs-offset-3">
-                                  <ErrorTip error={errors && errors.time} />
-                                </div>
-                              </div>
-                              <div className="form-group row">
-                                <div className="col-xs-6 col-xs-offset-3 small">
-                                  这是系统记录你本课的学习时间，可以手动修改
                                 </div>
                               </div>
                               <ErrorTip error={errors && errors.server} />
