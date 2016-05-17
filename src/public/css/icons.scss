@@ -7,13 +7,6 @@
     url('../fonts/shicon.svg#shicon') format('svg');
 }
 
-@mixin icon-styles {
-}
-
-%icon {
-  @include icon-styles;
-}
-
 @function icon-char($filename) {
   $char: "";
 
@@ -96,8 +89,6 @@
   &:#{$insert} {
     @if $extend {
       @extend %icon;
-    } @else {
-      @include icon-styles;
     }
     content: icon-char($filename);
   }
