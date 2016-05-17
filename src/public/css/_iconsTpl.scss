@@ -7,13 +7,6 @@
     url('<%= fontPath %><%= fontName %>.svg#<%= fontName %>') format('svg');
 }
 
-@mixin <%= cssClass%>-styles {
-}
-
-%<%= cssClass%> {
-  @include <%= cssClass%>-styles;
-}
-
 @function <%= cssClass%>-char($filename) {
   $char: "";
 <% _.each(glyphs, function(glyph) { %>
@@ -39,8 +32,6 @@
   &:#{$insert} {
     @if $extend {
       @extend %<%= cssClass%>;
-    } @else {
-      @include <%= cssClass%>-styles;
     }
     content: <%= cssClass%>-char($filename);
   }
