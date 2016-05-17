@@ -30,9 +30,6 @@
   vertical-align: middle;
   display: inline-block;
   &:#{$insert} {
-    @if $extend {
-      @extend %<%= cssClass%>;
-    }
     content: <%= cssClass%>-char($filename);
   }
 }
