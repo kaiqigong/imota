@@ -314,3 +314,14 @@ npm start
   }
 })();
 ```
+
+### 发布地址
+正式: www.holdqq.com
+测试: test.holdqq.com
+注意，正式和测试使用的都是真实数据库，本地开发使用的是测试数据库。
+
+### 查看线上log（需要链接dbuser）
+tailf /data/log/airlog.client.log-2016-05-22
+
+### 微信开发中的那些坑
+http://tech.marry-me.today/wei-xin-ye-mian-kai-fa-de-na-xie-keng/

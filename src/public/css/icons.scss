@@ -87,9 +87,6 @@
   vertical-align: middle;
   display: inline-block;
   &:#{$insert} {
-    @if $extend {
-      @extend %icon;
-    }
     content: icon-char($filename);
   }
 }
