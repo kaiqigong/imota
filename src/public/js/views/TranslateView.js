@@ -177,41 +177,38 @@ class TranslateView extends Component {
           </div>
           <ErrorTip error={errors.server} />
         </div>
-        <nav className="navbar navbar-fixed-bottom bottom-nav">
-          <ul className="nav navbar-nav">
-            <li className="col-xs-1 no-padding-col">
-              {
-                prevId ?
-                <Link className="nav-link" to={`/home/courses/${courseNo}/lessons/${lessonNo}/translate/${prevId}`}>
-                  <i className="icon-left" />
-                </Link>
-                :
-                <Link className="nav-link" to={`/home/courses/${courseNo}/lessons/${lessonNo}/warm/?type=translate`}>
-                  <i className="icon-left" />
-                </Link>
-              }
-            </li>
-            <li className="col-xs-10 text-xs-center">
+        <div className="course-buttons">
+          <div className="col-xs-4">
+            {
+              prevId ?
+              <Link className="prev-button" to={`/home/courses/${courseNo}/lessons/${lessonNo}/translate/${prevId}`} />
+              :
+              <Link className="prev-button" to={`/home/courses/${courseNo}/lessons/${lessonNo}/warm/?type=translate`} />
+            }
+          </div>
+          <div className="col-xs-4">
+            <div className="slick-next">
             {
               viewAnswer ?
               (
-                nextId ?
-                <Link className="bottom-nav-btn btn btn-primary-outline col-xs-12" onClick={() => this.props.translateInit()} to={`/home/courses/${courseNo}/lessons/${lessonNo}/translate/${nextId}`} >
-                  下一句
-                </Link>
-                :
-                <Link className="bottom-nav-btn btn btn-primary-outline col-xs-12" to={`/home/courses/${courseNo}/lessons/${lessonNo}/newhomework/?type=translate`} >
-                  做作业
+                <Link className='main-btn' onClick={() => this.props.translateInit()} to={`/home/courses/${courseNo}/lessons/${lessonNo}/translate/${nextId}`} >
+                  下一步
                 </Link>
               )
               :
-              <button className="bottom-nav-btn btn btn-primary-outline col-xs-12" onClick={this.props.showTranslateAnswer}>
+              <a onClick={this.props.showTranslateAnswer}>
                 查看答案
-              </button>
+              </a>
             }
-            </li>
-          </ul>
-        </nav>
+            </div>
+          </div>
+          { nextId==0 &&
+            <div className="col-xs-4 text-xs-center">
+              <Link className="boss-button pull-xs-right"
+                to={`/home/courses/${courseNo}/lessons/${lessonNo}/newhomework/?type=translate`} />
+            </div>
+          }
+        </div>
       </div>
     );
   }

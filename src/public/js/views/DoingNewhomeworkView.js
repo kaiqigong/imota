@@ -162,35 +162,36 @@ class DoingNewhomeworkView extends Component {
           }
           <ErrorTip error={errors.server} />
         </div>
-        <nav className="navbar navbar-fixed-bottom bottom-nav">
-          <ul className="nav navbar-nav">
-            <li className="col-xs-1 no-padding-col" style={{'marginTop': '4.4rem'}}>
-              <a className="nav-link" >
-                <i className="icon-left" onClick={() => this.props.history.goBack()}/>
-              </a>
-            </li>
-            <li className="col-xs-10 text-xs-center">
+        <div className="course-buttons">
+          { lesson.homeworkLink &&
+            <div>
               {
                 type === 'translate' ?
-                <div className="clearfix">
-                  <div className="text-muted text-xs-center">
-                    请长按上边句子，粘贴到微信群，<br />
-                    然后录音提交作业<br />
-                    跟读整段视频练习隐藏在<i style={{'verticalAlign': 'bottom'}} className="icon-hamburger text-primary" />中
-                  </div>
-                  <a className="bottom-nav-btn btn btn-primary-outline col-xs-12"
-                    onClick={() => this.props.toggleAnswerModal(true)}>
-                    查看答案
-                  </a>
+                <div className="hint text-muted text-xs-center">
+                  请长按上边句子，粘贴到微信群，<br />
+                  然后录音提交作业<br />
+                  跟读整段视频练习隐藏在<i style={{'verticalAlign': 'bottom'}} className="icon-hamburger" />中
                 </div>
                 :
-                <div className="nav-link text-muted text-xs-center">
-                  跟读整段视频练习隐藏在<i style={{'verticalAlign': 'bottom'}} className="icon-hamburger text-primary" />中
+                <div className="hint text-muted text-xs-center">
+                  跟读整段视频练习隐藏在<i style={{'verticalAlign': 'bottom'}} className="icon-hamburger" />中
                 </div>
               }
-            </li>
-          </ul>
-        </nav>
+            </div>
+          }
+          <div className="col-xs-4">
+            <a className="prev-button" onClick={() => this.props.history.goBack()}> </a>
+          </div>
+          { type === 'translate' && lesson.homeworkLink &&
+            <div className="col-xs-4">
+              <div className="slick-next">
+                <a className='main-btn' onClick={() => this.props.toggleAnswerModal(true)} >
+                  查看答案
+                </a>
+              </div>
+            </div>
+          }
+        </div>
       </div>
     );
   }

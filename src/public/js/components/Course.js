@@ -15,6 +15,7 @@ class Course extends Component {
           <h4 className="course-name text-xs-center">
             <img src={course.imageUrl} alt={course.chineseTitle} />
           </h4>
+          <span className="lesson-count">{course.lessonCount}</span>
         </Link>
       </div>
     );
