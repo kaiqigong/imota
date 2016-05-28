@@ -101,9 +101,7 @@ class PronunciationLessonActivityView extends Component {
       return '';
     }
     return (
-      <div className="slick-prev">
-        <Link to={`/home/pronunciation_courses/${courseNo}/lessons/${lessonNo}/${activityIndex - 1}`} className="prev-button" />
-      </div>
+      <Link to={`/home/pronunciation_courses/${courseNo}/lessons/${lessonNo}/${activityIndex - 1}`} className="icon-left side-btn" />
     );
   }
 
@@ -111,12 +109,14 @@ class PronunciationLessonActivityView extends Component {
     const {pronunciationLessonActivity} = this.props;
     if (activityIndex + 1 === pronunciationLessonActivity.docs.length) {
       return (
-        <div className="slick-next"><a className="next-button hidden"></a></div>
+        <div className="slick-next"><a className="main-btn hidden"></a></div>
       );
     }
     return (
       <div className="slick-next">
-        <Link to={`/home/pronunciation_courses/${courseNo}/lessons/${lessonNo}/${activityIndex + 1}`} className="next-button" />
+        <Link to={`/home/pronunciation_courses/${courseNo}/lessons/${lessonNo}/${activityIndex + 1}`} className="main-btn" >
+          下一步
+        </Link>
       </div>
     );
   }
@@ -162,17 +162,18 @@ class PronunciationLessonActivityView extends Component {
           <ul className="nav navbar-nav">
             <li className="nav-item">
               <Link className="nav-link" to={`/home/pronunciation_courses/${lesson.courseNo}/lessons/`}>
-                <i className="icon-left" />
+                <i className="icon-lesson" />
               </Link>
+            </li>
+            <li className="nav-item nav-item-progress-bar">
+              <div className="progress-bar">
+                <Progress percent={currentProgress}/>
+              </div>
             </li>
           </ul>
         </nav>
 
         <div className="col-xs-12">
-          <div className="progress-bar">
-            <Progress percent={currentProgress}/>
-          </div>
-
           <Slider {...settings}>
             {docs.map((lessonActivity, index) => {
               const shouldShow = index >= activityIndex - 1 && index <= activityIndex + 1;
@@ -320,7 +321,7 @@ class PronunciationLessonActivityView extends Component {
         </div>
 
         <div className="course-buttons">
-          <div className="col-xs-4 text-xs-center">
+          <div className="col-xs-4">
             {this.renderPrevArrow(courseNo, lessonNo, activityIndex)}
           </div>
           <div className="col-xs-4 text-xs-center no-padding-col">
@@ -380,7 +381,7 @@ class PronunciationLessonActivityView extends Component {
           <div className="col-xs-4 text-xs-center">
             {
               activityIndex + 1 !== pronunciationLessonActivity.docs.length ?
-              <Link className="boss-button pull-xs-right" to={`/home/pronunciation_courses/${courseNo}/lessons/${lessonNo}/${pronunciationLessonActivity.docs.length - 1}`} />
+              <Link className="icon-boss side-btn pull-xs-right" to={`/home/pronunciation_courses/${courseNo}/lessons/${lessonNo}/${pronunciationLessonActivity.docs.length - 1}`} />
               :
               ''
             }

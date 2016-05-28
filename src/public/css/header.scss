@@ -2,9 +2,6 @@
 
 .header {
   position: relative;
-  .nav-item-progress-bar {
-    width: calc(100% - 5rem);
-  }
 }
 
 .navbar-nav {
@@ -16,6 +13,9 @@
   }
   .nav-link {
     padding-top: 0;
+  }
+  .nav-item-progress-bar {
+    width: calc(100% - 5rem);
   }
 }
 

@@ -1,14 +1,11 @@
 @import "./_variables";
 
 $ring-width: 0.5rem;
-$size: 2.87rem;
 
 .pronunciation-activity-view {
   .hidden {
     display: none;
   }
-
-
 
   .course-info {
     .mentor-photo {
@@ -60,57 +57,6 @@ $size: 2.87rem;
     }
   }
 
-  .course-buttons {
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 5.4rem;
-    border-top: 0.0625rem solid #d1d1e2;
-    background: $white;
-    padding: 1.2rem 0;
-    margin: 0 1rem;
-    &:after {
-      content: '';
-      width: 0;
-      height: 0;
-      border-left: 1rem solid transparent;
-      border-right: 1rem solid transparent;
-      border-bottom: 1rem solid #d1d1e2;
-      position: absolute;
-      left: 50%;
-      margin-left: -1rem;
-      top: -1rem;
-    }
-    &:before {
-      content: '';
-      width: 0;
-      height: 0;
-      border-left: 1rem solid transparent;
-      border-right: 1rem solid transparent;
-      border-bottom: 1rem solid #fff;
-      position: absolute;
-      left: 50%;
-      margin-left: -1rem;
-      top: -0.9375rem;
-      z-index: 1;
-    }
-  }
-
-  .slick-prev {
-    position: fixed;
-    left: 1.25rem;
-    bottom: 0.9rem;
-    z-index: 9;
-  }
-  .slick-next {
-    position: fixed;
-    left: 50%;
-    bottom: 0.6rem;
-    z-index: 9;
-    margin-left: -3.75rem;
-  }
-
   .icon-voice-mute:before,
   .icon-voice:before {
     color: #F28318;
@@ -118,13 +64,6 @@ $size: 2.87rem;
   }
 }
 
-.boss-button {
-  display: inline-block;
-  width: 2.875rem;
-  height: 2.875rem;
-  background: url('/img/icon-boss.png') no-repeat;
-  background-size: cover;
-}
 .sound-button {
   display: inline-block;
   width: 7.5rem;
@@ -132,40 +71,26 @@ $size: 2.87rem;
   background: url('/img/icon-sound.png') no-repeat;
   background-size: cover;
 }
-.next-button {
-  display: inline-block;
-  width: 7.5rem;
-  height: 3.625em;
-  background: url('/img/icon-next.png') no-repeat;
-  background-size: cover;
-}
-.prev-button {
-  display: inline-block;
-  width: 2.875rem;
-  height: 2.875rem;
-  background: url('/img/icon-prev-arrow.png') no-repeat;
-  background-size: cover;
-}
 a.action-button {
   display: inline-block;
-  width: $size;
-  height: $size;
+  width: $round-btn-size;
+  height: $round-btn-size;
   background: $dark-blue;
   color: #FFF;
-  line-height: $size;
+  line-height: $round-btn-size;
   border-radius: 50%;
   text-decoration: none;
   position: relative;
 }
 a.record-button {
   display: inline-block;
-  width: $size;
-  height: $size;
+  width: $round-btn-size;
+  height: $round-btn-size;
   background: $dark-blue;
   color: #FFF;
-  line-height: $size;
+  line-height: $round-btn-size;
   border-radius: 50%;
-  font-size: $size / 2;
+  font-size: $round-btn-size / 2;
   position: relative;
   .icon-mic {
     margin-left: 0.12rem;
@@ -176,8 +101,8 @@ a.record-button {
     &:after {
       position: absolute;
       content: ' ';
-      width: $size + 2 * $ring-width;
-      height: $size + 2 * $ring-width;
+      width: $round-btn-size + 2 * $ring-width;
+      height: $round-btn-size + 2 * $ring-width;
       background: #a3eb9a;
       border-radius: 50%;
       z-index: -1;
@@ -188,8 +113,8 @@ a.record-button {
     &:before {
       position: absolute;
       content: ' ';
-      width: $size + 4 * $ring-width;
-      height: $size + 4 * $ring-width;
+      width: $round-btn-size + 4 * $ring-width;
+      height: $round-btn-size + 4 * $ring-width;
       background: #eaf6e7;
       border-radius: 50%;
       z-index: -2;
