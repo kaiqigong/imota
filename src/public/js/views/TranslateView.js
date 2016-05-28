@@ -99,10 +99,10 @@ class TranslateView extends Component {
     })[0];
     const prevId = prevSentence ? prevSentence.sentenceNo : 0;
     const nextId = nextSentence ? nextSentence.sentenceNo : 0;
-
+    const currentProgress = sentence.sentenceNo / sentences.docs.length * 100
     return (
       <div className="translate">
-        <Header back={`/home/courses/${courseNo}?type=translate`}>
+        <Header back={`/home/courses/${courseNo}?type=translate`} currentProgress={currentProgress}>
           <a className="nav-link" onClick={() => this.props.toggleMethodModal(true)} >方法</a>
           <a className="nav-link" onClick={e => {
             e.stopPropagation();
@@ -196,7 +196,7 @@ class TranslateView extends Component {
                 </Link>
               )
               :
-              <a onClick={this.props.showTranslateAnswer}>
+              <a className='main-btn' onClick={this.props.showTranslateAnswer}>
                 查看答案
               </a>
             }

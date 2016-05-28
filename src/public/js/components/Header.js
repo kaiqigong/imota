@@ -1,10 +1,12 @@
 import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
+import Progress from 'react-progress';
 
 class Header extends Component {
   static propTypes = {
     back: PropTypes.string.isRequired,
     children: PropTypes.array,
+    currentProgress: PropTypes.number,
   };
 
   constructor() {
@@ -33,6 +35,13 @@ class Header extends Component {
                 <i className="icon-left" />
               </Link>
             </li>
+            { this.props.currentProgress &&
+              <li className="nav-item nav-item-progress-bar">
+                <div className="progress-bar">
+                  <Progress percent={this.props.currentProgress}/>
+                </div>
+              </li>
+            }
             <li className="nav-item pull-xs-right">
               <a className="nav-link" onClick={() => this.openSidebar()}>
                 <i className="icon-hamburger" />

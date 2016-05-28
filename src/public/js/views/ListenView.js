@@ -98,9 +98,10 @@ class ListenView extends Component {
     })[0];
     const prevId = prevSentence ? prevSentence.sentenceNo : 0;
     const nextId = nextSentence ? nextSentence.sentenceNo : 0;
+    const currentProgress = sentence.sentenceNo / sentences.docs.length * 100
     return (
       <div className="listen noselect">
-        <Header back={`/home/courses/${courseNo}?type=listen`}>
+        <Header back={`/home/courses/${courseNo}?type=listen`} currentProgress={currentProgress} >
           <a className="nav-link" onClick={() => this.props.toggleMethodModal(true)} >方法</a>
           <a className="nav-link" onClick={e => {
             e.stopPropagation();
