@@ -84,7 +84,7 @@ class WarmView extends Component {
 
     return (
       <div className="translate">
-        <Header back={`/home/courses/${courseNo}?type=${type}`} currentProgress={0.1}>
+        <Header back={`/home/courses/${courseNo}?type=${type}`} currentProgress={0.001}>
           <a className="nav-link" onClick={() => this.props.toggleMethodModal(true)} >方法</a>
           <a className="nav-link" onClick={e => {
             e.stopPropagation();
@@ -151,7 +151,7 @@ class WarmView extends Component {
             </div>
           </div>
           <div className="col-xs-4 text-xs-center">
-            <Link className="boss-button pull-xs-right"
+            <Link className="icon-boss side-btn pull-xs-right"
               to={`/home/courses/${courseNo}/lessons/${lessonNo}/newhomework/?type=${type || 'listen'}`} />
           </div>
         </div>

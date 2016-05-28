@@ -99,7 +99,7 @@ class TranslateView extends Component {
     })[0];
     const prevId = prevSentence ? prevSentence.sentenceNo : 0;
     const nextId = nextSentence ? nextSentence.sentenceNo : 0;
-    const currentProgress = sentence.sentenceNo / sentences.docs.length * 100
+    const currentProgress = (sentence.sentenceNo - 0.999) / sentences.docs.length * 100
     return (
       <div className="translate">
         <Header back={`/home/courses/${courseNo}?type=translate`} currentProgress={currentProgress}>
@@ -181,9 +181,9 @@ class TranslateView extends Component {
           <div className="col-xs-4">
             {
               prevId ?
-              <Link className="prev-button" to={`/home/courses/${courseNo}/lessons/${lessonNo}/translate/${prevId}`} />
+              <Link className="icon-left side-btn" to={`/home/courses/${courseNo}/lessons/${lessonNo}/translate/${prevId}`} />
               :
-              <Link className="prev-button" to={`/home/courses/${courseNo}/lessons/${lessonNo}/warm/?type=translate`} />
+              <Link className="icon-left side-btn" to={`/home/courses/${courseNo}/lessons/${lessonNo}/warm/?type=translate`} />
             }
           </div>
           <div className="col-xs-4">
@@ -191,8 +191,13 @@ class TranslateView extends Component {
             {
               viewAnswer ?
               (
+                nextId?
                 <Link className='main-btn' onClick={() => this.props.translateInit()} to={`/home/courses/${courseNo}/lessons/${lessonNo}/translate/${nextId}`} >
                   下一步
+                </Link>
+                :
+                <Link className='main-btn' to={`/home/courses/${courseNo}/lessons/${lessonNo}/newhomework/?type=translate`} >
+                  做作业
                 </Link>
               )
               :
@@ -204,7 +209,7 @@ class TranslateView extends Component {
           </div>
           { nextId==0 &&
             <div className="col-xs-4 text-xs-center">
-              <Link className="boss-button pull-xs-right"
+              <Link className="icon-boss side-btn pull-xs-right"
                 to={`/home/courses/${courseNo}/lessons/${lessonNo}/newhomework/?type=translate`} />
             </div>
           }

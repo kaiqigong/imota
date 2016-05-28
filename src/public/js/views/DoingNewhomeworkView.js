@@ -63,7 +63,7 @@ class DoingNewhomeworkView extends Component {
     }
     return (
       <div className="translate">
-        <Header back={`/home/courses/${courseNo}?type=${type}`}>
+        <Header back={`/home/courses/${courseNo}?type=${type}`} currentProgress={100}>
           <a className="nav-link" onClick={() => this.props.toggleMethodModal(true)} >方法</a>
           <a className="nav-link" onClick={e => {
             e.stopPropagation();
@@ -180,7 +180,7 @@ class DoingNewhomeworkView extends Component {
             </div>
           }
           <div className="col-xs-4">
-            <a className="prev-button" onClick={() => this.props.history.goBack()}> </a>
+            <a className="icon-left side-btn" onClick={() => this.props.history.goBack()}> </a>
           </div>
           { type === 'translate' && lesson.homeworkLink &&
             <div className="col-xs-4">

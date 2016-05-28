@@ -32,7 +32,7 @@ class Header extends Component {
           <ul className="nav navbar-nav">
             <li className="nav-item">
               <Link className="nav-link" to={this.props.back}>
-                <i className="icon-left" />
+                <i className="icon-lesson" />
               </Link>
             </li>
             { this.props.currentProgress &&

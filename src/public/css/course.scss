@@ -81,15 +81,31 @@ $course-buttons-height: 5.4rem;
     z-index: 9;
     margin-left: -3.75rem;
   }
-}
-.main-btn {
-  display: inline-block;
-  background-color: #62DE58;
-  border-radius: 9999px;
-  width: 120px;
-  height: 58px;
-  line-height: 58px;
-  color: white;
-  text-align: center;
-  text-decoration: none;
+
+  .main-btn {
+    display: inline-block;
+    background-color: #62DE58;
+    border-radius: 9999px;
+    width: 120px;
+    height: 58px;
+    line-height: 58px;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+  }
+
+  $side-btn-width: 46px;
+  .side-btn {
+    display: inline-block;
+    background-color: $dark-blue;
+    border-radius: 50%;
+    width: $side-btn-width;
+    height: $side-btn-width;
+    line-height: $side-btn-width;
+    font-size: 1.5rem;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+  }
+
 }
