@@ -31,7 +31,7 @@ export const fetchSignatureAsync = () => {
         response = await ajax.get('/api/wechat/signature/');
         retryTimes--;
       } catch (err) {
-        console.log('redux/wxsdk 26', err);
+        console.remote('redux/wxsdk 26', err);
       }
     }
     if (response && response.signature) {
@@ -47,12 +47,12 @@ export const fetchSignatureAsync = () => {
         dispatch(receivedSignature(response));
       });
       wx.error((res) => {
-        console.log('redux/wxsdk 43', res);
+        console.remote('redux/wxsdk 43', res);
         dispatch(displayWxsdkError(res));
       });
     } else {
       dispatch(receivedSignature());
-      console.log('redux/wxsdk 48', 'signature error');
+      console.remote('redux/wxsdk 48', 'signature error');
     }
   };
 };

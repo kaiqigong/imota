@@ -24,7 +24,7 @@ export const fetchSingleLessonAsync = (courseNo, lessonNo) => {
       const response = await ajax.get('/api/lessons/' + courseNo + '/' + lessonNo);
       dispatch(receivedSingleLesson(response));
     } catch (err) {
-      console.log(err);
+      console.remote(err);
     }
   };
 };

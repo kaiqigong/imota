@@ -34,12 +34,12 @@ class HomeworkView extends Component {
   }
 
   play(serverId) {
-    console.log('views/HomeworkView 37', serverId);
+    console.remote('views/HomeworkView 37', serverId);
     wx.downloadVoice({
       serverId: serverId, // 需要下载的音频的服务器端ID，由uploadVoice接口获得
       isShowProgressTips: 1, // 默认为1，显示进度提示
       success: (res) => {
-        console.log('views/HomeworkView 42', res);
+        console.remote('views/HomeworkView 42', res);
         wx.playVoice({
           localId: res.localId, // 需要播放的音频的本地ID，由stopRecord接口获得
         });
@@ -50,12 +50,12 @@ class HomeworkView extends Component {
             this.props.togglePlay({[serverId]: false});
           },
           fail: (err) => {
-            console.log('views/HomeworkView 51', err);
+            console.remote('views/HomeworkView 51', err);
           },
         });
       },
       fail: (err) => {
-        console.log('views/HomeworkView 56', err);
+        console.remote('views/HomeworkView 56', err);
       },
     });
   }

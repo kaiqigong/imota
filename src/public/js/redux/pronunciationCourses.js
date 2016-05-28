@@ -18,7 +18,7 @@ export const fetchPronunciationCoursesAsync = () => {
       const response = await ajax.get('/api/pronunciation_courses/', {page: 1});
       dispatch(receivedPronunciationCourses(response));
     } catch (err) {
-      console.log('redux/pronunciationCourses 21', err.toString());
+      console.remote('redux/pronunciationCourses 21', err.toString());
     }
   };
 };
@@ -29,7 +29,7 @@ export const fetchMorePronunciationCoursesAsync = (page) => {
       const response = await ajax.get('/api/pronunciation_courses/', {page});
       dispatch(receivedMorePronunciationCourses(response));
     } catch (err) {
-      console.log('redux/pronunciationCourses 32', err);
+      console.remote('redux/pronunciationCourses 32', err);
     }
   };
 };

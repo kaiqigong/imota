@@ -20,7 +20,7 @@ export const fetchLessonsAsync = (courseNo, query) => {
       const response = await ajax.get('/api/lessons/', Object.assign({page: 1, courseNo}, query));
       dispatch(receivedLessons(response));
     } catch (err) {
-      console.log('redux/lessons 21', err);
+      console.remote('redux/lessons 21', err);
     }
   };
 };
@@ -31,7 +31,7 @@ export const fetchMoreLessonsAsync = (page, courseNo, query) => {
       const response = await ajax.get('/api/lessons/', Object.assign({page, courseNo}, query));
       dispatch(receivedMoreLessons(response));
     } catch (err) {
-      console.log(err);
+      console.remote(err);
       // dispatch(receivedMoreLessons([]));
     }
   };

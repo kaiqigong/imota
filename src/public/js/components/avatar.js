@@ -35,7 +35,7 @@ class Avatar extends Component {
           event.emit('user', user);
           this.setState({image: data.text});
         } catch(error) {
-          console.log(error);
+          console.remote(error);
         }
       });
       e.target.value = null;

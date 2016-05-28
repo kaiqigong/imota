@@ -31,7 +31,7 @@ export const fetchSingleLessonAsync = (courseNo, lessonNo) => {
       const response = await ajax.get('/api/lessons/' + courseNo + '/' + lessonNo);
       dispatch(receivedSingleLesson(response));
     } catch (err) {
-      console.log('redux/doingHomework 34', err);
+      console.remote('redux/doingHomework 34', err);
     }
   };
 };
@@ -50,7 +50,7 @@ export const endTranslateQuizAsync = (localIds) => {
       const {time} = await ajax.get('/api/stats/');
       dispatch(endTranslateQuiz({localIds, time}));
     } catch (err) {
-      console.log('redux/doingHomework 54', err);
+      console.remote('redux/doingHomework 54', err);
     }
   };
 };

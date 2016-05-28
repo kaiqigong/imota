@@ -78,7 +78,7 @@ class PronunciationLessonActivityView extends Component {
         this.props.endPronunciationHomeworkAsync(this.localIds.slice());
       },
       fail: (err) => {
-        console.log('views/PronunciationHomeworkView 79', err);
+        console.remote('views/PronunciationHomeworkView 79', err);
         this.props.endRecord(this.localIds);
         this.props.endPronunciationHomeworkAsync(this.localIds.slice());
       },
