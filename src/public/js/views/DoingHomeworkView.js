@@ -62,7 +62,7 @@ class DoingHomeworkView extends Component {
     }
     wx.stopRecord({
       fail: (err) => {
-        console.log('views/DoingHomeworkView 66', err);
+        console.remote('views/DoingHomeworkView 66', err);
       },
     });
   }
@@ -76,7 +76,7 @@ class DoingHomeworkView extends Component {
         this.props.endTranslateQuizAsync(this.localIds.slice());
       },
       fail: (err) => {
-        console.log('views/DoingHomeworkView 75', err);
+        console.remote('views/DoingHomeworkView 75', err);
       },
     });
   }
@@ -100,7 +100,7 @@ class DoingHomeworkView extends Component {
         setTimeout(() => this.props.beginTranslateQuiz(), 500);
       },
       fail: (err) => {
-        console.log('views/DoingHomeworkView 100', err);
+        console.remote('views/DoingHomeworkView 100', err);
       },
     });
   }
@@ -113,7 +113,7 @@ class DoingHomeworkView extends Component {
     const {doingHomework, shifting, wxsdk} = this.props;
     // const {errMsg} = wxsdk;
     // if (errMsg) {
-    //   console.log('签名失败');
+    //   console.remote('签名失败');
     // }
     const {lesson, quizOn, errors, showCollectionModal, showMethodModal, showReviewModal, showFeedbackModal, localIds} = doingHomework;
     const {courseNo, lessonNo} = this.props.params;

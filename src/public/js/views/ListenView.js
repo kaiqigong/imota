@@ -98,9 +98,10 @@ class ListenView extends Component {
     })[0];
     const prevId = prevSentence ? prevSentence.sentenceNo : 0;
     const nextId = nextSentence ? nextSentence.sentenceNo : 0;
+    const currentProgress = (sentence.sentenceNo - 0.999) / sentences.docs.length * 100
     return (
       <div className="listen noselect">
-        <Header back={`/home/courses/${courseNo}?type=listen`}>
+        <Header back={`/home/courses/${courseNo}?type=listen`} currentProgress={currentProgress} >
           <a className="nav-link" onClick={() => this.props.toggleMethodModal(true)} >方法</a>
           <a className="nav-link" onClick={e => {
             e.stopPropagation();
@@ -201,41 +202,43 @@ class ListenView extends Component {
           </div>
           <ErrorTip error={errors.server} />
         </div>
-        <nav className="navbar navbar-fixed-bottom bottom-nav">
-          <ul className="nav navbar-nav">
-            <li className="col-xs-1 no-padding-col">
+        <div className="course-buttons">
+          <div className="col-xs-4">
             {
               prevId ?
-              <Link className="nav-link" to={`/home/courses/${courseNo}/lessons/${lessonNo}/listen/${prevId}`}>
-                <i className="icon-left" />
-              </Link>
+              <Link className="icon-left side-btn" to={`/home/courses/${courseNo}/lessons/${lessonNo}/listen/${prevId}`} />
               :
-              <Link className="nav-link" to={`/home/courses/${courseNo}/lessons/${lessonNo}/warm/?type=listen`}>
-                <i className="icon-left" />
-              </Link>
+              <Link className="icon-left side-btn" to={`/home/courses/${courseNo}/lessons/${lessonNo}/warm/?type=listen`} />
             }
-            </li>
-            <li className="col-xs-10 text-xs-center">
+          </div>
+          <div className="col-xs-4">
+            <div className="slick-next">
             {
               viewAnswer ?
               (
-                nextId ?
-                <Link className="bottom-nav-btn btn btn-primary-outline col-xs-12" to={`/home/courses/${courseNo}/lessons/${lessonNo}/listen/${nextId}`}>
-                  下一句
+                nextId?
+                <Link className='main-btn' to={`/home/courses/${courseNo}/lessons/${lessonNo}/listen/${nextId}`} >
+                  下一步
                 </Link>
                 :
-                <Link className="bottom-nav-btn btn btn-primary-outline col-xs-12" to={`/home/courses/${courseNo}/lessons/${lessonNo}/newhomework/?type=listen`} >
+                <Link className='main-btn' to={`/home/courses/${courseNo}/lessons/${lessonNo}/newhomework/?type=listen`} >
                   做作业
                 </Link>
               )
               :
-              <button className="bottom-nav-btn btn btn-primary-outline col-xs-12" onClick={this.props.showListenAnswer}>
+              <a className='main-btn' onClick={this.props.showListenAnswer}>
                 查看答案
-              </button>
+              </a>
             }
-            </li>
-          </ul>
-        </nav>
+            </div>
+          </div>
+          { nextId==0 &&
+            <div className="col-xs-4 text-xs-center">
+              <Link className="icon-boss side-btn pull-xs-right"
+                to={`/home/courses/${courseNo}/lessons/${lessonNo}/newhomework/?type=translate`} />
+            </div>
+          }
+        </div>
       </div>
     );
   }

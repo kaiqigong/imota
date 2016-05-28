@@ -19,7 +19,7 @@ export const fetchPronunciationLessonsAsync = (courseNo) => {
       const response = await ajax.get(`/api/pronunciation_courses/${courseNo}/lessons`, {page: 1});
       dispatch(receivedPronunciationLessons(response));
     } catch (err) {
-      console.log('error');
+      console.remote('error');
     }
   };
 };
@@ -30,7 +30,7 @@ export const fetchMorePronunciationLessonsAsync = (page, courseNo) => {
       const response = await ajax.get(`/api/pronunciation_courses/${courseNo}/lessons`, {page});
       dispatch(receivedMorePronunciationLessons(response));
     } catch (err) {
-      console.log(err);
+      console.remote(err);
       // dispatch(receivedMorePronunciationLessons([]));
     }
   };

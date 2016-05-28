@@ -84,7 +84,7 @@ class WarmView extends Component {
 
     return (
       <div className="translate">
-        <Header back={`/home/courses/${courseNo}?type=${type}`}>
+        <Header back={`/home/courses/${courseNo}?type=${type}`} currentProgress={0.001}>
           <a className="nav-link" onClick={() => this.props.toggleMethodModal(true)} >方法</a>
           <a className="nav-link" onClick={e => {
             e.stopPropagation();
@@ -141,7 +141,21 @@ class WarmView extends Component {
           </div>
           <ErrorTip error={errors.server} />
         </div>
-        <nav className="navbar navbar-fixed-bottom bottom-nav">
+
+        <div className="course-buttons">
+          <div className="col-xs-4 col-xs-offset-4 text-xs-center">
+            <div className="slick-next">
+              <Link className='main-btn' to={`/home/courses/${lesson.courseNo}/lessons/${lesson.lessonNo}/${type || 'listen'}/1`} >
+                开始训练
+              </Link>
+            </div>
+          </div>
+          <div className="col-xs-4 text-xs-center">
+            <Link className="icon-boss side-btn pull-xs-right"
+              to={`/home/courses/${courseNo}/lessons/${lessonNo}/newhomework/?type=${type || 'listen'}`} />
+          </div>
+        </div>
+        {/*<nav className="navbar navbar-fixed-bottom bottom-nav">
           <ul className="nav navbar-nav">
             <li className="col-xs-10 col-xs-offset-1 text-xs-center">
               <Link className="bottom-nav-btn btn btn-primary-outline col-xs-12" to={`/home/courses/${lesson.courseNo}/lessons/${lesson.lessonNo}/${type || 'listen'}/1`} >
@@ -154,7 +168,7 @@ class WarmView extends Component {
               </Link>
             </li>
           </ul>
-        </nav>
+        </nav>*/}
       </div>
     );
   }

@@ -89,7 +89,7 @@ class AudioPlayer extends Component {
   }
 
   _onEvent(e) {
-    console.log(e);
+    console.remote(e);
   }
 
   togglePlay() {
