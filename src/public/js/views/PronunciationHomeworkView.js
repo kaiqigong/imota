@@ -48,12 +48,12 @@ class PronunciationHomeworkView extends Component {
             this.props.togglePlay({[serverId]: false});
           },
           fail: (err) => {
-            console.log('views/PronunciationHomeworkView 51', err);
+            console.remote('views/PronunciationHomeworkView 51', err);
           },
         });
       },
       fail: (err) => {
-        console.log('views/PronunciationHomeworkView 56', err);
+        console.remote('views/PronunciationHomeworkView 56', err);
       },
     });
   }

@@ -5,7 +5,7 @@
     console.remote = console.log;
     return;
   }
-  methods = ['log', 'error', 'remote'];
+  methods = ['remote'];
   methods.map(function(method) {
     let oldFn;
     oldFn = console[method];

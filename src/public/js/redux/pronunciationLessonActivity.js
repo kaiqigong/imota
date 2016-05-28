@@ -44,7 +44,7 @@ export const endPronunciationHomeworkAsync = (localIds) => {
       const {time} = await ajax.get('/api/stats/');
       dispatch(endPronunciationHomework({localIds, time}));
     } catch (err) {
-      console.log('redux/doingHomework 54', err);
+      console.remote('redux/doingHomework 54', err);
     }
   };
 };
@@ -58,7 +58,7 @@ const uploadSingle = async (localId) => {
         resolve(res.serverId);
       },
       fail: (err) => {
-        console.log('redux/doingHomework 68', err);
+        console.remote('redux/doingHomework 68', err);
         reject(err);
       },
     });
