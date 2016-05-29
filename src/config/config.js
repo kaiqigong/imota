@@ -36,8 +36,8 @@ const config = {
     cookieExpire: 7 * 24 * 3600 * 1000, // 7天
     cookieDomain: '.learnwithwind.com',
     weixin: {
-      appid: 'wx0a52c2b7fad7d503',
-      secret: '8eb2d119d15476f3ef35efb5d0387408',
+      appid: 'wx453346560ed6a84e',
+      secret: '2e1364c00766952f641b197b67dd3b9c',
     },
   },
 
@@ -74,8 +74,8 @@ const config = {
     cookieExpire: 7 * 24 * 3600 * 1000, // 7天
     cookieDomain: '.learnwithwind.com',
     weixin: {
-      appid: 'wx0a52c2b7fad7d503',
-      secret: '8eb2d119d15476f3ef35efb5d0387408',
+      appid: 'wx453346560ed6a84e',
+      secret: '2e1364c00766952f641b197b67dd3b9c',
     },
   },
 
@@ -113,8 +113,8 @@ const config = {
     cookieExpire: 7 * 24 * 3600 * 1000, // 7天
     cookieDomain: '.learnwithwind.com',
     weixin: {
-      appid: 'wx0a52c2b7fad7d503',
-      secret: '8eb2d119d15476f3ef35efb5d0387408',
+      appid: 'wx453346560ed6a84e',
+      secret: '2e1364c00766952f641b197b67dd3b9c',
     },
   },
 };

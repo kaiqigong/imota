@@ -31,30 +31,37 @@ router.get('/:homeworkId', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
   try {
     const {serverIds, lessonNo, courseNo, nickname, time, type} = req.body;
-    // const accessToken = await wechat.getAccessToken();
-    // console.log(`http://file.api.weixin.qq.com/cgi-bin/media/get`, {access_token: accessToken, media_id: serverId});
-    // const file = await request.get(`http://file.api.weixin.qq.com/cgi-bin/media/get`, {access_token: accessToken, media_id: serverId});
-    // console.log(file);
-    // const putPolicy = new qiniu.rs.PutPolicy(config.qiniu.bucket);
-    // const uptoken = putPolicy.token();
-    // const extra = new qiniu.io.PutExtra();
-    // const randomStr = randomstring.generate(10);
-    // const key = `homework/${randomStr}.mp3`;
-    // const result = await new Promise((resolve, reject) => {
-    //   qiniu.io.put(uptoken,
-    //     key,
-    //     file,
-    //     extra,
-    //     (err, ret) => {
-    //       if (err) {
-    //         return reject(err);
-    //       }
-    //       return resolve(ret);
-    //     }
-    //   );
-    // });
-    // const homework = new Homework({lessonNo, courseNo, nickname, time, audio: `${config.qiniu.prefix}${key}`});
-    const homework = new Homework({lessonNo, courseNo, nickname, time, serverIds, type});
+    const accessToken = await wechat.getAccessToken();
+    // download
+    console.log(`http://file.api.weixin.qq.com/cgi-bin/media/get`, {access_token: accessToken, media_id: serverIds});
+    const files = [];
+    for (let id in serverIds) {
+      const file = await request.get(`http://file.api.weixin.qq.com/cgi-bin/media/get`, {access_token: accessToken, media_id: serverIds[id]});
+      files.push(file);
+    }
+    console.log(files);
+    // concat
+    return res.send(200);
+    // upload
+    const putPolicy = new qiniu.rs.PutPolicy(config.qiniu.bucket);
+    const uptoken = putPolicy.token();
+    const extra = new qiniu.io.PutExtra();
+    const randomStr = randomstring.generate(10);
+    const key = `homework/${randomStr}.mp3`;
+    const result = await new Promise((resolve, reject) => {
+      qiniu.io.put(uptoken,
+        key,
+        file,
+        extra,
+        (err, ret) => {
+          if (err) {
+            return reject(err);
+          }
+          return resolve(ret);
+        }
+      );
+    });
+    const homework = new Homework({lessonNo, courseNo, nickname, time, serverIds, type, audio: `${config.qiniu.prefix}${key}`});
     await homework.save();
     res.send(homework);
   } catch (err) {
