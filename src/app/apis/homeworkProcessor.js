@@ -34,7 +34,7 @@ const downloadFileFromWechat = async (accessToken, serverId) => {
       })
       .on('end', function() {
         console.log(outputFilePath + ' Converting finished !');
-        resolve(filename);
+        resolve(outputFilePath);
       })
       .save(outputFilePath);
     });
