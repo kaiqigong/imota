@@ -48,7 +48,7 @@ const uploadFileToQiniu = async (file) => {
     const uptoken = putPolicy.token();
     const extra = new qiniu.io.PutExtra();
     const key = file.substr(1); // remove first '/'
-    qiniu.io.put(uptoken,
+    qiniu.io.putFile(uptoken,
       key,
       file,
       extra,
