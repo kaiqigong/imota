@@ -47,7 +47,10 @@ export default handleActions({
     return {errors: {}, playing: {}};
   },
   [RECEIVED_SINGLE_HOMEWORK]: (state, {payload}) => {
-    return Object.assign(state, payload);
+    if (state.audios && state.audios.length) {
+      return Object.assign(state, payload);
+    }
+    location.href = 'http://test.holdqq.com/' + location.hash;
   },
   [TOGGLE_PLAY]: (state, {payload}) => {
     state.playing = payload;

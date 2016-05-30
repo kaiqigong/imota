@@ -1,4 +1,6 @@
+import config from '../../config/config';
 import qiniu from 'qiniu';
+
 const http = require('request');
 const fs = require('fs');
 const ffmpeg = require('fluent-ffmpeg');
@@ -9,7 +11,7 @@ qiniu.conf.SECRET_KEY = config.qiniu.SECRET_KEY;
 
 const FILE_DIR = '/data/files/'
 
-const downloadFile = async (accessToken, serverId) => {
+const downloadFileFromWechat = async (accessToken, serverId) => {
   return new Promise(function(resolve, reject) {
     let filename = FILE_DIR + serverId + '.amr';
     let stream = http(`http://file.api.weixin.qq.com/cgi-bin/media/get?access_token=${encodeURIComponent(accessToken)}&media_id=${encodeURIComponent(serverId)}`)
@@ -39,7 +41,7 @@ const downloadFile = async (accessToken, serverId) => {
   });
 };
 
-const uploadFile = async (file) => {
+const uploadFileToQiniu = async (file) => {
   return new Promise(function(resolve, reject) {
     // upload
     const putPolicy = new qiniu.rs.PutPolicy(config.qiniu.bucket);

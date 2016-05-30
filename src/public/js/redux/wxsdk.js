@@ -29,6 +29,7 @@ export const fetchSignatureAsync = () => {
     while (retryTimes > 0 && !response) {
       try {
         response = await ajax.get('/api/wechat/signature/');
+        console.log(response);
         retryTimes--;
       } catch (err) {
         console.remote('redux/wxsdk 26', err);
