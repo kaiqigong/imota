@@ -72,7 +72,7 @@ class PronunciationHomeworkView extends Component {
     // if (errMsg) {
     //   console.log('签名失败');
     // }
-    const {serverIds, errors, courseNo, playing, created, homeworkName} = pronunciationHomework;
+    const {serverIds, errors, courseNo, playing, created, homeworkName, audios} = pronunciationHomework;
     if (!serverIds) {
       return <div>Loading...</div>;
     }
@@ -114,6 +114,15 @@ class PronunciationHomeworkView extends Component {
               本录音将于{expireDate}过期, 过期后将无法播放
               <br />
               (目前录音仅存储72小时, 日后会实现永久存储)
+            </p>
+            <p>
+              {
+                audios.map((audio, index) => {
+                  return (
+                    <a href={audio} target="_blank">音频{index + 1}</a>
+                  );
+                })
+              }
             </p>
           </div>
           <ErrorTip error={errors.server} />
