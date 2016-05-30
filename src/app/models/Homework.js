@@ -6,6 +6,7 @@ const schema = BaseSchema.extend({
   lessonNo: { type: Number },
   time: {type: Number },
   audio: { type: String },
+  audios: [String],
   nickname: { type: String },
   serverId: { type: String },
   serverIds: [String],
