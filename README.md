@@ -323,5 +323,13 @@ npm start
 ### 查看线上log（需要链接dbuser）
 tailf /data/log/airlog.client.log-2016-05-22
 
+### 新微信id 
+```
+weixin: {
+      appid: 'wx453346560ed6a84e',
+      secret: '2e1364c00766952f641b197b67dd3b9c',
+    },
+```
+
 ### 微信开发中的那些坑
 http://tech.marry-me.today/wei-xin-ye-mian-kai-fa-de-na-xie-keng/
