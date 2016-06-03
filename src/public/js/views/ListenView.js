@@ -222,7 +222,7 @@ class ListenView extends Component {
                 </Link>
                 :
                 <Link className='main-btn' to={`/home/courses/${courseNo}/lessons/${lessonNo}/newhomework/?type=listen`} >
-                  做作业
+                  打Boss
                 </Link>
               )
               :
@@ -232,7 +232,7 @@ class ListenView extends Component {
             }
             </div>
           </div>
-          { nextId==0 &&
+          { nextId==0 && nextSentence &&
             <div className="col-xs-4 text-xs-center">
               <Link className="icon-boss side-btn pull-xs-right"
                 to={`/home/courses/${courseNo}/lessons/${lessonNo}/newhomework/?type=translate`} />
