@@ -22,7 +22,7 @@ export const fetchSingleNewhomeworkAsync = (newhomeworkId) => {
       const response = await ajax.get('/api/newhomeworks/' + newhomeworkId);
       dispatch(receivedSingleNewhomework(response));
     } catch (err) {
-      console.log('redux/newhomework 25', err);
+      console.remote('redux/newhomework 25', err);
     }
   };
 };

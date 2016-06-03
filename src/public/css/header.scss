@@ -4,6 +4,21 @@
   position: relative;
 }
 
+.navbar-nav {
+  .nav-item {
+    a {
+      font-size: 1.5rem;
+      color: #9E9DAB;
+    }
+  }
+  .nav-link {
+    padding-top: 0;
+  }
+  .nav-item-progress-bar {
+    width: calc(100% - 5rem);
+  }
+}
+
 .header-side-memu {
   padding: 1rem;
   z-index: 1032;

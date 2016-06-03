@@ -22,7 +22,7 @@ export const fetchSinglePronunciationHomeworkAsync = (pronunciationHomeworkId) =
       const response = await ajax.get('/api/pronunciation_homeworks/' + pronunciationHomeworkId);
       dispatch(receivedSinglePronunciationHomework(response));
     } catch (err) {
-      console.log('redux/pronunciationHomework 25', err);
+      console.remote('redux/pronunciationHomework 25', err);
     }
   };
 };
