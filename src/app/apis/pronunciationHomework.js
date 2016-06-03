@@ -10,6 +10,7 @@ import randomstring from 'randomstring';
 import Course from '../models/PronunciationCourse';
 import Lesson from '../models/PronunciationLesson';
 import LessonActivity from '../models/LessonActivity';
+import homeworkProcessor from './homeworkProcessor';
 
 const router = new Router();
 
@@ -31,9 +32,26 @@ router.get('/:homeworkId', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
   try {
     const {serverIds, nickname, time, lessonActivityId} = req.body;
+    const accessToken = await wechat.getAccessToken();
+    // download
+    console.log(`http://file.api.weixin.qq.com/cgi-bin/media/get`, {access_token: accessToken, media_id: serverIds});
+    const files = [];
+    for (let id in serverIds) {
+      const file = await homeworkProcessor.downloadFileFromWechat(accessToken, serverIds[id]);
+      files.push(file);
+    }
+    console.log(files);
+
+    const audios = [];
+
+    for (let id in files) {
+      const audio = await homeworkProcessor.uploadFileToQiniu(files[id]);
+      audios.push(audio);
+    }
+    console.log(audios);
     const lessonActivity = await LessonActivity.findOne({_id: lessonActivityId});
     const homeworkName = `${nickname}-${lessonActivity.courseNo}-${lessonActivity.lessonNo}朗读作业`;
-    const homework = new Homework({lessonNo: lessonActivity.lessonNo, courseNo: lessonActivity.courseNo, homeworkName, nickname, time, serverIds});
+    const homework = new Homework({lessonNo: lessonActivity.lessonNo, courseNo: lessonActivity.courseNo, homeworkName, nickname, time, serverIds, audios});
     await homework.save();
     res.send(homework);
   } catch (err) {
