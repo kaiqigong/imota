@@ -49,9 +49,16 @@ router.post('/', async (req, res, next) => {
       audios.push(audio);
     }
     console.log(audios);
+    let audio;
+    try {
+      audio = await homeworkProcessor.concatAudios(files);
+    } catch (err) {
+      console.log(err);
+    }
+
     const lessonActivity = await LessonActivity.findOne({_id: lessonActivityId});
     const homeworkName = `${nickname}-${lessonActivity.courseNo}-${lessonActivity.lessonNo}朗读作业`;
-    const homework = new Homework({lessonNo: lessonActivity.lessonNo, courseNo: lessonActivity.courseNo, homeworkName, nickname, time, serverIds, audios});
+    const homework = new Homework({lessonNo: lessonActivity.lessonNo, courseNo: lessonActivity.courseNo, homeworkName, nickname, time, serverIds, audios, audio});
     await homework.save();
     res.send(homework);
   } catch (err) {

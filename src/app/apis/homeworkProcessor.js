@@ -1,5 +1,7 @@
 import config from '../../config/config';
 import qiniu from 'qiniu';
+import randomstring from 'randomstring';
+const exec = require('child_process').exec;
 
 const http = require('request');
 const fs = require('fs');
@@ -41,6 +43,25 @@ const downloadFileFromWechat = async (accessToken, serverId) => {
   });
 };
 
+const concatAudios = async (audios) => {
+  // ffmpeg -i "concat:1_76_audio.mp3|2_15_audio.mp3" -c copy output_1.mp3
+  const pipeStr = audios.join('|');
+  const randomStr = randomstring.generate(10);
+  const outputPath = FILE_DIR + 'records/' + randomStr + '.mp3';
+  const cmd = `ffmpeg -i "concat:${pipeStr}" -c copy ${outputPath}`;
+  return new Promise(function(resolve, reject) {
+    exec(cmd, (error, stdout, stderr) => {
+      if (error) {
+        console.error(`exec error: ${error}`);
+        return reject(error);
+      }
+      console.log(`stdout: ${stdout}`);
+      console.log(`stderr: ${stderr}`);
+      resolve(outputPath);
+    });
+  });
+};
+
 const uploadFileToQiniu = async (file) => {
   return new Promise(function(resolve, reject) {
     // upload
@@ -64,5 +85,6 @@ const uploadFileToQiniu = async (file) => {
 
 export default {
   downloadFileFromWechat,
-  uploadFileToQiniu
+  concatAudios,
+  uploadFileToQiniu,
 }
