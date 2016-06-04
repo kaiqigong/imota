@@ -5,6 +5,7 @@ import {actions as wxsdkActions} from '../redux/wxsdk';
 import ErrorTip from '../components/ErrorTip';
 import Header from '../components/Header';
 import setTitle from '../common/setTitle';
+import AudioPlayer from '../components/AudioPlayer';
 
 const mapStateToProps = ({pronunciationHomework, wxsdk}) => ({
   pronunciationHomework, wxsdk,

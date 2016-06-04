@@ -37,38 +37,35 @@
   @if $filename == mic {
     $char: "\E009";
   }
-  @if $filename == micphone {
+  @if $filename == mobile {
     $char: "\E00A";
   }
-  @if $filename == mobile {
+  @if $filename == pause {
     $char: "\E00B";
   }
-  @if $filename == pause {
+  @if $filename == play {
     $char: "\E00C";
   }
-  @if $filename == play {
+  @if $filename == portrait {
     $char: "\E00D";
   }
-  @if $filename == portrait {
+  @if $filename == retry {
     $char: "\E00E";
   }
-  @if $filename == retry {
+  @if $filename == right {
     $char: "\E00F";
   }
-  @if $filename == right {
+  @if $filename == tick {
     $char: "\E010";
   }
-  @if $filename == tick {
+  @if $filename == times {
     $char: "\E011";
   }
-  @if $filename == times {
+  @if $filename == voice-mute {
     $char: "\E012";
   }
-  @if $filename == voice-mute {
-    $char: "\E013";
-  }
   @if $filename == voice {
-    $char: "\E014";
+    $char: "\E013";
   }
 
   @return $char;
@@ -117,9 +114,6 @@
 }
 .icon-mic {
   @include icon(mic);
-}
-.icon-micphone {
-  @include icon(micphone);
 }
 .icon-mobile {
   @include icon(mobile);
