@@ -282,7 +282,7 @@ CLOUDINARY_URL=cloudinary://333779167276662:_8jbSi9FB3sWYrfimcl8VKh34rI@keystone
 ### 运行
 npm start
 
-### cdn替换代码
+### cdn替换代码 (!!!现在不work了，跨域css无法获得cssRules，rules属性)
 ```
 (function() {
   var cdnPath = 'http://7xrwtt.com1.z0.glb.clouddn.com';
