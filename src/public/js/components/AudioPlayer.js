@@ -22,6 +22,9 @@ class AudioPlayer extends Component {
     const mp3 = props.audios.filter((item) => {
       return item.indexOf('.mp3') > -1;
     });
+    if (mp3[0].indexOf('https://o3f47rda5.qnssl.com') > -1) {
+      mp3[0] = mp3[0].replace('https://o3f47rda5.qnssl.com', 'http://cdn.holdqq.com');
+    }
     audio.src = mp3[0];
     audio.autoplay = props.autoplay;
   }

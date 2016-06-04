@@ -92,7 +92,7 @@ class PronunciationHomeworkView extends Component {
         </div>
         <Header back={`/home/pronunciation_courses/${courseNo}/lessons/`} />
         <div className="container">
-          <div className="col-xs-12 video-block">
+          <div className="col-xs-12 video-block text-xs-center">
             <h4>{homeworkName}</h4>
             {
               audio ?

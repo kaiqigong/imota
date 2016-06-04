@@ -94,7 +94,7 @@ class HomeworkView extends Component {
         </div>
         <Header back={`/home/courses/${courseNo}?type=${type}`} />
         <div className="container">
-          <div className="col-xs-12 video-block">
+          <div className="col-xs-12 video-block text-xs-center">
             <h4>{`${lesson.chineseTitle} ${homework.course.chineseTitle}`}</h4>
             {
               audio ?

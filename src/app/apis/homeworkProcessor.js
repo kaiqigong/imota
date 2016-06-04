@@ -6,7 +6,7 @@ const exec = require('child_process').exec;
 const http = require('request');
 const fs = require('fs');
 const ffmpeg = require('fluent-ffmpeg');
-const qiniuHost = 'https://o3f47rda5.qnssl.com';
+const qiniuHost = 'http://cdn.holdqq.com';
 
 qiniu.conf.ACCESS_KEY = config.qiniu.ACCESS_KEY;
 qiniu.conf.SECRET_KEY = config.qiniu.SECRET_KEY;
