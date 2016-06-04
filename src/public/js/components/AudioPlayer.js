@@ -17,6 +17,7 @@ class AudioPlayer extends Component {
     };
     if (!audio) {
       audio = new Audio();
+      window.theAudio = audio;
     }
     const mp3 = props.audios.filter((item) => {
       return item.indexOf('.mp3') > -1;
