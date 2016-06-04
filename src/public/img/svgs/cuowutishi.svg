@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 17.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg style="width:308px;height:308px;" version="1.1" id="图形" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1024px" height="1024px" viewBox="0 0 1024 1024" enable-background="new 0 0 1024 1024" xml:space="preserve">
-  <path class="svgpath" data-index="path_0" fill="#272636" d="M512 1024C229.205333 1024 0 794.794667 0 512 0 229.205333 229.205333 0 512 0 794.794667 0 1024 229.205333 1024 512 1024 794.794667 794.794667 1024 512 1024ZM568.888889 170.666667 455.111111 170.666667 455.111111 682.666667 568.888889 682.666667 568.888889 170.666667ZM568.888889 739.555556 455.111111 739.555556 455.111111 853.333333 568.888889 853.333333 568.888889 739.555556Z" />
-
+<svg version="1.1" id="图形" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="1000.636px" height="1000.678px" viewBox="15.167 -16.333 1000.636 1000.678"
+	 enable-background="new 15.167 -16.333 1000.636 1000.678" xml:space="preserve">
+<path fill="#272636" d="M515.89,921.076c-241.537,0-437.304-195.766-437.304-437.304S274.353,46.469,515.89,46.469
+	s437.304,195.766,437.304,437.304S757.427,921.076,515.89,921.076z M564.479,192.237h-97.179V629.54h97.179V192.237z
+	 M564.479,678.13h-97.179v97.179h97.179V678.13z"/>
 </svg>

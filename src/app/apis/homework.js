@@ -45,7 +45,19 @@ router.post('/', async (req, res, next) => {
       audios.push(audio);
     }
     console.log(audios);
-    const homework = new Homework({lessonNo, courseNo, nickname, time, serverIds, type, audios});
+
+    let audio;
+    try {
+      audio = await homeworkProcessor.concatAudios(files);
+    } catch (err) {
+      console.log(err);
+    }
+
+    if (audio) {
+      audio = await homeworkProcessor.uploadFileToQiniu(audio);
+    }
+
+    const homework = new Homework({lessonNo, courseNo, nickname, time, serverIds, type, audios, audio});
     await homework.save();
     res.send(homework);
   } catch (err) {

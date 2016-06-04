@@ -49,11 +49,16 @@ router.post('/', async (req, res, next) => {
       audios.push(audio);
     }
     console.log(audios);
+
     let audio;
     try {
       audio = await homeworkProcessor.concatAudios(files);
     } catch (err) {
       console.log(err);
+    }
+
+    if (audio) {
+      audio = await homeworkProcessor.uploadFileToQiniu(audio);
     }
 
     const lessonActivity = await LessonActivity.findOne({_id: lessonActivityId});

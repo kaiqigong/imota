@@ -46,8 +46,8 @@ const downloadFileFromWechat = async (accessToken, serverId) => {
 const concatAudios = async (audios) => {
   // ffmpeg -i "concat:1_76_audio.mp3|2_15_audio.mp3" -c copy output_1.mp3
   const pipeStr = audios.join('|');
-  const randomStr = randomstring.generate(10);
-  const outputPath = FILE_DIR + 'records/' + randomStr + '.mp3';
+  const randomStr = randomstring.generate(12);
+  const outputPath = FILE_DIR + 'records-' + randomStr + '.mp3';
   const cmd = `ffmpeg -i "concat:${pipeStr}" -c copy ${outputPath}`;
   return new Promise(function(resolve, reject) {
     exec(cmd, (error, stdout, stderr) => {
