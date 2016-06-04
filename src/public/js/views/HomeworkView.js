@@ -5,6 +5,7 @@ import {actions as wxsdkActions} from '../redux/wxsdk';
 import ErrorTip from '../components/ErrorTip';
 import Header from '../components/Header';
 import setTitle from '../common/setTitle';
+import AudioPlayer from '../components/AudioPlayer';
 
 const mapStateToProps = ({homework, wxsdk}) => ({
   homework, wxsdk,
@@ -74,7 +75,7 @@ class HomeworkView extends Component {
     // if (errMsg) {
     //   console.log('签名失败');
     // }
-    const {serverIds, errors, lesson, courseNo, nickname, playing, type, created} = homework;
+    const {serverIds, errors, lesson, courseNo, nickname, playing, type, created, audio} = homework;
     if (!serverIds) {
       return <div>Loading...</div>;
     }
@@ -96,6 +97,9 @@ class HomeworkView extends Component {
           <div className="col-xs-12 video-block">
             <h4>{`${lesson.chineseTitle} ${homework.course.chineseTitle}`}</h4>
             {
+              audio ?
+              <AudioPlayer audios={[audio]} key={audio} />
+              :
               serverIds.map((serverId) => {
                 return (<div className="text-xs-center" key={serverId}>
                   {
@@ -109,13 +113,6 @@ class HomeworkView extends Component {
             }
             <p className="text-muted">
               一定要点击微信右上角菜单的分享，分享到微信群，老师才能看到你的作业
-            </p>
-            <p className="text-danger small">
-              本录音无法在浏览器内播放
-              <br />
-              本录音将于{expireDate}过期, 过期后将无法播放
-              <br />
-              (目前录音仅存储72小时, 日后会实现永久存储)
             </p>
           </div>
           <ErrorTip error={errors.server} />

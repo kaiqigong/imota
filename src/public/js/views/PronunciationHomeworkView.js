@@ -72,7 +72,7 @@ class PronunciationHomeworkView extends Component {
     // if (errMsg) {
     //   console.log('签名失败');
     // }
-    const {serverIds, errors, courseNo, playing, created, homeworkName, audios} = pronunciationHomework;
+    const {serverIds, errors, courseNo, playing, created, homeworkName, audios, audio} = pronunciationHomework;
     if (!serverIds) {
       return <div>Loading...</div>;
     }
@@ -94,6 +94,9 @@ class PronunciationHomeworkView extends Component {
           <div className="col-xs-12 video-block">
             <h4>{homeworkName}</h4>
             {
+              audio ?
+              <AudioPlayer audios={[audio]} key={audio} />
+              :
               serverIds.map((serverId) => {
                 return (<div className="text-xs-center" key={serverId}>
                   {
@@ -107,22 +110,6 @@ class PronunciationHomeworkView extends Component {
             }
             <p className="text-muted">
               一定要点击微信右上角菜单的分享，分享到微信群，老师才能看到你的作业
-            </p>
-            <p className="text-danger small">
-              本录音无法在浏览器内播放
-              <br />
-              本录音将于{expireDate}过期, 过期后将无法播放
-              <br />
-              (目前录音仅存储72小时, 日后会实现永久存储)
-            </p>
-            <p>
-              {
-                audios.map((audio, index) => {
-                  return (
-                    <a href={audio} target="_blank">音频{index + 1}</a>
-                  );
-                })
-              }
             </p>
           </div>
           <ErrorTip error={errors.server} />
