@@ -2,7 +2,7 @@ import request from 'superagent';
 import logger from './logger';
 
 const generateError = (err) => {
-  return Object.assign(err.response ? err.response.body : {code: err.code}, err.response ? err.response.error : {status: 501, message: 'timeout'}, {raw: err});
+  return Object.assign(err.response ? err.response.body : {code: err.code}, err.response ? err.response.error : {status: 500, message: 'vendor api error'}, {raw: err});
 };
 
 const timeout = 3 * 1000;
@@ -23,7 +23,18 @@ export default {
         logger.error('get ' + path + ' ' + JSON.stringify(query) + ' http error - ' + JSON.stringify(err));
         reject(generateError(err));
       } else {
-        console.log(res);
+        // wechat sucks
+        if (res.headers['content-type'] == 'text/plain') {
+          try {
+            res.body = JSON.parse(res.text);
+          } catch (parseErr) {
+            res.body = {text: res.text};
+          }
+        }
+        // wechat sucks
+        if (res.body.errcode) {
+          return reject(generateError(res.body));
+        }
         resolve(res.body || res);
       }
     });
