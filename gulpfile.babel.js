@@ -66,6 +66,9 @@ gulp.task('es6', () => {
   .pipe(gulpWebpack({
     entry: {
       home: './src/public/js/home.js',
+      login: './src/public/js/login.js',
+      profile: './src/public/js/profile.js',
+      register: './src/public/js/register.js',
     },
     devtool: DEBUG ? 'source-map' : false,
     output: {
