@@ -1,19 +1,12 @@
-import $ from 'jquery';
-import jqueryPlaceholder from 'jquery-placeholder'; // eslint-disable-line no-unused-vars
+import $ from 'zeptojs';
 import babelPolyfill from 'babel-polyfill'; // eslint-disable-line no-unused-vars
 import qs from 'qs';
 import {validateEmail, validatePhone, validatePassword, validateRequired} from './common/validations';
 import template from 'lodash/string/template';
 
-$('input, textarea').placeholder({customClass: 'my-placeholder'});
-
-$.ajaxPrefilter(function( options ) {
-  if (!options.beforeSend) {
-    options.beforeSend = function (xhr) {
-      xhr.setRequestHeader('Accept', 'application/json, text/plain, */*');
-    }
-  }
-});
+$.ajaxSettings = {
+  accepts: 'application/json',
+};
 
 // consts
 const interpolate = /{{([\s\S]+?)}}/g;

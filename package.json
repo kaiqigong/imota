@@ -32,8 +32,6 @@
     "howler": "1.1.29",
     "http-proxy": "1.12.0",
     "ioredis": "1.12.2",
-    "jquery": "1.11.3",
-    "jquery-placeholder": "2.1.1",
     "lodash": "4.0.0",
     "log4js": "0.6.29",
     "method-override": "2.3.5",
