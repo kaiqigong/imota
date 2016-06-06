@@ -74,8 +74,6 @@ export default (app, config) => {
 
   // 页面路由定义
   app.use('/', require('../app/controllers/home'));
-  app.use('/account', require('../app/controllers/account'));
-
 
   app.use((req, res, next) => {
     const err = new Error('Not Found');
