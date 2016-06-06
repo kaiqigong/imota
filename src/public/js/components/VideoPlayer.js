@@ -37,6 +37,7 @@ class VideoPlayer extends Component {
           scope: 'videoPlayer',
           action: 'fail',
           value: JSON.stringify(err)});
+        mixpanel.track('videoPlayer', {action: 'fail'});
         this.state.error = err;
         this.setState(this.state);
       }
@@ -64,6 +65,7 @@ class VideoPlayer extends Component {
       scope: 'videoPlayer',
       action: 'play',
       value: e.target.currentSrc});
+    mixpanel.track('videoPlayer', {action: 'play'});
   }
 
   _onPause(e) {
