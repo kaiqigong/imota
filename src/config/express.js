@@ -11,9 +11,9 @@ import session from 'express-session';
 import connectRedis from 'connect-redis';
 import fs from 'fs';
 import FileStreamRotator from 'file-stream-rotator';
-import captcha from '../utils/captcha';
 import mongoose from 'mongoose';
 
+const expires = 86400000 * 14;
 const RedisStore = connectRedis(session);
 export default (app, config) => {
   mongoose.connect(config.mongo) // connect to our database
@@ -26,6 +26,7 @@ export default (app, config) => {
   const env = process.env.NODE_ENV || 'development';
   app.locals.ENV = env;
   app.locals.ENV_DEVELOPMENT = env === 'development';
+  app.locals.description = 'Wind教口语';
   app.engine('ejs', ejsLocals);
   app.set('views', config.root + '/app/views');
   app.set('view engine', 'ejs');
@@ -42,24 +43,25 @@ export default (app, config) => {
   app.use(compress());
   app.use(session({
     secret: config.sessionSecret,
+    cookie: {maxAge: expires},
     store: new RedisStore({
       port: config.redis.port,
       host: config.redis.host,
       db: config.redis.db,
+      ttl: expires / 1000 + 10,
     }),
     resave: false,
     saveUninitialized: true,
   }));
-  app.use(captcha({ url: '/captcha.jpg', color: '#0064cd', background: '#FFF' })); // captcha params
   if (env === 'production') {
-    app.use(express.static(config.root + '/public', {maxAge: 86400000 * 7}));
+    app.use(express.static(config.root + '/public', {maxAge: expires}));
   } else {
     app.use(express.static(config.root + '/public'));
   }
   app.use(methodOverride());
 
   // api 路由定义
-  // app.use('/api/auth/', require('../app/apis/auth'));
+  app.use('/api/auth/', require('../app/apis/auth'));
   app.use('/api/courses/', require('../app/apis/course'));
   app.use('/api/lessons/', require('../app/apis/lesson'));
   app.use('/api/sentences/', require('../app/apis/sentence'));
@@ -72,20 +74,32 @@ export default (app, config) => {
 
   // 页面路由定义
   app.use('/', require('../app/controllers/home'));
+  app.use('/account', require('../app/controllers/account'));
+
 
   app.use((req, res, next) => {
     const err = new Error('Not Found');
     err.status = 404;
     next(err);
   });
-
+  var omitDeep = function(obj, key, depth) {
+    for (var k in obj) {
+      if (k == key) {
+        delete obj[k];
+      } else if (typeof(obj[k]) == 'object' && depth > 1) {
+        omitDeep(obj[k], key, depth - 1);
+      }
+    }
+  }
   app.use((err, req, res, next) => {  // eslint-disable-line no-unused-vars
     res.status(err.status || 500);
     const locals = Object.assign({message: err.message}, {
       error: err,
       title: 'error',
+      code: err.code,
     });
     res.json(locals);
+    omitDeep(err, 'password', 5);
     logger.error(err);
   });
 };
