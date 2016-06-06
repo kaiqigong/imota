@@ -13,6 +13,7 @@ import fs from 'fs';
 import FileStreamRotator from 'file-stream-rotator';
 import mongoose from 'mongoose';
 
+const expires = 86400000 * 14;
 const RedisStore = connectRedis(session);
 export default (app, config) => {
   mongoose.connect(config.mongo) // connect to our database
@@ -42,16 +43,18 @@ export default (app, config) => {
   app.use(compress());
   app.use(session({
     secret: config.sessionSecret,
+    cookie: {maxAge: expires},
     store: new RedisStore({
       port: config.redis.port,
       host: config.redis.host,
       db: config.redis.db,
+      ttl: expires / 1000 + 10,
     }),
     resave: false,
     saveUninitialized: true,
   }));
   if (env === 'production') {
-    app.use(express.static(config.root + '/public', {maxAge: 86400000 * 7}));
+    app.use(express.static(config.root + '/public', {maxAge: expires}));
   } else {
     app.use(express.static(config.root + '/public'));
   }

@@ -8,7 +8,7 @@ const {ObjectId} = Schema.Types;
 
 const schema = BaseSchema.extend({
   userId: String,
-  username: {type: String},
+  username: {type: String, default: ''},
   password: {type: String},
   nickname: {type: String, default: ''},
   sex: {type: Number},
@@ -56,7 +56,7 @@ schema.pre('save', async function genUserId(next) {
     let userId;
     let users;
     do {
-      userId = 'u' + generateRandomId(9);
+      userId = generateRandomId(9);
       users = await Model.find({userId});
     } while (users && users.length)
     this.userId = userId;
