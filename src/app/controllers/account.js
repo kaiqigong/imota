@@ -192,6 +192,30 @@ router.get('/me/', requireLogin(), async (req, res, next) => {
 router.post('/me/', requireLogin(), async (req, res, next) => {
   try {
     const existed = await Account.findOne({_id: req.user._id});
+    existed.nickname = req.body.nickname;
+    existed.sex = req.body.sex;
+    existed.country = req.body.country;
+    existed.province = req.body.province;
+    existed.city = req.body.city;
+    await existed.save();
+    req.session.loginAccount = existed;
+    res.redirect('/account/me/');
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get('/mobile/', requireLogin(), async (req, res, next) => {
+  try {
+    res.render('profile', {vm: req.user, errors: {}});
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post('/mobile/', requireLogin(), async (req, res, next) => {
+  try {
+    const existed = await Account.findOne({_id: req.user._id});
     if (req.body.username != existed.username) {
       const errors = {};
       let valid = true;
@@ -214,11 +238,6 @@ router.post('/me/', requireLogin(), async (req, res, next) => {
         existed.username = username;
       }
     }
-    existed.nickname = req.body.nickname;
-    existed.sex = req.body.sex;
-    existed.country = req.body.country;
-    existed.province = req.body.province;
-    existed.city = req.body.city;
     await existed.save();
     req.session.loginAccount = existed;
     res.redirect('/account/me/');
