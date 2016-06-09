@@ -105,6 +105,9 @@ $course-buttons-height: 5.4rem;
     color: white;
     text-align: center;
     text-decoration: none;
+    &.orange {
+      background-color: #F28318;
+    }
   }
 
 }

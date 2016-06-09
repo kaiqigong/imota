@@ -107,7 +107,8 @@ class PronunciationLessonActivityView extends Component {
 
   renderNextArrow(courseNo, lessonNo, activityIndex) {
     const {pronunciationLessonActivity} = this.props;
-    if (activityIndex + 1 === pronunciationLessonActivity.docs.length) {
+    // 最后一页以及最后第二页不显示
+    if (activityIndex >= pronunciationLessonActivity.docs.length - 2) {
       return (
         <div className="slick-next"><a className="main-btn hidden"></a></div>
       );
@@ -380,7 +381,10 @@ class PronunciationLessonActivityView extends Component {
           </div>
           <div className="col-xs-4 text-xs-center">
             {
-              activityIndex + 1 !== pronunciationLessonActivity.docs.length ?
+              activityIndex + 2 === pronunciationLessonActivity.docs.length ?
+              <Link className="icon-boss side-btn pull-xs-right orange" to={`/home/pronunciation_courses/${courseNo}/lessons/${lessonNo}/${pronunciationLessonActivity.docs.length - 1}`} />
+              :
+              activityIndex === 0 ?
               <Link className="icon-boss side-btn pull-xs-right" to={`/home/pronunciation_courses/${courseNo}/lessons/${lessonNo}/${pronunciationLessonActivity.docs.length - 1}`} />
               :
               ''
