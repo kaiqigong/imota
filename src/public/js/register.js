@@ -25,6 +25,7 @@ profileForm.on('submit', (e) => {
   let valid = false;
   valid = validateForm();
   if (valid) {
+    passwordInput.val(sha1(passwordInput.val().trim()));
     loading.show();
   } else {
     e.preventDefault();

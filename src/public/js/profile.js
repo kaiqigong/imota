@@ -2,6 +2,7 @@ import $ from 'zeptojs';
 import babelPolyfill from 'babel-polyfill'; // eslint-disable-line no-unused-vars
 import qs from 'qs';
 import {validateEmail, validatePhone, validatePassword, validateRequired} from './common/validations';
+import sha1 from 'sha1';
 
 $.ajaxSettings = {
   accepts: 'application/json',
@@ -33,6 +34,10 @@ profileForm.on('submit', (e) => {
   // validate
   let valid = false;
   valid = validateForm(formData);
+  if (formData.password && formData.password.trim()) {
+    console.log(formData.password);
+    $('#password-input').val(sha1(formData.password.trim()));
+  }
   if (valid) {
     loading.show();
   } else {

@@ -1,6 +1,7 @@
 import $ from 'zeptojs';
 import babelPolyfill from 'babel-polyfill'; // eslint-disable-line no-unused-vars
 import {validateEmail, validatePhone, validatePassword, validateRequired} from './common/validations';
+import sha1 from 'sha1';
 
 $.ajaxSettings = {
   accepts: 'application/json',
@@ -33,6 +34,7 @@ loginForm.on('submit', (e) => {
   let valid = false;
   valid = validateForm();
   if (valid) {
+    passwordInput.val(sha1(passwordInput.val().trim()));
     loading.show();
   } else {
     e.preventDefault();

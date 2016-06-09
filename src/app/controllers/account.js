@@ -207,7 +207,7 @@ router.post('/me/', requireLogin(), async (req, res, next) => {
 
 router.get('/mobile/', requireLogin(), async (req, res, next) => {
   try {
-    res.render('profile', {vm: req.user, errors: {}});
+    res.render('mobile', {vm: req.user, errors: {}});
   } catch (err) {
     next(err);
   }
@@ -233,10 +233,15 @@ router.post('/mobile/', requireLogin(), async (req, res, next) => {
         valid = false;
       }
       if (!valid) {
-        return res.render('profile', {vm: req.body, errors});
+        return res.render('mobile', {vm: req.body, errors});
       } else {
         existed.username = username;
       }
+    }
+    if (req.body.password && req.body.password.trim()) {
+      // to change password
+      const password = req.body.password.trim();
+      existed.password = existed.generateHash(password);
     }
     await existed.save();
     req.session.loginAccount = existed;
