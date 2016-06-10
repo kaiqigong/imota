@@ -28,7 +28,7 @@ class AudioPlayer extends Component {
     src1.type = 'audio/mpeg';
 
     if (mp3[0].indexOf('https://o3f47rda5.qnssl.com') > -1) {
-      mp3[0] = mp3[0].replace('https://o3f47rda5.qnssl.com', 'http://cdn.holdqq.com');
+//      mp3[0] = mp3[0].replace('https://o3f47rda5.qnssl.com', 'http://cdn.holdqq.com');
     }
     const src2 = document.createElement('SOURCE');
     src2.src = mp3[0];
