@@ -28,15 +28,15 @@ class AudioPlayer extends Component {
     src1.type = 'audio/mpeg';
 
     if (mp3[0].indexOf('https://o3f47rda5.qnssl.com') > -1) {
-//      mp3[0] = mp3[0].replace('https://o3f47rda5.qnssl.com', 'http://cdn.holdqq.com');
+      mp3[0] = mp3[0].replace('https://o3f47rda5.qnssl.com', 'http://cdn.holdqq.com');
     }
     const src2 = document.createElement('SOURCE');
     src2.src = mp3[0];
     src2.type = 'audio/mpeg';
 
     audio.innerHTML = '';
-    audio.appendChild(src1);
     audio.appendChild(src2);
+    audio.appendChild(src1);
     audio.autoplay = props.autoplay;
   }
 
@@ -48,9 +48,8 @@ class AudioPlayer extends Component {
     audio.oncanplay = this::this._onLoaded;
     audio.oncancel = this::this._onEvent;
     this.initDate = new Date();
-    if (this.props.autoplay) {
       audio.load();
-    }
+
   }
 
   componentWillUnmount() {

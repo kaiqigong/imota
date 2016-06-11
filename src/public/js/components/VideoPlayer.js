@@ -97,7 +97,7 @@ class VideoPlayer extends Component {
               videos.map((video) => {
                 const suffix = video.split('.').reverse()[0];
                 return (
-//                  <source src={video.replace('https://o3f47rda5.qnssl.com', 'http://cdn.holdqq.com')} type={`video/${suffix}`} key={video} />
+                  <source src={video.replace('https://o3f47rda5.qnssl.com', 'http://cdn.holdqq.com')} type={`video/${suffix}`} key={video} />
                 );
               })
             }
