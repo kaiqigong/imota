@@ -35,8 +35,8 @@ class AudioPlayer extends Component {
     src2.type = 'audio/mpeg';
 
     audio.innerHTML = '';
-    audio.appendChild(src1);
     audio.appendChild(src2);
+    audio.appendChild(src1);
     audio.autoplay = props.autoplay;
   }
 
@@ -48,9 +48,8 @@ class AudioPlayer extends Component {
     audio.oncanplay = this::this._onLoaded;
     audio.oncancel = this::this._onEvent;
     this.initDate = new Date();
-    if (this.props.autoplay) {
       audio.load();
-    }
+
   }
 
   componentWillUnmount() {
