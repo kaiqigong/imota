@@ -12,6 +12,7 @@ import {
   createStore,
 } from 'redux';
 import thunk from 'redux-thunk';
+import ticker from './common/ticker';
 
 window.scott = true;
 
@@ -26,4 +27,7 @@ window.dispatch = store.dispatch;
 
 window.addEventListener('load', () => {
   ReactDom.render(<Root history={history} routes={routes} store={store} />, document.getElementById('app'));
+  ticker.start();
 });
+
+
