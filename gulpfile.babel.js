@@ -35,7 +35,7 @@ const VERBOSE = args.indexOf('--verbose') > -1;
 
 const cdn = process.env.NODE_ENV === 'production' ?
   'https://o43236zpa.qnssl.com' :
-  'http://7xrwtt.com1.z0.glb.clouddn.com';
+  '';
 
 const GLOBALS = {
   'process.env.NODE_ENV': DEBUG ? '"development"' : '"production"',
