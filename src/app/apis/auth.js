@@ -12,4 +12,20 @@ router.get('/me/', async (req, res, next) => {
   }
 });
 
+router.get('/mobile_code/', async (req, res, next) => {
+  try {
+    return res.sendStatus(501);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post('/forgot/', async (req, res, next) => {
+  try {
+    return res.sendStatus(501);
+  } catch (err) {
+    next(err);
+  }
+});
+
 export default router;

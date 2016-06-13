@@ -125,7 +125,6 @@ router.get('/login/', async (req, res, next) => {
     if (req.query.hasOwnProperty('r')) {
       req.session.loginRedirect = loginRedirect || '';
     }
-    console.log(req.headers['user-agent']);
     if (req.headers['user-agent'].indexOf('MicroMessenger') > -1) {
       // 微信登录跳转
       return res.redirect(generateWechatAuthUrl('login'));
@@ -246,6 +245,21 @@ router.post('/mobile/', requireLogin(), async (req, res, next) => {
     await existed.save();
     req.session.loginAccount = existed;
     res.redirect('/account/me/');
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get('/forgot/', async (req, res, next) => {
+  try {
+    const loginRedirect = req.query.r ? req.query.r : '';
+    if (req.query.hasOwnProperty('r')) {
+      req.session.loginRedirect = loginRedirect || '';
+    }
+    const newAccount = new Account();
+    newAccount.username = '';
+    newAccount.password = '';
+    res.render('forgot', {errors: {}, vm: newAccount});
   } catch (err) {
     next(err);
   }
