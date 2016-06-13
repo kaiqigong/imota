@@ -11,4 +11,6 @@ const schema = BaseSchema.extend({
   date: Date,
 });
 
+schema.index({accountId: 1, date: -1}, { unique: true });
+
 export default mongoose.model('LearningHistory', schema);

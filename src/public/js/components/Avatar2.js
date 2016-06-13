@@ -1,6 +1,5 @@
 import React, {Component, PropTypes} from 'react';
 import ajax from '../common/ajax';
-import {actions} from '../redux/user';
 
 class Avatar extends Component {
   static propTypes = {

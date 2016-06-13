@@ -15,6 +15,7 @@ import DoingHomeworkView from '../views/DoingHomeworkView';
 import WarmView from '../views/WarmView';
 import HomeworkView from '../views/HomeworkView';
 import DoingNewhomeworkView from '../views/DoingNewhomeworkView';
+import LearningHistoriesView from '../views/LearningHistoriesView';
 
 // import NotFoundView from '../views/NotFoundView/NotFoundView';
 //     <Route path='/404' component={NotFoundView} />
@@ -36,6 +37,7 @@ export default (
     <Route path="/home/courses/:courseNo/lessons/:lessonNo/warm/" component={WarmView} />
     <Route path="/home/courses/:courseNo/lessons/:lessonNo/listen/:sentenceNo" component={ListenView} />
     <Route path="/home/courses/:courseNo/lessons/:lessonNo/translate/:sentenceNo" component={TranslateView} />
+    <Route path="/home/learning_histories/" component={LearningHistoriesView} />
     <Redirect from="*" to="/" />
   </Route>
 );

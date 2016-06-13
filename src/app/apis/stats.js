@@ -22,7 +22,7 @@ router.post('/beats/', verifySession(), async (req, res, next) => {
     beat.accountId = req.user._id;
     beat.url = req.body.url;
     await beat.save();
-    res.send('OK');
+    res.sendStatus(200);
   } catch (err) {
     next(err);
   }

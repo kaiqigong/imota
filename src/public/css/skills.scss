@@ -1,5 +1,10 @@
 @import "./_variables";
 .skill-list {
+  .avatar-link {
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
+  }
   .slogan {
     margin: 4.5rem 0 2.5rem;
     color: $light-nlack;
