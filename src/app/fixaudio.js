@@ -6,10 +6,10 @@ const exec = require('child_process').exec;
 const cmd = `ffmpeg -i ${inputPath} -vn -ar 8000 -ac 2 -ab 192k -f mp3 ${outputPath}`;
 exec(cmd, (error, stdout, stderr) => {
   if (error) {
-    console.error(outputFilePath + ' An error occurred Converting : ' , error);
-    return process.exit(0);
+    console.log(outputFilePath + ' An error occurred Converting : ' , error);
+    return process.exit(1);
   }
   console.log(`stdout: ${stdout}`);
   console.log(`stderr: ${stderr}`);
-  return process.exit(1);
+  return process.exit(0);
 });
