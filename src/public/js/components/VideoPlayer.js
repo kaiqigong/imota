@@ -65,7 +65,6 @@ class VideoPlayer extends Component {
       scope: 'videoPlayer',
       action: 'play',
       value: e.target.currentSrc});
-    mixpanel.track('videoPlayer', {action: 'play'});
   }
 
   _onPause(e) {

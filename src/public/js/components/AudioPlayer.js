@@ -67,7 +67,6 @@ class AudioPlayer extends Component {
     ajax.post('/api/behaviors/', {
       scope: 'audioLoadedTime',
       value: loadingTime});
-    mixpanel.track('audioLoadedTime', {time: loadingTime});
     if (this.props.autoplay) {
       this.togglePlay();
     }
@@ -90,7 +89,6 @@ class AudioPlayer extends Component {
       scope: 'audioPlayer',
       action: 'play',
       value: e.target.currentSrc});
-    mixpanel.track("audioPlayer", {action: 'play', src: e.target.currentSrc});
     this.state.playing = true;
     this.setState(this.state);
   }
