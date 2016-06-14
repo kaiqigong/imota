@@ -1,5 +1,5 @@
 const inputPath = process.argv[2];
-const outputPath = process.argv[3];
+const outputPath = process.argv[3] || inputPath.replace('.amr', '.mp3');
 const exec = require('child_process').exec;
 
 // ffmpeg -i ZV5P9L_vrfzlzPmy3H3BVKPNvioOzBMRCca3i21NHE8X158R9D8-AlDVS7yALeYp.amr -vn -ar 8000 -ac 2 -ab 192k -f mp3 ZV5P9L_vrfzlzPmy3H3BVKPNvioOzBMRCca3i21NHE8X158R9D8-AlDVS7yALeYp.mp3
