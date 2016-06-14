@@ -65,10 +65,10 @@ const concatAudios = async (audios) => {
 const uploadFileToQiniu = async (file) => {
   return new Promise(function(resolve, reject) {
     // upload
-    const putPolicy = new qiniu.rs.PutPolicy(config.qiniu.bucket);
+    const key = file.substr(1); // remove first '/'
+    const putPolicy = new qiniu.rs.PutPolicy(config.qiniu.bucket + ":" + key);
     const uptoken = putPolicy.token();
     const extra = new qiniu.io.PutExtra();
-    const key = file.substr(1); // remove first '/'
     qiniu.io.putFile(uptoken,
       key,
       file,
