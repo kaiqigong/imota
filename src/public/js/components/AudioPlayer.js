@@ -62,17 +62,17 @@ class AudioPlayer extends Component {
     audio.pause();
   }
 
-  _onLoaded() {
+  _onLoaded(e) {
     const loadingTime = (new Date() - this.initDate) / 1000;
-    ajax.post('/api/behaviors/', {
-      scope: 'audioLoadedTime',
-      value: loadingTime});
-    mixpanel.track('audioLoadedTime', {time: loadingTime});
     if (this.props.autoplay) {
       this.togglePlay();
     }
     this.state.loading = false;
     this.setState(this.state);
+    ajax.post('/api/behaviors/', {
+      scope: 'audioLoadedTime',
+      value: loadingTime});
+    _hmt.push(['_trackEvent', 'audio', 'load', e.target.currentSrc, loadingTime]);
   }
 
   _onEnded() {
@@ -90,6 +90,7 @@ class AudioPlayer extends Component {
       scope: 'audioPlayer',
       action: 'play',
       value: e.target.currentSrc});
+    _hmt.push(['_trackEvent', 'audio', 'play', e.target.currentSrc]);
     this.state.playing = true;
     this.setState(this.state);
   }
@@ -102,6 +103,7 @@ class AudioPlayer extends Component {
       action: 'fail',
       value: JSON.stringify({code: audio.error.code, src: e.target.currentSrc})});
     mixpanel.track('audioPlayer', {action: 'fail', src: e.target.currentSrc, code: audio.error.code});
+    _hmt.push(['_trackEvent', 'audio', 'fail', e.target.currentSrc, audio.error.code]);
   }
 
   _onEvent(e) {

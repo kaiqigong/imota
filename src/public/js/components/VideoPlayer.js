@@ -33,13 +33,14 @@ class VideoPlayer extends Component {
     const handler = (err) => {
       errCount++;
       if (errCount === length) {
+        this.state.error = err;
+        this.setState(this.state);
         ajax.post('/api/behaviors/', {
           scope: 'videoPlayer',
           action: 'fail',
           value: JSON.stringify(err)});
         mixpanel.track('videoPlayer', {action: 'fail'});
-        this.state.error = err;
-        this.setState(this.state);
+        _hmt.push(['_trackEvent', 'video', 'fail']);
       }
     };
     for (let i = 0; i < length; i++) {
@@ -65,7 +66,7 @@ class VideoPlayer extends Component {
       scope: 'videoPlayer',
       action: 'play',
       value: e.target.currentSrc});
-    mixpanel.track('videoPlayer', {action: 'play'});
+    _hmt.push(['_trackEvent', 'video', 'play', e.target.currentSrc]);
   }
 
   _onPause(e) {
