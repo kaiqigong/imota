@@ -25,7 +25,7 @@ class SkillsView extends Component {
     return (
       <div className="skill-list">
         {
-          auth ?
+          auth && auth.nickname ?
           <Link className="avatar-link" to="/home/learning_histories/">
             <Avatar className="avatar-img" image={auth.avatar || '/img/default_avatar.png'} />
           </Link>

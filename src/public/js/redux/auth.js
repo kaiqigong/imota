@@ -44,6 +44,6 @@ export default handleActions({
     return {errors: {}};
   },
   [RECEIVED_ME]: (state, {payload}) => {
-    return Object.assign(state, payload);
+    return Object.assign({errors: {}}, payload);
   },
 }, {errors: {}});

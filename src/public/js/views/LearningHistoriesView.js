@@ -50,39 +50,41 @@ class LearningHistoriesView extends Component {
           </ul>
         </nav>
         <div className="container">
-          {
-            auth ?
-            <div className="media">
-              <span className="media-left" href="#">
-                <Avatar className="avatar-img" image={auth.avatar || '/img/default_avatar.png'} />
-              </span>
-              <div className="media-body">
-                <h2 className="media-heading">{auth.nickname}</h2>
+          <div className="col-xs-12">
+            {
+              auth && auth.nickname ?
+              <div className="media">
+                <span className="media-left" href="#">
+                  <Avatar className="avatar-img" image={auth.avatar || '/img/default_avatar.png'} />
+                </span>
+                <div className="media-body">
+                  <h2 className="media-heading">{auth.nickname}</h2>
+                </div>
               </div>
-            </div>
-            :''
-          }
-          <br />
-          <h4>
-            我今天学习了
-          </h4>
-          <h1 className="text-xs-center text-danger">
-            {~~todayLearningTime}分钟
-          </h1>
-          <h5>
-            我累积学习了{~~totalLearningTime}分钟
-          </h5>
-          <InfiniteScroll
-            pageStart={1}
-            loadMore={(page) => this.props.fetchMoreLearningHistoriesAsync(page)}
-            hasMore={hasMore}
-            loader={<div className="loader">Loading...</div>}>
-            {docs.map((learningHistory) => {
-              return (
-                <div className="col-xs-12" key={learningHistory._id}>{new Date(learningHistory.date).toLocaleDateString()} {~~learningHistory.learningTime}分钟</div>
-              );
-            })}
-          </InfiniteScroll>
+              :''
+            }
+            <br />
+            <h4>
+              我今天学习了
+            </h4>
+            <h1 className="text-xs-center text-danger">
+              {~~todayLearningTime}分钟
+            </h1>
+            <h5>
+              我累积学习了{~~totalLearningTime}分钟
+            </h5>
+            <InfiniteScroll
+              pageStart={1}
+              loadMore={(page) => this.props.fetchMoreLearningHistoriesAsync(page)}
+              hasMore={hasMore}
+              loader={<div className="loader">Loading...</div>}>
+              {docs.map((learningHistory) => {
+                return (
+                  <div className="col-xs-12 clearfix learning-history" key={learningHistory._id}>{new Date(learningHistory.date).toLocaleDateString()} <span className="pull-xs-right">{~~learningHistory.learningTime}分钟</span></div>
+                );
+              })}
+            </InfiniteScroll>
+          </div>
         </div>
       </div>
     );
