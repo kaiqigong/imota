@@ -92,13 +92,13 @@ router.get('/weixin/', async (req, res, next) => {
     console.log('code: ', result);
     // find user, if no, create one
     let existed = await Account.findOne({'weixinAuth.openid': result.openid});
+    const weixinAccount = await request.get('https://api.weixin.qq.com/sns/userinfo', {
+      'access_token': result.access_token,
+      'openid': result.openid,
+      'lang': 'zh_CN',
+    });
     if (!existed) {
       // 创建用户，并且从微信中取用户数据
-      const weixinAccount = await request.get('https://api.weixin.qq.com/sns/userinfo', {
-        'access_token': result.access_token,
-        'openid': result.openid,
-        'lang': 'zh_CN',
-      });
       console.log(weixinAccount);
       existed = new Account();
       // 初始化数据
@@ -109,6 +109,7 @@ router.get('/weixin/', async (req, res, next) => {
       existed.country = weixinAccount.country;
       existed.avatar = weixinAccount.headimgurl;
     }
+    existed.weixinAccount = weixinAccount;
     existed.weixinAuth = result;
     await existed.save();
     console.log(existed);

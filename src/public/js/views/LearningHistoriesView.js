@@ -50,7 +50,7 @@ class LearningHistoriesView extends Component {
           </ul>
         </nav>
         <div className="container">
-          <div className="col-xs-12">
+          <div className="col-xs-12 clearfix">
             {
               auth && auth.nickname ?
               <div className="media">
@@ -84,6 +84,9 @@ class LearningHistoriesView extends Component {
                 );
               })}
             </InfiniteScroll>
+          </div>
+          <div className="col-xs-12 small text-muted" style={{marginTop: '2rem'}}>
+            6月15日到6月19日之间为测试期间，大家仍需手动打卡，且测试期间数据可能之后被清零
           </div>
         </div>
       </div>

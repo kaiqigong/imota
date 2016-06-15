@@ -10,6 +10,14 @@ const schema = BaseSchema.extend({
   userId: String,
   username: {type: String, default: ''},
   password: {type: String},
+  weixinAccount: {
+    nickname: String,
+    sex: Number,
+    province: String,
+    city: String,
+    country: String,
+    avatar: String,
+  }, // 微信个人信息
   nickname: {type: String, default: ''},
   sex: {type: Number},
   province: {type: String, default: ''},
