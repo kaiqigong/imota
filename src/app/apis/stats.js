@@ -39,7 +39,6 @@ router.get('/learning_histories/', verifySession(), async (req, res, next) => {
     let lastLearningStart = 0; // Milliseconds
     todayBeats.forEach((beat) => {
       const dur = beat.created.valueOf() - lastLearningStart;
-      console.log(dur/1000);
       if (dur <= 1000 * 60) {
         todayLearningTime += dur;
       } else {

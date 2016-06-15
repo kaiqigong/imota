@@ -18,7 +18,6 @@ const calc = async () => {
     const todayBeats = await Beat.find({created: {$gt: moment({hour: 0})}});
     const grouped = _.groupBy(todayBeats, 'accountId');
     for (const accountId in grouped) {
-      console.log(accountId);
       const beats = grouped[accountId];
       const learningHistory = new LearningHistory();
       learningHistory.date = moment({hour: 0});
