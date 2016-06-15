@@ -6,6 +6,7 @@ import {Link} from 'react-router';
 import setTitle from '../common/setTitle';
 import reactInfiniteScroll from 'react-infinite-scroll';
 import Avatar from '../components/Avatar2';
+import ajax from '../common/ajax';
 
 const InfiniteScroll = reactInfiniteScroll(React);
 

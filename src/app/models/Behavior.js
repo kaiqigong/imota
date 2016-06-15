@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose, {Schema} from 'mongoose';
 import BaseSchema from './BaseSchema';
 
 const schema = BaseSchema.extend({

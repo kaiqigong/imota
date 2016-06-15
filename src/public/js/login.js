@@ -28,8 +28,10 @@ const hideError = (element) => {
   errorSpan.hide();
 };
 
-loginForm.on('submit', (e) => {
+_hmt.push(['_trackEvent', 'pageView', 'login']);
 
+loginForm.on('submit', (e) => {
+  _hmt.push(['_trackEvent', 'login', 'submit']);
   // validate
   let valid = false;
   valid = validateForm();
