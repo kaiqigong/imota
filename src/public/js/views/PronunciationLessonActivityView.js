@@ -64,7 +64,8 @@ class PronunciationLessonActivityView extends Component {
         }, 100);
       },
       fail: (err) => {
-        console.error('views/DoingHomeworkView 100', err.toString());
+        alert('录音失败！请联系老师');
+        console.error('views/PronunciationLessonActivityView 68', err.toString());
       },
     });
   }
@@ -78,7 +79,8 @@ class PronunciationLessonActivityView extends Component {
         this.props.endPronunciationHomeworkAsync(this.localIds.slice());
       },
       fail: (err) => {
-        console.remote('views/PronunciationHomeworkView 79', err);
+        console.remote('views/PronunciationLessonActivityView 82', err);
+        alert('录音失败！请联系老师');
         this.props.endRecord(this.localIds);
         this.props.endPronunciationHomeworkAsync(this.localIds.slice());
       },
