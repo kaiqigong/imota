@@ -14,16 +14,36 @@ mongoose.connect(config.mongo) // connect to our database
 });
 const calc = async () => {
   try {
+    console.log('*** 开始计算学习时间 ***');
     const todayBeats = await Beat.find({created: {$gt: moment({hour: 0})}});
     const grouped = _.groupBy(todayBeats, 'accountId');
     for (const accountId in grouped) {
+      console.log(accountId);
       const beats = grouped[accountId];
       const learningHistory = new LearningHistory();
       learningHistory.date = moment({hour: 0});
       learningHistory.accountId = accountId;
-      learningHistory.learningTime = beats.length * 0.5;
-      await learningHistory.save();
+
+      let learningTime = 0; // Milliseconds
+      let lastLearningStart = 0; // Milliseconds
+      beats.forEach((beat) => {
+        const dur = beat.created.valueOf() - lastLearningStart;
+        if (dur <= 1000 * 60) {
+          learningTime += dur;
+        } else {
+          learningTime += 1000 * 10;
+        }
+        lastLearningStart = beat.created.valueOf();
+      });
+      learningHistory.learningTime = learningTime / 1000 / 60;
       console.log(learningHistory);
+      const lastLearningHistory = await LearningHistory.findOne({accountId}).sort({created: -1}).exec();
+      if (lastLearningHistory && lastLearningHistory.totalLearningTime) {
+        learningHistory.totalLearningTime = lastLearningHistory.totalLearningTime + learningHistory.learningTime;
+      } else {
+        learningHistory.totalLearningTime = learningHistory.learningTime;
+      }
+      await learningHistory.save();
     }
     process.exit(0);
   } catch (err) {

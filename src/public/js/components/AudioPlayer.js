@@ -15,26 +15,34 @@ class AudioPlayer extends Component {
     this.state = {
       loading: true,
     };
+
     if (!audio) {
       audio = new Audio();
       window.theAudio = audio;
     }
+    audio.innerHTML = '';
+
     const mp3 = props.audios.filter((item) => {
       return item.indexOf('.mp3') > -1;
     });
-
+    if (!mp3.length) {
+      alert('没有音频');
+      ajax.post('/api/behaviors/', {
+        scope: 'audioPlayer',
+        action: 'nosrc',
+        value: window.location.href});
+      return;
+    }
     const src1 = document.createElement('SOURCE');
     src1.src = mp3[0];
     src1.type = 'audio/mpeg';
-
-    if (mp3[0].indexOf('https://o3f47rda5.qnssl.com') > -1) {
+    if (mp3[0] && mp3[0].indexOf('https://o3f47rda5.qnssl.com') > -1) {
       mp3[0] = mp3[0].replace('https://o3f47rda5.qnssl.com', 'http://cdn.holdqq.com');
     }
     const src2 = document.createElement('SOURCE');
     src2.src = mp3[0];
     src2.type = 'audio/mpeg';
 
-    audio.innerHTML = '';
     audio.appendChild(src2);
     audio.appendChild(src1);
     audio.autoplay = props.autoplay;

@@ -12,6 +12,7 @@ import connectRedis from 'connect-redis';
 import fs from 'fs';
 import FileStreamRotator from 'file-stream-rotator';
 import mongoose from 'mongoose';
+import beat from '../app/middlewares/beat';
 
 const expires = 86400000 * 14;
 const RedisStore = connectRedis(session);
@@ -60,6 +61,7 @@ export default (app, config) => {
   }
   app.use(methodOverride());
 
+  app.use(beat);
   // api 路由定义
   app.use('/api/auth/', require('../app/apis/auth'));
   app.use('/api/courses/', require('../app/apis/course'));

@@ -8,6 +8,7 @@ const schema = BaseSchema.extend({
     required: true
   },
   learningTime: Number, // minutes
+  totalLearningTime: Number, // minutes
   date: Date,
 });
 

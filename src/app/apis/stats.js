@@ -33,10 +33,29 @@ router.get('/learning_histories/', verifySession(), async (req, res, next) => {
     const page = req.query.page || 1;
     const limit = req.query.limit || config.pagination.defaultSize;
     const histories = await LearningHistory.paginate({accountId: req.user._id}, {page, limit, sort: {date: -1}});
-    const count = await Beat.count({accountId: req.user._id, created: {$gt: moment({hour: 0})}});
+    const todayBeats = await Beat.find({accountId: req.user._id, created: {$gt: moment({hour: 0})}});
+
+    let todayLearningTime = 0; // Milliseconds
+    let lastLearningStart = 0; // Milliseconds
+    todayBeats.forEach((beat) => {
+      const dur = beat.created.valueOf() - lastLearningStart;
+      console.log(dur/1000);
+      if (dur <= 1000 * 60) {
+        todayLearningTime += dur;
+      } else {
+        todayLearningTime += 1000 * 10;
+      }
+      lastLearningStart = beat.created.valueOf();
+    });
+    histories.todayLearningTime = todayLearningTime / 1000 / 60;
+
     const totalCount = await Beat.count({accountId: req.user._id});
-    histories.todayLearningTime = count * 0.5;
-    histories.totalLearningTime = totalCount * 0.5;
+    if (histories.docs[0] && histories.docs[0].totalLearningTime) {
+      histories.totalLearningTime = histories.docs[0].totalLearningTime + histories.todayLearningTime;
+    } else {
+      histories.totalLearningTime = histories.todayLearningTime;
+    }
+
     res.send(histories);
   } catch (err) {
     next(err);

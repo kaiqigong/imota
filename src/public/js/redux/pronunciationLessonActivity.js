@@ -34,7 +34,7 @@ export const fetchPronunciationLessonsActivityAsync = (courseNo, lessonNo) => {
       const response = await ajax.get(`api/pronunciation_courses/${courseNo}/lessons/${lessonNo}`, {page: 1});
       dispatch(receviedPronunciationLessonsActivity(response));
     } catch (err) {
-      console.error('fetch pronunciation lessons activity error');
+      console.error('fetch pronunciation lessons activity error', err);
     }
   };
 };

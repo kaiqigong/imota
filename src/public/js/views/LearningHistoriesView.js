@@ -67,11 +67,11 @@ class LearningHistoriesView extends Component {
             <h4>
               我今天学习了
             </h4>
-            <h1 className="text-xs-center text-danger">
-              {~~todayLearningTime}分钟
+            <h1 className="text-xs-center text-danger today-learning-time">
+              {Math.round(todayLearningTime)}分钟
             </h1>
             <h5>
-              我累积学习了{~~totalLearningTime}分钟
+              我累积学习了{Math.round(totalLearningTime)}分钟
             </h5>
             <InfiniteScroll
               pageStart={1}
@@ -80,7 +80,7 @@ class LearningHistoriesView extends Component {
               loader={<div className="loader">Loading...</div>}>
               {docs.map((learningHistory) => {
                 return (
-                  <div className="col-xs-12 clearfix learning-history" key={learningHistory._id}>{new Date(learningHistory.date).toLocaleDateString()} <span className="pull-xs-right">{~~learningHistory.learningTime}分钟</span></div>
+                  <div className="col-xs-12 clearfix learning-history" key={learningHistory._id}>{new Date(learningHistory.date).toLocaleDateString()} <span className="pull-xs-right">{Math.round(learningHistory.learningTime)}分钟</span></div>
                 );
               })}
             </InfiniteScroll>
