@@ -110,7 +110,6 @@ class AudioPlayer extends Component {
       scope: 'audioPlayer',
       action: 'fail',
       value: JSON.stringify({code: audio.error.code, src: e.target.currentSrc})});
-    mixpanel.track('audioPlayer', {action: 'fail', src: e.target.currentSrc, code: audio.error.code});
     _hmt.push(['_trackEvent', 'audio', 'fail', e.target.currentSrc, audio.error.code]);
   }
 

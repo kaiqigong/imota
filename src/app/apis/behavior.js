@@ -31,6 +31,7 @@ router.post('/', async (req, res, next) => {
     behavior.scope = req.body.scope;
     behavior.action = req.body.action;
     behavior.value = req.body.value;
+    behavior.accountId = req.session.loginAccount._id;
     await behavior.save();
     res.send(new Date().valueOf().toString());
   } catch (err) {

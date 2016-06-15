@@ -39,7 +39,6 @@ class VideoPlayer extends Component {
           scope: 'videoPlayer',
           action: 'fail',
           value: JSON.stringify(err)});
-        mixpanel.track('videoPlayer', {action: 'fail'});
         _hmt.push(['_trackEvent', 'video', 'fail']);
       }
     };

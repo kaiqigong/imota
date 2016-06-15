@@ -28,6 +28,10 @@ class LearningHistoriesView extends Component {
     props.learningHistoriesInit();
     props.fetchLearningHistoriesAsync();
     props.fetchMeAsync();
+    ajax.post('/api/behaviors/', {
+      scope: 'pageView',
+      action: 'LearningHistoriesView'});
+    _hmt.push(['_trackEvent', 'pageView', 'LearningHistoriesView']);
   }
 
 
