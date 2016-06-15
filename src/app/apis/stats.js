@@ -33,11 +33,11 @@ router.get('/learning_histories/', verifySession(), async (req, res, next) => {
     const page = req.query.page || 1;
     const limit = req.query.limit || config.pagination.defaultSize;
     const histories = await LearningHistory.paginate({accountId: req.user._id}, {page, limit, sort: {date: -1}});
-    const todayBeats = await Beat.find({accountId: req.user._id, created: {$gt: moment({hour: 0})}});
+    const todayBeats = await Beat.find({accountId: req.user._id, created: {$gt: moment({hour: 0})}}).sort({created: 1});
 
     let todayLearningTime = 0; // Milliseconds
     let lastLearningStart = 0; // Milliseconds
-    todayBeats.forEach((beat) => {
+    todayBeats.order.forEach((beat) => {
       const dur = beat.created.valueOf() - lastLearningStart;
       if (dur <= 1000 * 60) {
         todayLearningTime += dur;
