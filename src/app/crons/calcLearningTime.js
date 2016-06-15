@@ -15,7 +15,7 @@ mongoose.connect(config.mongo) // connect to our database
 const calc = async () => {
   try {
     console.log('*** 开始计算学习时间 ***');
-    const todayBeats = await Beat.find({created: {$gt: moment({hour: 0})}});
+    const todayBeats = await Beat.find({created: {$gt: moment({hour: 0})}}).sort({create: 1}).exec();
     const grouped = _.groupBy(todayBeats, 'accountId');
     for (const accountId in grouped) {
       const beats = grouped[accountId];
