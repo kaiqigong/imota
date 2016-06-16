@@ -126,13 +126,14 @@ router.get('/login/', async (req, res, next) => {
     if (req.query.hasOwnProperty('r')) {
       req.session.loginRedirect = loginRedirect || '';
     }
-    if (req.headers['user-agent'].indexOf('MicroMessenger') > -1) {
+    if (req.headers['user-agent'] && req.headers['user-agent'].indexOf('MicroMessenger') > -1) {
       // 微信登录跳转
       return res.redirect(generateWechatAuthUrl('login'));
     } else {
       return res.render('login', {errors: {}, vm: {username: '', password: ''}});
     }
   } catch (err) {
+    console.error(err);
     next(err);
   }
 });
