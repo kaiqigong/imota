@@ -63,7 +63,7 @@ const config = {
     redis: {
       host: '127.0.0.1',
       port: 6379,
-      db: 1,
+      db: 0,
     },
     apiRoot: 'http://123.57.72.210:9002/dtp/',
     cookieSecret: 'dsfljkasdjfklsdajfkl',
@@ -103,7 +103,7 @@ const config = {
     redis: {
       host: '127.0.0.1',
       port: 6379,
-      db: 1,
+      db: 0,
     },
     apiRoot: 'http://123.57.72.210:9002/dtp/',
     cookieSecret: 'dsfljkasdjfklsdajfkl',
