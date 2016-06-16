@@ -16,9 +16,10 @@ const schema = BaseSchema.extend({
     province: String,
     city: String,
     country: String,
-    avatar: String,
+    headimgurl: String,
   }, // 微信个人信息
   nickname: {type: String, default: ''},
+  classe: { type: String, default: '' },
   sex: {type: Number},
   province: {type: String, default: ''},
   city: {type: String, default: ''},
