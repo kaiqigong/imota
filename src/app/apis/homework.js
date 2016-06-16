@@ -57,7 +57,7 @@ router.post('/', async (req, res, next) => {
       audio = await homeworkProcessor.uploadFileToQiniu(audio);
     }
 
-    const homework = new Homework({lessonNo, courseNo, nickname, time, serverIds, type, audios, audio, accountId: req.loginAccount._id});
+    const homework = new Homework({lessonNo, courseNo, nickname, time, serverIds, type, audios, audio, accountId: req.session.loginAccount._id});
     await homework.save();
     res.send(homework);
   } catch (err) {
