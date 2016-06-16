@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose, {Schema} from 'mongoose';
 import BaseSchema from './BaseSchema';
 
 const schema = BaseSchema.extend({
@@ -12,6 +12,10 @@ const schema = BaseSchema.extend({
   scope: { type: String },
   action: { type: String },
   value: { type: String },
+  accountId: {
+    type: Schema.Types.ObjectId,
+    ref: 'account',
+  },
   referer: { type: String },
 });
 

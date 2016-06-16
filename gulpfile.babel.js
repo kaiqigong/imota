@@ -35,7 +35,7 @@ const VERBOSE = args.indexOf('--verbose') > -1;
 
 const cdn = process.env.NODE_ENV === 'production' ?
   'https://o43236zpa.qnssl.com' :
-  'http://7xrwtt.com1.z0.glb.clouddn.com';
+  '';
 
 const GLOBALS = {
   'process.env.NODE_ENV': DEBUG ? '"development"' : '"production"',
@@ -66,6 +66,10 @@ gulp.task('es6', () => {
   .pipe(gulpWebpack({
     entry: {
       home: './src/public/js/home.js',
+      login: './src/public/js/login.js',
+      profile: './src/public/js/profile.js',
+      register: './src/public/js/register.js',
+      forgot: './src/public/js/forgot.js',
     },
     devtool: DEBUG ? 'source-map' : false,
     output: {

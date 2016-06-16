@@ -1,0 +1,19 @@
+@import "./_variables";
+
+.forgot {
+  .forgot-form {
+    margin-top: 20px;
+  }
+  .hide {
+    display: none;
+  }
+  .loading {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background: rgb(255, 255, 255);
+    background: rgba(255, 255, 255, 0.7);
+  }
+}

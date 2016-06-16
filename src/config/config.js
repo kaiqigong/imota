@@ -35,6 +35,7 @@ const config = {
     },
     cookieExpire: 7 * 24 * 3600 * 1000, // 7天
     cookieDomain: '.learnwithwind.com',
+    host: 'test.holdqq.com',
     weixin: {
       appid: 'wx453346560ed6a84e',
       secret: '2e1364c00766952f641b197b67dd3b9c',
@@ -62,7 +63,7 @@ const config = {
     redis: {
       host: '127.0.0.1',
       port: 6379,
-      db: 1,
+      db: 0,
     },
     apiRoot: 'http://123.57.72.210:9002/dtp/',
     cookieSecret: 'dsfljkasdjfklsdajfkl',
@@ -73,6 +74,7 @@ const config = {
     },
     cookieExpire: 7 * 24 * 3600 * 1000, // 7天
     cookieDomain: '.learnwithwind.com',
+    host: 'test.holdqq.com',
     weixin: {
       appid: 'wx453346560ed6a84e',
       secret: '2e1364c00766952f641b197b67dd3b9c',
@@ -101,7 +103,7 @@ const config = {
     redis: {
       host: '127.0.0.1',
       port: 6379,
-      db: 1,
+      db: 0,
     },
     apiRoot: 'http://123.57.72.210:9002/dtp/',
     cookieSecret: 'dsfljkasdjfklsdajfkl',
@@ -112,6 +114,7 @@ const config = {
     },
     cookieExpire: 7 * 24 * 3600 * 1000, // 7天
     cookieDomain: '.learnwithwind.com',
+    host: 'www.holdqq.com',
     weixin: {
       appid: 'wx453346560ed6a84e',
       secret: '2e1364c00766952f641b197b67dd3b9c',

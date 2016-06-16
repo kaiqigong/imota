@@ -1,19 +1,14 @@
-import $ from 'jquery';
-import jqueryPlaceholder from 'jquery-placeholder'; // eslint-disable-line no-unused-vars
+import $ from 'zeptojs';
 import babelPolyfill from 'babel-polyfill'; // eslint-disable-line no-unused-vars
 import qs from 'qs';
 import {validateEmail, validatePhone, validatePassword, validateRequired} from './common/validations';
-import template from 'lodash/string/template';
+import template from 'lodash.template';
+import ajax from './common/ajax';
+import sha1 from 'sha1';
 
-$('input, textarea').placeholder({customClass: 'my-placeholder'});
-
-$.ajaxPrefilter(function( options ) {
-  if (!options.beforeSend) {
-    options.beforeSend = function (xhr) {
-      xhr.setRequestHeader('Accept', 'application/json, text/plain, */*');
-    }
-  }
-});
+$.ajaxSettings = {
+  accepts: 'application/json',
+};
 
 // consts
 const interpolate = /{{([\s\S]+?)}}/g;
@@ -96,7 +91,7 @@ const getCode = async () => {
   }
 
   try {
-    await $.get('/api/auth/mobile_code/', {mobile: accountInput.val(), type: 'retrieve'});
+    await ajax.get('/api/auth/mobile_code/', {mobile: accountInput.val(), type: 'retrieve'});
     canResent = false;
     updateDisplay(60);
   } catch (err) {
@@ -123,24 +118,23 @@ nextBtn.on('click', async (e) => {
 
   // validate
   if (!account) {
-    displayError(accountInput, '<i class="icon-cuowutishi"></i> 请输入手机号或者邮箱');
+    displayError(accountInput, '<i class="icon-cuowutishi"></i> 请输入手机号');
     return;
-  } else if (validatePhone(account)) {
+  }
+
+  type = 'mobile';
+  if (!validatePhone(account)) {
     // mobile
-    type = 'mobile';
-  } else if (validateEmail(account)) {
-    // email
-    type = 'email';
-  } else {
-    displayError(accountInput, '<i class="icon-cuowutishi"></i> 手机号或者邮箱格式错误');
+    displayError(accountInput, '<i class="icon-cuowutishi"></i> 手机号格式错误');
     return;
   }
 
   if (type === 'mobile') {
     // send pollcode
     try {
-      await $.get('/api/auth/mobile_code/', {mobile: account, type: 'retrieve'});
+      await ajax.get('/api/auth/mobile_code/', {mobile: account, type: 'retrieve'});
     } catch (err) {
+      console.log(err);
       displayError(accountInput, '<i class="icon-cuowutishi"></i> 电话号码不存在');
       return;
     }
@@ -168,7 +162,7 @@ nextBtn.on('click', async (e) => {
   } else {
     // send email
     try {
-      await $.get('/api/auth/retrieve_send_email/', {email: account});
+      await ajax.get('/api/auth/retrieve_send_email/', {email: account});
     } catch (err) {
       displayError(accountInput, '<i class="icon-cuowutishi"></i> 邮箱不存在');
       return;
@@ -191,12 +185,14 @@ forgotForm.on('submit', (e) => {
   // validate
   let valid = false;
   valid = validateForm(formData);
+  formData.password = sha1(formData.password.trim());
+  formData.confirmPassword = sha1(formData.confirmPassword.trim());
   if (valid) {
     loading.show();
-    $.post('/api/auth/forgot', formData)
+    ajax.post('/api/auth/forgot/', formData)
     .then((data) => {
       loading.hide();
-      window.location.href = '/login/?type=' + type;
+      window.location.href = '/account/login/';
     }, (err) => {
       loading.hide();
       const errorCode = err.responseJSON.error.code;

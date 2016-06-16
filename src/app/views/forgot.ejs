@@ -38,20 +38,19 @@
 
 <div class="forgot">
   <% include partials/topBanner %>
-  <div class="content">
+  <div class="container">
     <form class="forgot-form" id="forgot-form" >
       <div class="form-group clearfix">
         <div class="forgot-title pull-left">密码找回</div>
       </div>
       <div class="account-part">
         <div class="form-group">
-          <input type="text" name="account" class="form-control input-lg" placeholder="请输入邮箱或手机号" id="account-input">
+          <input type="tel" name="account" class="form-control input-lg" placeholder="请输入手机号" id="account-input">
           <div id="account-input-error" class="error-tip" style="display: none;"></div>
         </div>
         <div>
-          <button class="btn btn-danger-outline btn-lg next-btn"
+          <button class="btn btn-primary-outline btn-block"
             id="next-btn"
-            style="width: 100%; margin-top: 10px"
             type="button">
             下一步
           </button>

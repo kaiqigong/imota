@@ -1,38 +1,24 @@
-<div class="form-group clearfix">
-  <i class="icon-mobile mobile-icon pull-left"></i>
-  <div class="register-title pull-left">手机注册</div>
-  <a class="pull-right switch" href="/register/?type=email">
-    邮箱注册
-  </a>
-</div>
 <div class="form-group">
-  <input type="text" name="mobile" class="form-control input-lg" placeholder="请填写手机号码" id="mobile-input">
-  <div id="mobile-input-error" class="error-tip" style="display: none;">
-    <i class="icon-cuowutishi"></i>
+  <input type="text" name="username" value="<%= vm['username'] %>" class="form-control input-lg" placeholder="请填写手机号码" id="mobile-input">
+  <div id="mobile-input-error" class="error-tip" style="<%= errors['username'] ? '' : 'display: none;' %>">
+    <i class="icon-cuowutishi"></i><%= errors['username'] || '' %>
   </div>
 </div>
 <div class="form-group">
-  <input type="password" name="password" class="form-control input-lg" placeholder="密码" id="password-input">
-  <div id="password-input-error" class="error-tip" style="display: none;">
+  <input type="password" name="password" value="<%= vm['password'] %>" class="form-control input-lg" placeholder="密码" id="password-input">
+  <div id="password-input-error" class="error-tip" style="<%= errors['password'] ? '' : 'display: none;' %>">
+    <i class="icon-cuowutishi"></i><%= errors['password'] || '' %>
   </div>
 </div>
-<div class="form-group">
-  <input type="text" name="captcha" class="form-control input-lg captcha-input" id="captcha-input" placeholder="验证码">
-  <a class="btn btn-default-outline get-captcha-btn btn-lg pull-right" id="get-captcha-btn">
-    <img src="/captcha.jpg/?r=<%= Date.now() %>" class="captcha" id="captcha">
-  </a>
-  <div id="captcha-input-error" class="error-tip" style="display: none;">
+
+<% if (errors.server) { %>
+  <div id="server-error" class="error-tip">
+    <%= errors['server'] %>
   </div>
-</div>
+<% } %>
+
 <div class="form-group">
-  <input type="text" name="code" class="form-control input-lg code-input" id="code-input" placeholder="短信动态码">
-  <a class="btn btn-primary-outline get-code-btn btn-lg pull-right" id="get-code-btn">获取动态码</a>
-  <div id="code-input-error" class="error-tip" style="display: none;">
-  </div>
-</div>
-<input type="hidden" name="type" value="mobile">
-<div class="form-group">
-  <button type="submit" class="btn btn-danger btn-lg register-btn" id="mobile-register-btn">
+  <button type="submit" class="btn btn-primary-outline btn-block register-btn" id="mobile-register-btn">
     注册
   </button>
 </div>

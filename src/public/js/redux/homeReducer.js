@@ -14,6 +14,8 @@ import homework from './homework';
 import pronunciationHomework from './pronunciationHomework';
 import newhomework from './newhomework';
 import doingNewhomework from './doingNewhomework';
+import learningHistories from './learningHistories';
+import auth from './auth';
 import {combineReducers} from 'redux';
 
 export default combineReducers({
@@ -33,4 +35,6 @@ export default combineReducers({
   newhomework,
   doingNewhomework,
   pronunciationHomework,
+  learningHistories,
+  auth,
 });

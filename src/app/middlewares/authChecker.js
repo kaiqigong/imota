@@ -6,11 +6,22 @@ import compose from 'composable-middleware';
 const verifySession = () => {
   return compose()
   .use((req, res, next) => {
-    if (req.session.loginUser) {
-      req.user = req.session.loginUser;
+    if (req.session.loginAccount) {
+      req.user = req.session.loginAccount;
       return next();
     }
     return next({message: '无法验证用户信息', status: 401});
+  });
+};
+
+const requireLogin = () => {
+  return compose()
+  .use((req, res, next) => {
+    if (req.session.loginAccount) {
+      req.user = req.session.loginAccount;
+      return next();
+    }
+    return res.redirect('/account/login/?r=' + encodeURIComponent(req.headers.referer || '/'));
   });
 };
 
@@ -22,7 +33,7 @@ const hasRole = (roleRequired) => {
     throw new Error('Required role needs to be set');
   }
   return compose()
-  .use(verifySession())
+  .use(requireLogin())
   .use((req, res, next) => {
     if (req.user.roles && req.user.roles.indexOf(roleRequired) > -1) {
       return next();
@@ -34,4 +45,5 @@ const hasRole = (roleRequired) => {
 export default {
   verifySession,
   hasRole,
+  requireLogin,
 };

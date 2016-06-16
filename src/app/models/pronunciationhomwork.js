@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose, {Schema} from 'mongoose';
 import BaseSchema from './BaseSchema';
 
 const schema = BaseSchema.extend({
@@ -11,6 +11,10 @@ const schema = BaseSchema.extend({
   nickname: { type: String },
   serverId: { type: String },
   serverIds: [String],
+  accountId: {
+    type: Schema.Types.ObjectId,
+    ref: 'account',
+  },
 });
 
 export default mongoose.model('pronunciationHomework', schema);
