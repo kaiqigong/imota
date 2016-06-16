@@ -15,7 +15,6 @@ const schema = BaseSchema.extend({
   accountId: {
     type: Schema.Types.ObjectId,
     ref: 'account',
-    required: true
   },
   referer: { type: String },
 });

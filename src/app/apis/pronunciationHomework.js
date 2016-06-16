@@ -63,7 +63,7 @@ router.post('/', async (req, res, next) => {
 
     const lessonActivity = await LessonActivity.findOne({_id: lessonActivityId});
     const homeworkName = `${nickname}-${lessonActivity.courseNo}-${lessonActivity.lessonNo}朗读作业`;
-    const homework = new Homework({lessonNo: lessonActivity.lessonNo, courseNo: lessonActivity.courseNo, homeworkName, nickname, time, serverIds, audios, audio});
+    const homework = new Homework({lessonNo: lessonActivity.lessonNo, courseNo: lessonActivity.courseNo, homeworkName, nickname, time, serverIds, audios, audio, accountId: req.loginAccount._id});
     await homework.save();
     res.send(homework);
   } catch (err) {
