@@ -42,11 +42,14 @@ class Header extends Component {
                 </div>
               </li>
             }
-            <li className="nav-item pull-xs-right">
-              <a className="nav-link" onClick={() => this.openSidebar()}>
-                <i className="icon-hamburger" />
-              </a>
-            </li>
+            {
+              this.props.children && this.props.children.length &&
+              <li className="nav-item pull-xs-right">
+                <a className="nav-link" onClick={() => this.openSidebar()}>
+                  <i className="icon-hamburger" />
+                </a>
+              </li>
+            }
           </ul>
         </nav>
         {
