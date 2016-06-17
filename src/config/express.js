@@ -62,6 +62,15 @@ export default (app, config) => {
   app.use(methodOverride());
 
   app.use(beat);
+
+  app.use(async (req, res, next) => {
+    if (/\/test\/account\/weixin\//.test(req.url)) {
+      console.log(req.headers.referer);
+      return res.redirect(301, 'http://test.holdqq.com/' + req.url.replace('/test', ''));
+    }
+    return next();
+  });
+
   // api 路由定义
   app.use('/api/auth/', require('../app/apis/auth'));
   app.use('/api/courses/', require('../app/apis/course'));
@@ -74,10 +83,6 @@ export default (app, config) => {
   app.use('/api/pronunciation_homeworks/', require('../app/apis/pronunciationHomework'));
   app.use('/api/behaviors/', require('../app/apis/behavior'));
 
-  app.get('/test/account/weixin/', async (req, res, next) => {
-    console.log(req.headers.referer);
-    res.redirect(301, 'http://test.holdqq.com/' + req.url.replace('/test', ''));
-  });
 
   // 页面路由定义
   app.use('/', require('../app/controllers/home'));
