@@ -74,6 +74,11 @@ export default (app, config) => {
   app.use('/api/pronunciation_homeworks/', require('../app/apis/pronunciationHomework'));
   app.use('/api/behaviors/', require('../app/apis/behavior'));
 
+  app.get('/test/account/weixin/', async (req, res, next) => {
+    console.log(req.headers.referer);
+    res.redirect(301, 'http://test.holdqq.com/' + req.url.replace('/test', ''));
+  });
+
   // 页面路由定义
   app.use('/', require('../app/controllers/home'));
   app.use('/account', require('../app/controllers/account'));

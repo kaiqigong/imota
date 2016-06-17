@@ -78,11 +78,6 @@ const generateWechatAuthUrl = (state) => {
   return result;
 }
 
-router.get('/test/weixin/', async (req, res, next) => {
-  console.log(req.headers.referer);
-  res.redirect(301, 'http://test.holdqq.com/' + req.url.replace('/test', ''));
-});
-
 router.get('/weixin/', async (req, res, next) => {
   try {
     const {code} = req.query;
