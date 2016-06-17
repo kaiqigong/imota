@@ -17,4 +17,12 @@
     </h5>
   </div>
 </div>
-<script>window.scott || document.write('<script src="/js/home.js">\x3C/script>')</script>
+<script>
+  window.addEventListener('load', () => {
+    if (!window.scott) {
+      var script = document.createElement('SCRIPT');
+      script.src = '/js/home.js';
+      document.body.appendChild(script);
+    }
+  });
+</script>
