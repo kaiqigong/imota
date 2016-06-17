@@ -63,10 +63,9 @@ export default (app, config) => {
 
   app.use(beat);
 
-  app.use(async (req, res, next) => {
+  app.use((req, res, next) => {
     if (/\/test\/account\/weixin\//.test(req.url)) {
-      console.log(req.headers.referer);
-      return res.redirect(301, 'http://test.holdqq.com/' + req.url.replace('/test', ''));
+      return res.redirect(301, 'http://test.holdqq.com' + req.url.replace('/test', ''));
     }
     return next();
   });
