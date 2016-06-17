@@ -39,6 +39,8 @@ const downloadFileFromWechat = async (accessToken, serverId) => {
         console.log(`stderr: ${stderr}`);
         resolve(outputFilePath);
       });
+      // 异步上传amr
+      uploadFileToQiniu(filename);
     });
   });
 };
