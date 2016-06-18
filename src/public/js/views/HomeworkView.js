@@ -77,7 +77,7 @@ class HomeworkView extends Component {
     // }
     const {serverIds, errors, lesson, courseNo, nickname, playing, type, created, audio} = homework;
     if (!serverIds) {
-      return <div>Loading...</div>;
+      return <div className="text-muted text-xs-center">加载中，请稍候<i className="icon-loadingdots spin text-bottom"/></div>;
     }
     if (serverIds) {
       setTitle(`${nickname}的${type === 'translate' ? '翻译' : '跟读'}作品`);

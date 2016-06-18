@@ -42,9 +42,30 @@ class AudioPlayer extends Component {
     const src2 = document.createElement('SOURCE');
     src2.src = mp3[0];
     src2.type = 'audio/mpeg';
-
     audio.appendChild(src2);
     audio.appendChild(src1);
+
+    const len = audio.children.length;
+    let index;
+    this.errCount = 0;
+    for (index = 0; index < len; index++) {
+      audio.children[index].onerror = (e) => {
+        ajax.post('/api/behaviors/', {
+          scope: 'audioPlayer',
+          action: 'srcFail',
+          value: JSON.stringify({src: e.target.src})});
+        this.errCount++;
+        if (this.errCount === len) {
+          this.state.error = e;
+          this.setState(this.state);
+          ajax.post('/api/behaviors/', {
+            scope: 'audioPlayer',
+            action: 'fail',
+            value: JSON.stringify({src: e.target.src})});
+        }
+      }
+    }
+
     audio.autoplay = props.autoplay;
   }
 
@@ -56,8 +77,7 @@ class AudioPlayer extends Component {
     audio.oncanplay = this::this._onLoaded;
     audio.oncancel = this::this._onEvent;
     this.initDate = new Date();
-      audio.load();
-
+    audio.load();
   }
 
   componentWillUnmount() {
@@ -68,6 +88,13 @@ class AudioPlayer extends Component {
     audio.oncanplay = null;
     audio.oncancel = null;
     audio.pause();
+  }
+
+  reload() {
+    this.errCount = 0;
+    this.state.error = null;
+    this.setState(this.state);
+    audio.load();
   }
 
   _onLoaded(e) {
@@ -98,7 +125,6 @@ class AudioPlayer extends Component {
       scope: 'audioPlayer',
       action: 'play',
       value: e.target.currentSrc});
-    _hmt.push(['_trackEvent', 'audio', 'play', e.target.currentSrc]);
     this.state.playing = true;
     this.setState(this.state);
   }
@@ -110,7 +136,6 @@ class AudioPlayer extends Component {
       scope: 'audioPlayer',
       action: 'fail',
       value: JSON.stringify({code: audio.error.code, src: e.target.currentSrc})});
-    _hmt.push(['_trackEvent', 'audio', 'fail', e.target.currentSrc, audio.error.code]);
   }
 
   _onEvent(e) {
@@ -131,7 +156,7 @@ class AudioPlayer extends Component {
       <div>
         {
           this.state.error ?
-          <span>
+          <span onClick={this::this.reload}>
             {
               this.props.children && this.props.children[2] ?
               this.props.children[2]
@@ -143,7 +168,7 @@ class AudioPlayer extends Component {
           </span>
           :
           this.state.playing ?
-          <span onTouchStart={this::this.togglePlay}>
+          <span onClick={this::this.togglePlay}>
             {
               this.props.children && this.props.children[0] ?
               this.props.children[0]
@@ -154,7 +179,7 @@ class AudioPlayer extends Component {
             }
           </span>
           :
-          <span onTouchStart={this::this.togglePlay}>
+          <span onClick={this::this.togglePlay}>
             {
               this.props.children && this.props.children[1] ?
               this.props.children[1]

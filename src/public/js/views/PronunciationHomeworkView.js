@@ -75,7 +75,7 @@ class PronunciationHomeworkView extends Component {
     // }
     const {serverIds, errors, courseNo, playing, created, homeworkName, audios, audio} = pronunciationHomework;
     if (!serverIds) {
-      return <div>Loading...</div>;
+      return <div className="text-muted text-xs-center">加载中，请稍候<i className="icon-loadingdots spin text-bottom"/></div>;
     }
     if (serverIds) {
       setTitle(homeworkName);

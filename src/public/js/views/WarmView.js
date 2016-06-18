@@ -54,8 +54,11 @@ class WarmView extends Component {
     const {courseNo, lessonNo} = this.props.params;
     const {query} = this.props.location;
     const type = query.type || 'listen';
+    if (errors && errors.list) {
+      return <div className="text-danger text-xs-center">加载失败<i className="icon-cuowutishi text-bottom" /> <a onClick={()=>{location.reload()}}>重试</a></div>
+    }
     if (!lesson) {
-      return <div>Loading...</div>;
+      return <div className="text-muted text-xs-center">加载中，请稍候<i className="icon-loadingdots spin text-bottom"/></div>;
     }
     if (lesson) {
       setTitle(`热身 ${lesson.englishTitle}`);
@@ -155,20 +158,6 @@ class WarmView extends Component {
               to={`/home/courses/${courseNo}/lessons/${lessonNo}/newhomework/?type=${type || 'listen'}`} />
           </div>
         </div>
-        {/*<nav className="navbar navbar-fixed-bottom bottom-nav">
-          <ul className="nav navbar-nav">
-            <li className="col-xs-10 col-xs-offset-1 text-xs-center">
-              <Link className="bottom-nav-btn btn btn-primary-outline col-xs-12" to={`/home/courses/${lesson.courseNo}/lessons/${lesson.lessonNo}/${type || 'listen'}/1`} >
-                开始训练
-              </Link>
-              <Link className="bottom-nav-btn btn btn-link col-xs-12"
-                to={`/home/courses/${courseNo}/lessons/${lessonNo}/newhomework/?type=${type || 'listen'}`}
-                style={{'marginTop': '0.5rem'}}>
-                直接打Boss
-              </Link>
-            </li>
-          </ul>
-        </nav>*/}
       </div>
     );
   }

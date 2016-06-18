@@ -20,7 +20,9 @@ class LessonList extends Component {
           pageStart={1}
           loadMore={this.props.loadMore}
           hasMore={hasMore}
-          loader={<div className="loader">Loading...</div>}>
+          loader={<div className="loader">
+            <i className="icon-loadingdots spin" />
+          </div>}>
           {docs.map((lesson) => {
             return (
               <Lesson key={lesson._id} lesson={lesson} type={this.props.type} />

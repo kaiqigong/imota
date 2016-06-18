@@ -36,9 +36,16 @@ class PronunciationCoursesView extends Component {
             </li>
           </ul>
         </nav>
-        <PronunciationCourseList
-          loadMore={(page) => this.props.fetchMorePronunciationCoursesAsync(page)}
-          courses={this.props.pronunciationCourses} />
+        <h2 className="text-xs-center">发音语调训练</h2>
+        <p className="text-xs-center subtitle">Pronunciation and Intonation</p>
+        {
+          this.props.pronunciationCourses.total ?
+          <PronunciationCourseList
+            loadMore={(page) => this.props.fetchMorePronunciationCoursesAsync(page)}
+            courses={this.props.pronunciationCourses} />
+          :
+          <div className="text-muted text-xs-center">加载中，请稍候<i className="icon-loadingdots spin text-bottom"/></div>
+        }
       </div>
     );
   }

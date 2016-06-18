@@ -56,7 +56,7 @@ class DoingNewhomeworkView extends Component {
     const {query} = this.props.location;
     const type = query.type || 'listen';
     if (!lesson) {
-      return <div>Loading...</div>;
+      return <div className="text-muted text-xs-center">加载中，请稍候<i className="icon-loadingdots spin text-bottom"/></div>;
     }
     if (lesson) {
       setTitle(`打Boss ${lesson.englishTitle}`);

@@ -13,6 +13,9 @@
   padding-right: 0;
   padding-left: 0;
 }
+.text-bottom {
+  vertical-align: bottom;
+}
 
 .error-tip {
   font-size: 1rem;
@@ -44,6 +47,12 @@
 
 .hidden {
   visibility: hidden;
+}
+
+.loader {
+  text-align: center;
+  font-size: 1.5rem;
+  color: $dark-blue
 }
 
 .icon-loading.spin {

@@ -42,6 +42,9 @@ class LearningHistoriesView extends Component {
     const hasMore = docs.length < total;
 
     setTitle('我的主页');
+    if (!todayLearningTime) {
+      return <div className="text-muted text-xs-center">加载中，请稍候<i className="icon-loadingdots spin text-bottom"/></div>;
+    }
 
     return (
       <div>
@@ -82,7 +85,9 @@ class LearningHistoriesView extends Component {
               pageStart={1}
               loadMore={(page) => this.props.fetchMoreLearningHistoriesAsync(page)}
               hasMore={hasMore}
-              loader={<div className="loader">Loading...</div>}>
+              loader={<div className="loader">
+                <i className="icon-loadingdots spin" />
+              </div>}>
               {docs.map((learningHistory) => {
                 return (
                   <div className="col-xs-12 clearfix learning-history" key={learningHistory._id}>{new Date(learningHistory.date).toLocaleDateString()} <span className="pull-xs-right">{Math.round(learningHistory.learningTime)}分钟</span></div>

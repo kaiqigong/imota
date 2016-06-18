@@ -35,6 +35,7 @@ export const fetchPronunciationLessonsActivityAsync = (courseNo, lessonNo) => {
       dispatch(receviedPronunciationLessonsActivity(response));
     } catch (err) {
       console.error('fetch pronunciation lessons activity error', err);
+      dispatch(displayErrors({list: err}));
     }
   };
 };
@@ -44,6 +45,7 @@ export const endPronunciationHomeworkAsync = (localIds) => {
       const {time} = await ajax.get('/api/stats/');
       dispatch(endPronunciationHomework({localIds, time}));
     } catch (err) {
+      dispatch(displayErrors({server: err}));
       console.remote('redux/doingHomework 54', err);
     }
   };

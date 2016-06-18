@@ -16,13 +16,13 @@ class PronunciationCourseList extends Component {
     const hasMore = docs.length < total;
     return (
       <div className="pronunciation-course-list">
-        <h2 className="text-xs-center">发音语调训练</h2>
-        <p className="text-xs-center subtitle">Pronunciation and Intonation</p>
         <InfiniteScroll
           pageStart={1}
           loadMore={this.props.loadMore}
           hasMore={hasMore}
-          loader={<div className="loader">Loading...</div>}>
+          loader={<div className="loader">
+            <i className="icon-loadingdots spin" />
+          </div>}>
           {docs.map((course) => {
             return (
               <PronunciationCourse key={course._id} course={course} type={this.props.type} />

@@ -39,7 +39,12 @@ class CoursesView extends Component {
         </nav>
         <h2 className="text-xs-center">{type === 'listen' ? '听力训练' : '口语训练'}</h2>
         <p className="text-xs-center subtitle">{type === 'listen' ? 'Listening' : 'Speaking'}</p>
-        <CourseList courses={this.props.courses} loadMore={this.props.fetchMoreCoursesAsync} type={type} />
+        {
+          this.props.courses.total ?
+          <CourseList courses={this.props.courses} loadMore={this.props.fetchMoreCoursesAsync} type={type} />
+          :
+          <div className="text-muted text-xs-center">加载中，请稍候<i className="icon-loadingdots spin text-bottom"/></div>
+        }
       </div>
     );
   }

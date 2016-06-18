@@ -61,8 +61,11 @@ class ListenView extends Component {
     const sentence = sentences.docs.filter((x) => {
       return +x.sentenceNo === +sentenceNo && +x.lessonNo === +lessonNo && +x.courseNo === +courseNo;
     })[0];
+    if (this.props.sentences.errors && this.props.sentences.errors.list) {
+      return <div className="text-danger text-xs-center">加载失败<i className="icon-cuowutishi text-bottom" /> <a onClick={()=>{location.reload()}}>重试</a></div>;
+    }
     if (!sentence) {
-      return <div>Loading...</div>;
+      return <div className="text-muted text-xs-center">加载中，请稍候<i className="icon-loadingdots spin text-bottom"/></div>;
     }
     if (course && lesson && sentence) {
       setTitle(`${sentence.sentenceNo}/${sentences.docs.length} ${lesson.englishTitle}`);
