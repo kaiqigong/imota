@@ -182,6 +182,7 @@ class DoingHomeworkView extends Component {
           <a className="nav-link" onClick={() => this.props.toggleCollectionModal(true)} >存档</a>
           <a className="nav-link" onClick={() => this.props.toggleReviewModal(true)} >复习</a>
           <a className="nav-link" onClick={() => this.props.toggleFeedbackModal(true)} >纠错</a>
+          <a className="nav-link" onClick={() => location.reload()}>刷新</a>
         </Header>
         <CollectionModal
           isOpen={showCollectionModal}

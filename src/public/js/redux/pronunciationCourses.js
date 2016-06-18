@@ -18,6 +18,7 @@ export const fetchPronunciationCoursesAsync = () => {
       const response = await ajax.get('/api/pronunciation_courses/', {page: 1});
       dispatch(receivedPronunciationCourses(response));
     } catch (err) {
+      dispatch(receivedPronunciationCourses({errors: err, docs: []}));
       console.remote('redux/pronunciationCourses 21', err.toString());
     }
   };
