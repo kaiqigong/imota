@@ -57,14 +57,30 @@ class PronunciationLessonActivityView extends Component {
 
   beginRecord() {
     this.props.beginRecord();
-    wx.startRecord();
+    wx.startRecord({
+      success: (err) => {
+        console.remote('views/PronunciationLessonActivityView 82-0', 'Start Recording');
+      },
+      fail: (err) => {
+        console.remote('views/PronunciationLessonActivityView 82-1', err);
+      }
+    });
     wx.onVoiceRecordEnd({
     // 录音时间超过一分钟没有停止的时候会执行 complete 回调
       complete: (res) => {
         this.localIds.push(res.localId);
+        console.remote('views/PronunciationLessonActivityView 82-2', 'Complte ' + this.localIds + ' with more than 1 min');
+
         // todo: start another record
         setTimeout(function() {
-          wx.startRecord();
+          wx.startRecord({
+            success: (err) => {
+              console.remote('views/PronunciationLessonActivityView 82-4', 'Start Recording Again');
+            },
+            fail: (err) => {
+              console.remote('views/PronunciationLessonActivityView 82-5', err);
+            }
+          });
         }, 100);
       },
       fail: (err) => {
@@ -78,6 +94,8 @@ class PronunciationLessonActivityView extends Component {
     wx.stopRecord({
       success: (res) => {
         this.localIds.push(res.localId);
+        console.remote('views/PronunciationLessonActivityView 82-6', 'Stop ' + this.localIds + 'Recording Success');
+
         // todo: end quiz
         this.props.endRecord(this.localIds);
         this.props.endPronunciationHomeworkAsync(this.localIds.slice());
