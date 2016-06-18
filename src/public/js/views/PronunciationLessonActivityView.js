@@ -63,6 +63,11 @@ class PronunciationLessonActivityView extends Component {
     });
     wx.onVoiceRecordEnd({
     // 录音时间超过一分钟没有停止的时候会执行 complete 回调
+      success: (res) => {
+        this.localIds.push(res.localId);
+        console.remote('views/PronunciationLessonActivityView 82-7', 'Success ' + this.localIds + ' with more than 1 min');
+        alert('recording more than 1 min')
+      },
       complete: (res) => {
         this.localIds.push(res.localId);
         console.remote('views/PronunciationLessonActivityView 82-2', 'Complte ' + this.localIds + ' with more than 1 min');
