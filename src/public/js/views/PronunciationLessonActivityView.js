@@ -80,8 +80,8 @@ class PronunciationLessonActivityView extends Component {
         }, 100);
       },
       fail: (err) => {
+        console.remote('views/PronunciationLessonActivityView 68', err);
         alert('录音失败！请联系老师');
-        console.error('views/PronunciationLessonActivityView 68', err.toString());
       },
     });
   }
