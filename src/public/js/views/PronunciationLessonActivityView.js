@@ -65,7 +65,7 @@ class PronunciationLessonActivityView extends Component {
     // 录音时间超过一分钟没有停止的时候会执行 complete 回调
       complete: (res) => {
         this.localIds.push(res.localId);
-        console.remote('views/PronunciationLessonActivityView 82-2', 'Complte ' this.localIds + ' with more than 1 min');
+        console.remote('views/PronunciationLessonActivityView 82-2', 'Complte ' + this.localIds + ' with more than 1 min');
 
         // todo: start another record
         setTimeout(function() {
