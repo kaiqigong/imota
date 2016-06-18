@@ -125,7 +125,16 @@ class DoingHomeworkView extends Component {
   }
 
   rework() {
-    location.reload();
+    wx.stopRecord({
+      success: (res) => {
+        this.localIds = [];
+        console.remote('views/DoingHomeworkView 100-7', 'Stop Recording And Reload');
+        location.reload();
+      },
+      fail: (err) => {
+        console.remote('views/DoingHomeworkView 75-2', err);
+      },
+    });
   }
 
   render() {
