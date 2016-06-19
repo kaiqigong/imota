@@ -95,29 +95,9 @@ class PronunciationHomeworkView extends Component {
           <div className="col-xs-12 video-block text-xs-center">
             <h4>{homeworkName}</h4>
             {
-              audio ?
-              <div>
-                合成后音频
-                <AudioPlayer audios={[audio]} key={audio} />
-              </div>
-              :
-              ''
+              audio &&
+              <AudioPlayer audios={[audio]} key={audio} />
             }
-            <div>
-              微信原始音频，本录音将于{expireDate}过期, 过期后将无法播放
-              {
-                serverIds.map((serverId) => {
-                  return (<div className="text-xs-center" key={serverId}>
-                    {
-                      playing[serverId] ?
-                      <i className="icon-pause audio-btn-sm" onTouchStart={() => this.pause(serverId)} />
-                      :
-                      <i className="icon-play audio-btn-sm" onTouchStart={() => this.play(serverId)} />
-                    }
-                  </div>);
-                })
-              }
-            </div>
             <p className="text-muted">
               一定要点击微信右上角菜单的分享，分享到微信群，老师才能看到你的作业
             </p>
