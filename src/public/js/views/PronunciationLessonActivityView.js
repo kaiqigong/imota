@@ -63,12 +63,8 @@ class PronunciationLessonActivityView extends Component {
             success: (res) => {
               this.localIds.push(res.localId);
               console.remote('views/PronunciationLessonActivityView 82-8', 'Stop ' + this.localIds + ' more than 55s');
-              console.remote('views/PronunciationLessonActivityView 82-9', this.timeoutId);
 
               clearTimeout(this.timeoutId);
-              console.remote('views/PronunciationLessonActivityView 82-10', this.timeoutId);
-              console.remote('views/PronunciationLessonActivityView 82-11', this.startWXRecord);
-
               this.startWXRecord();
             },
             fail: (err) => {
@@ -86,36 +82,10 @@ class PronunciationLessonActivityView extends Component {
   }
 
   beginRecord() {
-    this.props.beginRecord();
-    this.startWXRecord();
-    // wx.onVoiceRecordEnd({
-    // // 录音时间超过一分钟没有停止的时候会执行 complete 回调
-    //   success: (res) => {
-    //     this.localIds.push(res.localId);
-    //     console.remote('views/PronunciationLessonActivityView 82-7', 'Success ' + this.localIds + ' with more than 1 min');
-    //     alert('recording more than 1 min')
-    //   },
-    //   complete: (res) => {
-    //     this.localIds.push(res.localId);
-    //     console.remote('views/PronunciationLessonActivityView 82-2', 'Complte ' + this.localIds + ' with more than 1 min');
 
-    //     // todo: start another record
-    //     setTimeout(function() {
-    //       wx.startRecord({
-    //         success: (err) => {
-    //           console.remote('views/PronunciationLessonActivityView 82-4', 'Start Recording Again');
-    //         },
-    //         fail: (err) => {
-    //           console.remote('views/PronunciationLessonActivityView 82-5', err);
-    //         }
-    //       });
-    //     }, 100);
-    //   },
-    //   fail: (err) => {
-    //     console.remote('views/PronunciationLessonActivityView 68', err);
-    //     alert('录音失败！请联系老师');
-    //   },
-    // });
+    this.props.beginRecord();
+
+    this.startWXRecord();
   }
 
   endRecord() {
