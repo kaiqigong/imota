@@ -52,8 +52,7 @@ class PronunciationLessonActivityView extends Component {
     this.forceUpdate();
   }
 
-  beginRecord() {
-    this.props.beginRecord();
+  startWXRecord() {
     wx.startRecord({
       success: () => {
         console.remote('views/PronunciationLessonActivityView 82-0', 'Start Recording');
@@ -65,7 +64,8 @@ class PronunciationLessonActivityView extends Component {
               this.localIds.push(res.localId);
               console.remote('views/PronunciationLessonActivityView 82-8', 'Stop ' + this.localIds + 'more than 55s');
 
-
+              this.clearTimeout(this.timeoutId);
+              this.startWXRecord();
             },
             fail: (err) => {
               console.remote('views/PronunciationLessonActivityView 82-9', err);
@@ -79,38 +79,45 @@ class PronunciationLessonActivityView extends Component {
         console.remote('views/PronunciationLessonActivityView 82-1', err);
       }
     });
-    wx.onVoiceRecordEnd({
-    // 录音时间超过一分钟没有停止的时候会执行 complete 回调
-      success: (res) => {
-        this.localIds.push(res.localId);
-        console.remote('views/PronunciationLessonActivityView 82-7', 'Success ' + this.localIds + ' with more than 1 min');
-        alert('recording more than 1 min')
-      },
-      complete: (res) => {
-        this.localIds.push(res.localId);
-        console.remote('views/PronunciationLessonActivityView 82-2', 'Complte ' + this.localIds + ' with more than 1 min');
+  }
 
-        // todo: start another record
-        setTimeout(function() {
-          wx.startRecord({
-            success: (err) => {
-              console.remote('views/PronunciationLessonActivityView 82-4', 'Start Recording Again');
-            },
-            fail: (err) => {
-              console.remote('views/PronunciationLessonActivityView 82-5', err);
-            }
-          });
-        }, 100);
-      },
-      fail: (err) => {
-        console.remote('views/PronunciationLessonActivityView 68', err);
-        alert('录音失败！请联系老师');
-      },
-    });
+  beginRecord() {
+    this.props.beginRecord();
+    this.startWXRecord();
+    // wx.onVoiceRecordEnd({
+    // // 录音时间超过一分钟没有停止的时候会执行 complete 回调
+    //   success: (res) => {
+    //     this.localIds.push(res.localId);
+    //     console.remote('views/PronunciationLessonActivityView 82-7', 'Success ' + this.localIds + ' with more than 1 min');
+    //     alert('recording more than 1 min')
+    //   },
+    //   complete: (res) => {
+    //     this.localIds.push(res.localId);
+    //     console.remote('views/PronunciationLessonActivityView 82-2', 'Complte ' + this.localIds + ' with more than 1 min');
+
+    //     // todo: start another record
+    //     setTimeout(function() {
+    //       wx.startRecord({
+    //         success: (err) => {
+    //           console.remote('views/PronunciationLessonActivityView 82-4', 'Start Recording Again');
+    //         },
+    //         fail: (err) => {
+    //           console.remote('views/PronunciationLessonActivityView 82-5', err);
+    //         }
+    //       });
+    //     }, 100);
+    //   },
+    //   fail: (err) => {
+    //     console.remote('views/PronunciationLessonActivityView 68', err);
+    //     alert('录音失败！请联系老师');
+    //   },
+    // });
   }
 
   endRecord() {
-    this.clearTimeout(this.timeoutId);
+    if (this.timeoutId) {
+      this.clearTimeout(this.timeoutId);
+    }
 
     wx.stopRecord({
       success: (res) => {
