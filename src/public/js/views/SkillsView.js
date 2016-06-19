@@ -5,6 +5,7 @@ import PronunciationModal from '../components/PronunciationModal';
 import { connect } from 'react-redux';
 import {actions as authActions} from '../redux/auth';
 import Avatar from '../components/Avatar2';
+import Dropdown from '../components/Dropdown';
 
 const mapStateToProps = ({auth}) => ({
   auth,
@@ -25,11 +26,11 @@ class SkillsView extends Component {
     return (
       <div className="skill-list">
         {
-          auth && auth.nickname ?
-          <Link className="avatar-link" to="/home/learning_histories/">
-            <Avatar className="avatar-img" image={auth.avatar || '/img/default_avatar.png'} />
-          </Link>
-          : ''
+          auth && auth.nickname &&
+          <Dropdown className="avatar-link" dropdownToggle={<Avatar className="avatar-img" image={auth.avatar || '/img/default_avatar.png'} />}>
+            <a href="/account/me/">个人信息</a>
+            <Link to="/home/learning_histories/">学习轨迹</Link>
+          </Dropdown>
         }
         <h2 className="text-xs-center slogan">Wind教口语</h2>
         <Link className="text-xs-center skill-link pronunciation-item" to="/home/pronunciation_courses/">

@@ -1,0 +1,27 @@
+@import "./_variables";
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown-toggle {
+}
+
+.dropdown-menu {
+  padding: 0.5rem;
+  z-index: 1032;
+}
+
+.dropdown-overlay {
+  z-index: 1031;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transition: background .3s;
+  display: none;
+  &.open {
+    display: block;
+  }
+}

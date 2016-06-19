@@ -29,19 +29,27 @@ const calc = async () => {
       // account info
       learningHistory.accountId = accountId;
       const account = await Account.find({_id: accountId});
-      learningHistory.nickname = account.nickname;
-      learningHistory.classe = account.classe;
+      if (Account) {
+        learningHistory.nickname = account.nickname;
+        learningHistory.classe = account.classe;
+      }
 
       await learningHistory.save();
 
       // homework
-      const homeworks = await Homework.find({accountId, created: {$gt: date}});
+      const homeworks = await Homework.find({
+        accountId,
+        created: {$gt: date}
+      });
       homeworks.forEach(function(homework) {
         homework.learningHistory = learningHistory._id;
         homework.save();
       });
 
-      const pronunciationHomeworks = await PronunciationHomework.find({accountId, created: {$gt: date}});
+      const pronunciationHomeworks = await PronunciationHomework.find({
+        accountId,
+        created: {$gt: date}
+      });
       pronunciationHomeworks.forEach(function(pronunciationHomework) {
         pronunciationHomework.learningHistory = learningHistory._id;
         pronunciationHomework.save();
@@ -69,6 +77,7 @@ const calc = async () => {
       } else {
         learningHistory.totalLearningTime = learningHistory.learningTime;
       }
+
       await learningHistory.save();
     }
     process.exit(0);
