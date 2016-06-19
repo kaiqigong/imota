@@ -12,6 +12,10 @@ import ErrorTip from '../components/ErrorTip';
 import ScrollingView from '../components/ScrollingView';
 import history from '../common/history';
 import setTitle from '../common/setTitle';
+import Header from '../components/Header';
+import CollectionModal from '../components/CollectionModal';
+import FeedbackModal from '../components/FeedbackModal';
+import ReviewModal from '../components/ReviewModal';
 
 const mapStateToProps = ({pronunciationLessonActivity, wxsdk}) => ({
   pronunciationLessonActivity, wxsdk,
@@ -150,7 +154,7 @@ class PronunciationLessonActivityView extends Component {
 
   render() {
     const {pronunciationLessonActivity, wxsdk, params} = this.props;
-    const {docs, recording, localIds, lesson, errors, uploadingRecord} = pronunciationLessonActivity;
+    const {docs, recording, localIds, lesson, errors, uploadingRecord, showCollectionModal, showReviewModal, showFeedbackModal} = pronunciationLessonActivity;
     let {activityIndex} = this.props.params;
     if (!activityIndex) {
       activityIndex = 0;
@@ -184,20 +188,21 @@ class PronunciationLessonActivityView extends Component {
     }
     return (
       <div className="pronunciation-activity-view clearfix">
-        <nav className="navbar">
-          <ul className="nav navbar-nav">
-            <li className="nav-item">
-              <Link className="nav-link" to={`/home/pronunciation_courses/${courseNo}/lessons/`}>
-                <i className="icon-lesson" />
-              </Link>
-            </li>
-            <li className="nav-item nav-item-progress-bar">
-              <div className="progress-bar">
-                <Progress percent={currentProgress}/>
-              </div>
-            </li>
-          </ul>
-        </nav>
+        <Header back={`/home/pronunciation_courses/${courseNo}/lessons/`} currentProgress={currentProgress}>
+          <a className="nav-link" onClick={() => this.props.toggleCollectionModal(true)} >存档</a>
+          <a className="nav-link" onClick={() => this.props.toggleReviewModal(true)} >复习</a>
+          <a className="nav-link" onClick={() => this.props.toggleFeedbackModal(true)} >纠错</a>
+          <a className="nav-link" onClick={() => location.reload()}>刷新</a>
+        </Header>
+        <CollectionModal
+          isOpen={showCollectionModal}
+          onRequestClose={() => this.props.toggleCollectionModal(false)} />
+        <ReviewModal
+          isOpen={showReviewModal}
+          onRequestClose={() => this.props.toggleReviewModal(false)} />
+        <FeedbackModal
+          isOpen={showFeedbackModal}
+          onRequestClose={() => this.props.toggleFeedbackModal(false)} />
         {
           lesson ?
           <div>

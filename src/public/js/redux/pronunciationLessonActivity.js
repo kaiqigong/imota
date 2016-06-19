@@ -15,6 +15,10 @@ export const UPLOADING_RECORD = 'UPLOADING_RECORD';
 export const CLEAR_RECORDS = 'CLEAR_RECORDS';
 export const BEGIN_SUBMIT = 'BEGIN_SUBMIT';
 export const PRONUNCIATION_LESSON_ACTIVITY_INIT = 'PRONUNCIATION_LESSON_ACTIVITY_INIT';
+export const TOGGLE_COLLECTION_MODAL = 'TOGGLE_COLLECTION_MODAL';
+export const TOGGLE_REVIEW_MODAL = 'TOGGLE_REVIEW_MODAL';
+export const TOGGLE_FEEDBACK_MODAL = 'TOGGLE_FEEDBACK_MODAL';
+
 // ------------------------------------
 // Actions
 // ------------------------------------
@@ -28,6 +32,10 @@ export const uploadingRecord = createAction(UPLOADING_RECORD, (payload) => paylo
 export const endPronunciationHomework = createAction(END_PRONUNCIATION_HOMEWORK, (payload) => payload);
 export const clearRecords = createAction(CLEAR_RECORDS, (payload) => payload);
 export const beginSubmit = createAction(BEGIN_SUBMIT, (payload) => payload);
+export const toggleCollectionModal = createAction(TOGGLE_COLLECTION_MODAL, (payload) => payload);
+export const toggleReviewModal = createAction(TOGGLE_REVIEW_MODAL, (payload) => payload);
+export const toggleFeedbackModal = createAction(TOGGLE_FEEDBACK_MODAL, (payload) => payload);
+
 export const fetchPronunciationLessonsActivityAsync = (courseNo, lessonNo) => {
   return async (dispatch) => {
     try {
@@ -113,6 +121,9 @@ export const actions = {
   clearRecords,
   beginSubmit,
   pronunciationLessonActivityInit,
+  toggleCollectionModal,
+  toggleReviewModal,
+  toggleFeedbackModal,
 };
 
 // ------------------------------------
@@ -154,6 +165,18 @@ export default handleActions({
   },
   [BEGIN_SUBMIT]: (state) => {
     state.submitting = true;
+    return Object.assign({}, state);
+  },
+  [TOGGLE_COLLECTION_MODAL]: (state, {payload}) => {
+    state.showCollectionModal = payload;
+    return Object.assign({}, state);
+  },
+  [TOGGLE_REVIEW_MODAL]: (state, {payload}) => {
+    state.showReviewModal = payload;
+    return Object.assign({}, state);
+  },
+  [TOGGLE_FEEDBACK_MODAL]: (state, {payload}) => {
+    state.showFeedbackModal = payload;
     return Object.assign({}, state);
   },
 }, {docs: [], activityIndex: 0});

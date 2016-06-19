@@ -44,6 +44,9 @@ class PronunciationCoursesView extends Component {
             loadMore={(page) => this.props.fetchMorePronunciationCoursesAsync(page)}
             courses={this.props.pronunciationCourses} />
           :
+          this.props.pronunciationCourses.errors ?
+          <div className="text-danger text-xs-center">加载失败<i className="icon-cuowutishi text-bottom" /> <a onClick={()=>{location.reload()}}>重试</a></div>
+          :
           <div className="text-muted text-xs-center">加载中，请稍候<i className="icon-loadingdots spin text-bottom"/></div>
         }
       </div>

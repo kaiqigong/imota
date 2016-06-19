@@ -125,7 +125,16 @@ class DoingHomeworkView extends Component {
   }
 
   rework() {
-    location.reload();
+    wx.stopRecord({
+      success: (res) => {
+        this.localIds = [];
+        console.remote('views/DoingHomeworkView 100-7', 'Stop Recording And Reload');
+        location.reload();
+      },
+      fail: (err) => {
+        console.remote('views/DoingHomeworkView 75-2', err);
+      },
+    });
   }
 
   render() {
@@ -201,6 +210,7 @@ class DoingHomeworkView extends Component {
           <a className="nav-link" onClick={() => this.props.toggleCollectionModal(true)} >存档</a>
           <a className="nav-link" onClick={() => this.props.toggleReviewModal(true)} >复习</a>
           <a className="nav-link" onClick={() => this.props.toggleFeedbackModal(true)} >纠错</a>
+          <a className="nav-link" onClick={() => location.reload()}>刷新</a>
         </Header>
         <CollectionModal
           isOpen={showCollectionModal}
