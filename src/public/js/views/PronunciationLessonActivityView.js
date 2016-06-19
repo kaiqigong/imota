@@ -56,7 +56,7 @@ class PronunciationLessonActivityView extends Component {
     this.forceUpdate();
   }
 
-  startWXRecord() {
+  startRecord() {
     wx.startRecord({
       success: () => {
         console.remote('views/PronunciationLessonActivityView 82-0', 'Start Recording');
@@ -69,7 +69,7 @@ class PronunciationLessonActivityView extends Component {
               console.remote('views/PronunciationLessonActivityView 82-8', 'Stop ' + this.localIds + ' more than 55s');
 
               clearTimeout(this.timeoutId);
-              this.startWXRecord();
+              this.startRecord();
             },
             fail: (err) => {
               console.remote('views/PronunciationLessonActivityView 82-9', err);
@@ -89,7 +89,7 @@ class PronunciationLessonActivityView extends Component {
 
     this.props.beginRecord();
 
-    this.startWXRecord();
+    this.startRecord();
   }
 
   endRecord() {
