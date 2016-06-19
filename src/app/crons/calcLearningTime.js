@@ -35,13 +35,13 @@ const calc = async () => {
       await learningHistory.save();
 
       // homework
-      const homeworks = await Homework.find({accountId});
+      const homeworks = await Homework.find({accountId, created: {$gt: date}});
       homeworks.forEach(function(homework) {
         homework.learningHistory = learningHistory._id;
         homework.save();
       });
 
-      const pronunciationHomeworks = await PronunciationHomework.find({accountId});
+      const pronunciationHomeworks = await PronunciationHomework.find({accountId, created: {$gt: date}});
       pronunciationHomeworks.forEach(function(pronunciationHomework) {
         pronunciationHomework.learningHistory = learningHistory._id;
         pronunciationHomework.save();
