@@ -15,6 +15,10 @@ const schema = BaseSchema.extend({
     type: Schema.Types.ObjectId,
     ref: 'account',
   },
+  learningHistory: {
+    type: Schema.Types.ObjectId,
+    ref: 'LearningHistory',
+  },
 });
 
 export default mongoose.model('Homework', schema);

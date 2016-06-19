@@ -163,6 +163,7 @@ class AudioPlayer extends Component {
               :
               <div className="audio-btn">
                 <i className="icon-cuowutishi" />
+                加载失败, 点击刷新
               </div>
             }
           </span>

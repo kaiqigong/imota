@@ -29,7 +29,7 @@ const downloadFileFromWechat = async (accessToken, serverId) => {
       console.log(`finish download: ${filename}`);
       const outputFilePath = FILE_DIR + serverId + '.mp3';
       // ffmpeg -i ZV5P9L_vrfzlzPmy3H3BVKPNvioOzBMRCca3i21NHE8X158R9D8-AlDVS7yALeYp.amr -vn -ar 8000 -ac 2 -ab 192k -f mp3 ZV5P9L_vrfzlzPmy3H3BVKPNvioOzBMRCca3i21NHE8X158R9D8-AlDVS7yALeYp.mp3
-      const cmd = `ffmpeg -i ${filename} -vn -ar 8000 -ac 2 -ab 192k -f mp3 ${outputFilePath}`;
+      const cmd = `ffmpeg -i ${filename} -vn -ar 8000 -ac 2 -ab 64k -f mp3 ${outputFilePath}`;
       exec(cmd, (error, stdout, stderr) => {
         if (error) {
           console.error(outputFilePath + ' An error occurred Converting : ' , error);

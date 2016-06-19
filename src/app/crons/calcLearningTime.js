@@ -5,6 +5,9 @@ import LearningHistory from '../models/LearningHistory';
 import moment from 'moment';
 import _ from 'lodash';
 import config from '../../config/config';
+import Account from '../models/Account';
+import Homework from '../models/Homework';
+import PronunciationHomework from '../models/PronunciationHomework';
 
 mongoose.connect(config.mongo) // connect to our database
 .connection.on('error', (err) => {
@@ -14,15 +17,39 @@ mongoose.connect(config.mongo) // connect to our database
 });
 const calc = async () => {
   try {
+    const date = moment().add(-1, 'day').set({hour: 0, minute: 0, second: 0, millisecond: 0});
     console.log('*** 开始计算学习时间 ***');
-    const todayBeats = await Beat.find({created: {$gt: moment({hour: 0})}}).sort({created: 1}).exec();
+    const todayBeats = await Beat.find({created: {$gt: date}}).sort({created: 1}).exec();
     const grouped = _.groupBy(todayBeats, 'accountId');
     for (const accountId in grouped) {
       const beats = grouped[accountId];
       const learningHistory = new LearningHistory();
-      learningHistory.date = moment({hour: 0});
-      learningHistory.accountId = accountId;
+      learningHistory.date = date;
 
+      // account info
+      learningHistory.accountId = accountId;
+      const account = await Account.find({_id: accountId});
+      learningHistory.nickname = account.nickname;
+      learningHistory.classe = account.classe;
+
+      await learningHistory.save();
+
+      // homework
+      const homeworks = await Homework.find({accountId});
+      homeworks.forEach(function(homework) {
+        homework.learningHistory = learningHistory._id;
+        homework.save();
+      });
+
+      const pronunciationHomeworks = await PronunciationHomework.find({accountId});
+      pronunciationHomeworks.forEach(function(pronunciationHomework) {
+        pronunciationHomework.learningHistory = learningHistory._id;
+        pronunciationHomework.save();
+      });
+
+      learningHistory.todayHomeworkCount = homeworks.length + pronunciationHomeworks.length;
+
+      // learning time
       let learningTime = 0; // Milliseconds
       let lastLearningStart = 0; // Milliseconds
       beats.forEach((beat) => {

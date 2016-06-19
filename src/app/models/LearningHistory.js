@@ -7,9 +7,14 @@ const schema = BaseSchema.extend({
     ref: 'account',
     required: true
   },
+  nickname: String,
+  classe: String,
   learningTime: Number, // minutes
   totalLearningTime: Number, // minutes
   date: Date,
+  todayHomeworkCount: {
+    type: Number,
+  },
 });
 
 schema.index({accountId: 1, date: -1}, { unique: true });
