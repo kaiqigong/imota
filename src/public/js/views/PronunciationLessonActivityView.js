@@ -40,6 +40,7 @@ class PronunciationLessonActivityView extends Component {
   constructor(props) {
     super(props);
     this.localIds = [];
+
     props.pronunciationLessonActivityInit();
     // the react-slick sucks!
     const {courseNo, lessonNo, activityIndex} = props.params;
@@ -55,46 +56,51 @@ class PronunciationLessonActivityView extends Component {
     this.forceUpdate();
   }
 
-  beginRecord() {
-    this.props.beginRecord();
+  startRecord() {
     wx.startRecord({
-      success: (err) => {
+      success: () => {
         console.remote('views/PronunciationLessonActivityView 82-0', 'Start Recording');
+
+        // 录音超过55s后自动开始新的录音
+        this.timeoutId = setTimeout(() => {
+          wx.stopRecord({
+            success: (res) => {
+              this.localIds.push(res.localId);
+              console.remote('views/PronunciationLessonActivityView 82-8', 'Stop ' + this.localIds + ' more than 55s');
+
+              clearTimeout(this.timeoutId);
+              this.startRecord();
+            },
+            fail: (err) => {
+              console.remote('views/PronunciationLessonActivityView 82-9', err);
+              alert('录音失败！请联系老师');
+            },
+          });
+
+        }, 55000)
       },
       fail: (err) => {
         console.remote('views/PronunciationLessonActivityView 82-1', err);
       }
     });
-    wx.onVoiceRecordEnd({
-    // 录音时间超过一分钟没有停止的时候会执行 complete 回调
-      complete: (res) => {
-        this.localIds.push(res.localId);
-        console.remote('views/PronunciationLessonActivityView 82-2', 'Complte ' + this.localIds + ' with more than 1 min');
+  }
 
-        // todo: start another record
-        setTimeout(function() {
-          wx.startRecord({
-            success: (err) => {
-              console.remote('views/PronunciationLessonActivityView 82-4', 'Start Recording Again');
-            },
-            fail: (err) => {
-              console.remote('views/PronunciationLessonActivityView 82-5', err);
-            }
-          });
-        }, 100);
-      },
-      fail: (err) => {
-        alert('录音失败！请联系老师');
-        console.error('views/PronunciationLessonActivityView 68', err.toString());
-      },
-    });
+  beginRecord() {
+
+    this.props.beginRecord();
+
+    this.startRecord();
   }
 
   endRecord() {
+    if (this.timeoutId) {
+      clearTimeout(this.timeoutId);
+    }
+
     wx.stopRecord({
       success: (res) => {
         this.localIds.push(res.localId);
-        console.remote('views/PronunciationLessonActivityView 82-6', 'Stop ' + this.localIds + 'Recording Success');
+        console.remote('views/PronunciationLessonActivityView 82-6', 'Stop ' + this.localIds + ' Recording Success');
 
         // todo: end quiz
         this.props.endRecord(this.localIds);

@@ -66,8 +66,40 @@ class DoingHomeworkView extends Component {
       },
     });
   }
+  startRecord() {
+    wx.startRecord({
+      success: (err) => {
+        console.remote('views/DoingHomeworkView 100-0', 'Start Recording');
+        // 录音超过55s后自动开始新的录音
+        this.timeoutId = setTimeout(() => {
+          wx.stopRecord({
+            success: (res) => {
+              this.localIds.push(res.localId);
+              console.remote('views/PronunciationLessonActivityView 100-8', 'Stop ' + this.localIds + ' more than 55s');
+
+              clearTimeout(this.timeoutId);
+              this.startRecord();
+            },
+            fail: (err) => {
+              console.remote('views/PronunciationLessonActivityView 100-9', err);
+              alert('录音失败！请联系老师');
+            },
+          });
+
+        }, 55000)
+      },
+      fail: (err) => {
+        console.remote('views/DoingHomeworkView 100-1', err);
+      }
+    });
+  }
 
   stopRecord() {
+
+    if (this.timeoutId) {
+      clearTimeout(this.timeoutId);
+    }
+
     wx.stopRecord({
       success: (res) => {
         this.localIds.push(res.localId);
@@ -93,38 +125,15 @@ class DoingHomeworkView extends Component {
 
   beginTranslateQuiz() {
     setTimeout(() => this.props.beginTranslateQuiz(), 500);
-    wx.startRecord({
-      success: (err) => {
-        console.remote('views/DoingHomeworkView 100-0', 'Start Recording');
-      },
-      fail: (err) => {
-        console.remote('views/DoingHomeworkView 100-1', err);
-      }
-    });
-    wx.onVoiceRecordEnd({
-    // 录音时间超过一分钟没有停止的时候会执行 complete 回调
-      complete: (res) => {
-        this.localIds.push(res.localId);
-        console.remote('views/DoingHomeworkView 100-2', 'Complte' + this.localIds + 'with more than 1 min');
 
-        // todo: start another record
-        wx.startRecord({
-          success: (err) => {
-            console.remote('views/DoingHomeworkView 100-4', 'Start Recording Again');
-          },
-          fail: (err) => {
-            console.remote('views/DoingHomeworkView 100-5', err);
-          }
-        });
-        setTimeout(() => this.props.beginTranslateQuiz(), 500);
-      },
-      fail: (err) => {
-        console.remote('views/DoingHomeworkView 100', err);
-      },
-    });
+    this.startRecord();
+
   }
 
   rework() {
+    if (this.timeoutId) {
+      clearTimeout(this.timeoutId);
+    }
     wx.stopRecord({
       success: (res) => {
         this.localIds = [];
