@@ -36,6 +36,7 @@ class PronunciationLessonActivityView extends Component {
   constructor(props) {
     super(props);
     this.localIds = [];
+
     props.pronunciationLessonActivityInit();
     // the react-slick sucks!
     const {courseNo, lessonNo, activityIndex} = props.params;
@@ -54,8 +55,25 @@ class PronunciationLessonActivityView extends Component {
   beginRecord() {
     this.props.beginRecord();
     wx.startRecord({
-      success: (err) => {
+      success: () => {
         console.remote('views/PronunciationLessonActivityView 82-0', 'Start Recording');
+
+        // 录音超过55s后自动开始新的录音
+        this.timeoutId = setTimeout(() => {
+          wx.stopRecord({
+            success: (res) => {
+              this.localIds.push(res.localId);
+              console.remote('views/PronunciationLessonActivityView 82-8', 'Stop ' + this.localIds + 'more than 55s');
+
+
+            },
+            fail: (err) => {
+              console.remote('views/PronunciationLessonActivityView 82-9', err);
+              alert('录音失败！请联系老师');
+            },
+          });
+
+        }, 55000)
       },
       fail: (err) => {
         console.remote('views/PronunciationLessonActivityView 82-1', err);
@@ -92,6 +110,8 @@ class PronunciationLessonActivityView extends Component {
   }
 
   endRecord() {
+    this.clearTimeout(this.timeoutId);
+
     wx.stopRecord({
       success: (res) => {
         this.localIds.push(res.localId);
