@@ -62,9 +62,13 @@ class PronunciationLessonActivityView extends Component {
           wx.stopRecord({
             success: (res) => {
               this.localIds.push(res.localId);
-              console.remote('views/PronunciationLessonActivityView 82-8', 'Stop ' + this.localIds + 'more than 55s');
+              console.remote('views/PronunciationLessonActivityView 82-8', 'Stop ' + this.localIds + ' more than 55s');
+              console.remote('views/PronunciationLessonActivityView 82-9', this.timeoutId);
 
-              this.clearTimeout(this.timeoutId);
+              clearTimeout(this.timeoutId);
+              console.remote('views/PronunciationLessonActivityView 82-10', this.timeoutId);
+              console.remote('views/PronunciationLessonActivityView 82-11', this.startWXRecord);
+
               this.startWXRecord();
             },
             fail: (err) => {
@@ -116,13 +120,13 @@ class PronunciationLessonActivityView extends Component {
 
   endRecord() {
     if (this.timeoutId) {
-      this.clearTimeout(this.timeoutId);
+      clearTimeout(this.timeoutId);
     }
 
     wx.stopRecord({
       success: (res) => {
         this.localIds.push(res.localId);
-        console.remote('views/PronunciationLessonActivityView 82-6', 'Stop ' + this.localIds + 'Recording Success');
+        console.remote('views/PronunciationLessonActivityView 82-6', 'Stop ' + this.localIds + ' Recording Success');
 
         // todo: end quiz
         this.props.endRecord(this.localIds);
