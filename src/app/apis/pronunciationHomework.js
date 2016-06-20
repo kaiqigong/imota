@@ -3,7 +3,7 @@
  */
 import {Router} from 'express';
 import config from '../../config/config';
-import Homework from '../models/pronunciationhomwork';
+import Homework from '../models/PronunciationHomework';
 import wechat from '../../utils/wechat';
 import request from '../../utils/request';
 import randomstring from 'randomstring';
