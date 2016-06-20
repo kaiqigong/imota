@@ -28,7 +28,7 @@ const calc = async () => {
 
       // account info
       learningHistory.accountId = accountId;
-      const account = await Account.find({_id: accountId});
+      const account = await Account.findOne({_id: accountId});
       if (account) {
         learningHistory.nickname = account.nickname;
         learningHistory.classe = account.classe;
