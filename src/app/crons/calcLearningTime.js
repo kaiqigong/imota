@@ -19,7 +19,7 @@ const calc = async () => {
   try {
     const date = moment().add(-1, 'day').set({hour: 0, minute: 0, second: 0, millisecond: 0});
     console.log('*** 开始计算学习时间 ***');
-    const todayBeats = await Beat.find({created: {$gt: date}}).sort({created: 1}).exec();
+    const todayBeats = await Beat.find({created: {$gt: date, $lt: date + 86400000}}).sort({created: 1}).exec();
     const grouped = _.groupBy(todayBeats, 'accountId');
     for (const accountId in grouped) {
       const beats = grouped[accountId];
