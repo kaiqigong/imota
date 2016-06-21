@@ -90,7 +90,7 @@ class LearningHistoriesView extends Component {
               </div>}>
               {docs.map((learningHistory) => {
                 return (
-                  <div className="col-xs-12 clearfix learning-history" key={learningHistory._id}>{new Date(learningHistory.date).toLocaleDateString()} <span className="pull-xs-right">{Math.round(learningHistory.learningTime)}分钟</span></div>
+                  <div className="col-xs-12 clearfix learning-history" key={learningHistory._id}>{new Date(learningHistory.date).toLocaleDateString()} <span className="pull-xs-right">{learningHistory.learningTime < 1 ? 1 : Math.round(learningHistory.learningTime)}分钟</span></div>
                 );
               })}
             </InfiniteScroll>
