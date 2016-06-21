@@ -70,8 +70,7 @@ const calc = async () => {
         lastLearningStart = beat.created.valueOf();
       });
       learningHistory.learningTime = learningTime / 1000 / 60;
-      console.log(learningHistory);
-      const lastLearningHistory = await LearningHistory.findOne({accountId, created: {$lt: date}}).sort({created: -1}).exec();
+      const lastLearningHistory = await LearningHistory.findOne({accountId, date: {$lt: date}}).sort({created: -1}).exec();
       console.log(lastLearningHistory);
       if (lastLearningHistory && lastLearningHistory.totalLearningTime) {
         learningHistory.totalLearningTime = lastLearningHistory.totalLearningTime + learningHistory.learningTime;
