@@ -72,6 +72,7 @@ const calc = async () => {
       learningHistory.learningTime = learningTime / 1000 / 60;
       console.log(learningHistory);
       const lastLearningHistory = await LearningHistory.findOne({accountId}).sort({created: -1}).exec();
+      console.log(lastLearningHistory);
       if (lastLearningHistory && lastLearningHistory.totalLearningTime) {
         learningHistory.totalLearningTime = lastLearningHistory.totalLearningTime + learningHistory.learningTime;
       } else {
