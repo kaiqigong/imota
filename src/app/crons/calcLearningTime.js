@@ -39,7 +39,7 @@ const calc = async () => {
       // homework
       const homeworks = await Homework.find({
         accountId,
-        created: {$gt: date}
+        created: {$gt: date, $lt: date + 86400000}
       });
       homeworks.forEach(function(homework) {
         homework.learningHistory = learningHistory._id;
@@ -48,7 +48,7 @@ const calc = async () => {
 
       const pronunciationHomeworks = await PronunciationHomework.find({
         accountId,
-        created: {$gt: date}
+        created: {$gt: date, $lt: date + 86400000}
       });
       pronunciationHomeworks.forEach(function(pronunciationHomework) {
         pronunciationHomework.learningHistory = learningHistory._id;
