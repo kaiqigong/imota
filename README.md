@@ -316,7 +316,7 @@ npm start
 ```
 
 ### 发布地址
-正式: www.holdqq.com
+正式: learnwithwind.com
 测试: test.holdqq.com
 注意，正式和测试使用的都是真实数据库，本地开发使用的是测试数据库。
 
