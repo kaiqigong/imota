@@ -257,6 +257,12 @@ ssh \
 -i ~/.ssh/id_rsa \
 dbuser@121.201.28.101
 ```
+```
+ssh \
+-L 6379:localhost:6379 \
+-i ~/.ssh/id_rsa \
+dbuser@121.201.28.101
+```
 测试环境连接localhost:27018/wind-cms-dev
 
 ## [Roadmap](./Roadmap.md)

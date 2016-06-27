@@ -94,6 +94,11 @@ class LearningHistoriesView extends Component {
                 );
               })}
             </InfiniteScroll>
+            <h5>
+            <small className="text-muted">
+              每日学习数据统计从当日凌晨5点到第二日凌晨5点之间的数据, 和我们打卡要求一致
+            </small>
+            </h5>
           </div>
         </div>
       </div>

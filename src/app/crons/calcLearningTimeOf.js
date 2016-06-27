@@ -15,10 +15,10 @@ mongoose.connect(config.mongo) // connect to our database
 }).once('open', () => {
   console.info('open mongodb success');
 });
-const dateStr = process.argv[2];
-const calc = async () => {
+
+const calc = async (dateStr) => {
   try {
-    const date = moment(dateStr).add(-1, 'day').set({hour: 0, minute: 0, second: 0, millisecond: 0});
+    const date = moment(dateStr).add(-1, 'day').set({hour: 5, minute: 0, second: 0, millisecond: 0});
     console.log('*** 开始计算学习时间 ***');
     const todayBeats = await Beat.find({created: {$gt: date, $lt: date + 86400000}}).sort({created: 1}).exec();
     const grouped = _.groupBy(todayBeats, 'accountId');
@@ -81,11 +81,10 @@ const calc = async () => {
 
       await learningHistory.save();
     }
-    process.exit(0);
   } catch (err) {
     console.log(err);
-    process.exit(1);
   }
 }
 
-calc();
+export default calc;
+
