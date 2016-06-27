@@ -22,6 +22,7 @@ const calc = async (dateStr) => {
     console.log('*** 开始计算学习时间 ***');
     const todayBeats = await Beat.find({created: {$gt: date, $lt: date + 86400000}}).sort({created: 1}).exec();
     const grouped = _.groupBy(todayBeats, 'accountId');
+    let count = 0;
     for (const accountId in grouped) {
       const beats = grouped[accountId];
       const learningHistory = new LearningHistory();
@@ -72,7 +73,7 @@ const calc = async (dateStr) => {
       });
       learningHistory.learningTime = learningTime / 1000 / 60;
       const lastLearningHistory = await LearningHistory.findOne({accountId, date: {$lt: date}}).sort({created: -1}).exec();
-      console.log(lastLearningHistory);
+
       if (lastLearningHistory && lastLearningHistory.totalLearningTime) {
         learningHistory.totalLearningTime = lastLearningHistory.totalLearningTime + learningHistory.learningTime;
       } else {
@@ -80,7 +81,9 @@ const calc = async (dateStr) => {
       }
 
       await learningHistory.save();
+      count++;
     }
+    console.log(`*** 结束计算学习时间 总${count} ***`)
   } catch (err) {
     console.log(err);
   }
