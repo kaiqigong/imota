@@ -156,7 +156,7 @@ class WarmView extends Component {
           </div>
           <div className="col-xs-4 text-xs-center">
             <Link className="icon-boss side-btn pull-xs-right"
-              to={`/home/courses/${courseNo}/lessons/${lessonNo}/newhomework/?type=${type || 'listen'}`} />
+              to={`/home/courses/${courseNo}/lessons/${lessonNo}/boss/?type=${type || 'listen'}`} />
           </div>
         </div>
       </div>

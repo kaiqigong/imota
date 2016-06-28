@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import ajax from '../common/ajax';
 
-let audio;
+// let audio;
 
 class AudioPlayer extends Component {
   static propTypes = {
@@ -16,11 +16,14 @@ class AudioPlayer extends Component {
       loading: true,
     };
 
-    if (!audio) {
-      audio = new Audio();
-      window.theAudio = audio;
-    }
-    audio.innerHTML = '';
+    this.audio = new Audio();
+    // if (!audio) {
+    //   audio = new Audio();
+    //   window.theAudio = audio;
+    // }
+    this.audio.innerHTML = '';
+
+    // TODO: 在点击play的时候动态设置src
 
     const mp3 = props.audios.filter((item) => {
       return item.indexOf('.mp3') > -1;
@@ -42,14 +45,14 @@ class AudioPlayer extends Component {
     const src2 = document.createElement('SOURCE');
     src2.src = mp3[0];
     src2.type = 'audio/mpeg';
-    audio.appendChild(src2);
-    audio.appendChild(src1);
+    this.audio.appendChild(src2);
+    this.audio.appendChild(src1);
 
-    const len = audio.children.length;
+    const len = this.audio.children.length;
     let index;
     this.errCount = 0;
     for (index = 0; index < len; index++) {
-      audio.children[index].onerror = (e) => {
+      this.audio.children[index].onerror = (e) => {
         ajax.post('/api/behaviors/', {
           scope: 'audioPlayer',
           action: 'srcFail',
@@ -66,35 +69,35 @@ class AudioPlayer extends Component {
       }
     }
 
-    audio.autoplay = props.autoplay;
+    this.audio.autoplay = props.autoplay;
   }
 
   componentDidMount() {
-    audio.onplay = this::this._onPlay;
-    audio.onpause = this::this._onPause;
-    audio.onerror = this::this._onError;
-    audio.onended = this::this._onEnded;
-    audio.oncanplay = this::this._onLoaded;
-    audio.oncancel = this::this._onEvent;
+    this.audio.onplay = this::this._onPlay;
+    this.audio.onpause = this::this._onPause;
+    this.audio.onerror = this::this._onError;
+    this.audio.onended = this::this._onEnded;
+    this.audio.oncanplay = this::this._onLoaded;
+    this.audio.oncancel = this::this._onEvent;
     this.initDate = new Date();
-    audio.load();
+    this.audio.load();
   }
 
   componentWillUnmount() {
-    audio.onplay = null;
-    audio.onpause = null;
-    audio.onerror = null;
-    audio.onended = null;
-    audio.oncanplay = null;
-    audio.oncancel = null;
-    audio.pause();
+    this.audio.onplay = null;
+    this.audio.onpause = null;
+    this.audio.onerror = null;
+    this.audio.onended = null;
+    this.audio.oncanplay = null;
+    this.audio.oncancel = null;
+    this.audio.pause();
   }
 
   reload() {
     this.errCount = 0;
     this.state.error = null;
     this.setState(this.state);
-    audio.load();
+    this.audio.load();
   }
 
   _onLoaded(e) {
@@ -135,7 +138,7 @@ class AudioPlayer extends Component {
     ajax.post('/api/behaviors/', {
       scope: 'audioPlayer',
       action: 'fail',
-      value: JSON.stringify({code: audio.error.code, src: e.target.currentSrc})});
+      value: JSON.stringify({code: this.audio.error.code, src: e.target.currentSrc})});
   }
 
   _onEvent(e) {
@@ -145,9 +148,9 @@ class AudioPlayer extends Component {
   togglePlay() {
     const playing = !this.state.playing;
     if (playing) {
-      audio.play();
+      this.audio.play();
     } else {
-      audio.pause();
+      this.audio.pause();
     }
   }
 

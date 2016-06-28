@@ -18,7 +18,7 @@ const config = {
     app: {
       name: 'wind',
     },
-    port: 8000,
+    port: process.env.PORT || 8000,
     mongo: 'mongodb://localhost:27018/wind-cms-dev',
     sessionSecret: 'wind-dev',
     redis: {

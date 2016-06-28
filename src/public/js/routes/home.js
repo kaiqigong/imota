@@ -10,6 +10,8 @@ import PronunciationHomeworkView from '../views/PronunciationHomeworkView';
 import SkillsView from '../views/SkillsView';
 import ListenView from '../views/ListenView';
 import TranslateView from '../views/TranslateView';
+import BossView from '../views/BossView';
+import BossAnswerView from '../views/BossAnswerView';
 import TempPronunciationView from '../views/TempPronunciationView';
 import DoingHomeworkView from '../views/DoingHomeworkView';
 import WarmView from '../views/WarmView';
@@ -37,6 +39,8 @@ export default (
     <Route path="/home/courses/:courseNo/lessons/:lessonNo/warm/" component={WarmView} />
     <Route path="/home/courses/:courseNo/lessons/:lessonNo/listen/:sentenceNo" component={ListenView} />
     <Route path="/home/courses/:courseNo/lessons/:lessonNo/translate/:sentenceNo" component={TranslateView} />
+    <Route path="/home/courses/:courseNo/lessons/:lessonNo/boss" component={BossView} />
+    <Route path="/home/courses/:courseNo/lessons/:lessonNo/boss_answer" component={BossAnswerView} />
     <Route path="/home/learning_histories/" component={LearningHistoriesView} />
     <Redirect from="*" to="/" />
   </Route>

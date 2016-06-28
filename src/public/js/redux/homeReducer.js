@@ -6,6 +6,8 @@ import pronunciationLessons from './pronunciationLessons';
 import pronunciationLessonActivity from './pronunciationLessonActivity';
 import listen from './listen';
 import translate from './translate';
+import bosses from './boss';
+import bossAnswers from './bossAnswer';
 import shifting from './shifting';
 import warm from './warm';
 import doingHomework from './doingHomework';
@@ -37,4 +39,6 @@ export default combineReducers({
   pronunciationHomework,
   learningHistories,
   auth,
+  bosses,
+  bossAnswers,
 });

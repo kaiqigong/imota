@@ -75,6 +75,8 @@ export default (app, config) => {
   app.use('/api/courses/', require('../app/apis/course'));
   app.use('/api/lessons/', require('../app/apis/lesson'));
   app.use('/api/sentences/', require('../app/apis/sentence'));
+  app.use('/api/bosses/', require('../app/apis/boss'));
+  app.use('/api/boss_answers/', require('../app/apis/bossAnswer'));
   app.use('/api/homeworks/', require('../app/apis/homework'));
   app.use('/api/wechat/', require('../app/apis/wechat'));
   app.use('/api/stats/', require('../app/apis/stats'));
