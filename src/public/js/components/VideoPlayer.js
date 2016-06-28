@@ -80,6 +80,12 @@ class VideoPlayer extends Component {
 
   render() {
     const videos = this.props.videos;
+    const len = videos.length;
+    let i = 0;
+    for (i = 0; i < len; i++) {
+      videos.push(videos[i].replace('https://o3f47rda5.qnssl.com', 'http://media.learnwithwind.com'));
+    }
+    console.log(videos);
     return (
       <div className="video-player">
         { videos && videos.length ?
@@ -97,7 +103,7 @@ class VideoPlayer extends Component {
               videos.map((video) => {
                 const suffix = video.split('.').reverse()[0];
                 return (
-                  <source src={video.replace('https://o3f47rda5.qnssl.com', 'http://media.learnwithwind.com')} type={`video/${suffix}`} key={video} />
+                  <source src={video} type={`video/${suffix}`} key={video} />
                 );
               })
             }
