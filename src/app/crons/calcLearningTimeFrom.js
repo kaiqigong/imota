@@ -9,7 +9,7 @@ const now = new moment();
 let curr = fromDate;
 
 const calc = async () => {
-  while(curr.valueOf() < now.valueOf()) {
+  while(curr.valueOf() < now.valueOf() + 86400000) {
     await calcLearningTimeOf(new moment(curr));
     curr = curr.add(1, 'day');
   }
