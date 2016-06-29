@@ -56,7 +56,8 @@ export default handleActions({
   },
   [RECEIVED_MORE_LEARNING_HISTORIES]: (state, {payload}) => {
     const {docs, total} = payload;
-    payload.docs = unionBy(state.docs, docs, '_id');
-    return Object.assign(state, payload);
+    state.total = total;
+    state.docs = unionBy(state.docs, docs, '_id');
+    return Object.assign({}, state);
   },
 }, {docs: []});
