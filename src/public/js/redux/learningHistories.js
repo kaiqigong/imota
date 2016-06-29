@@ -28,7 +28,7 @@ export const fetchLearningHistoriesAsync = () => {
 export const fetchMoreLearningHistoriesAsync = (page) => {
   return async (dispatch) => {
     try {
-      const response = await ajax.get('/api/learning_histories/', {page});
+      const response = await ajax.get('/api/stats/learning_histories/', {page});
       dispatch(receivedMoreLearningHistories(response));
     } catch (err) {
       console.remote(err);
