@@ -8,6 +8,7 @@ const schema = BaseSchema.extend({
   english: { type: String },
   chinese: { type: String },
   audio: String,
+  duration: Number, // 音频时长，秒
 });
 
 export default mongoose.model('Sentence', schema);
