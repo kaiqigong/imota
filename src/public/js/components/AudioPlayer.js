@@ -8,6 +8,7 @@ class AudioPlayer extends Component {
     audios: PropTypes.array.isRequired,
     autoplay: PropTypes.bool,
     children: PropTypes.array,
+    onEnd: PropTypes.func,
   };
 
   constructor(props) {
@@ -115,6 +116,7 @@ class AudioPlayer extends Component {
 
   _onEnded() {
     this.state.playing = false;
+    this.props.onEnd && this.props.onEnd()
     this.setState(this.state);
   }
 

@@ -18,6 +18,7 @@ import Progress from 'react-progress';
 import history from '../common/history';
 import TimerProgress from '../components/TimerProgress';
 import Modal from 'react-modal';
+import getParameterByName from '../common/getParam'
 
 const mapStateToProps = ({bosses, shifting, wxsdk}) => ({
   bosses, shifting, wxsdk,
@@ -43,7 +44,7 @@ class BossView extends Component {
     progress: 0,
     bossNo: 1,
     started: false,
-    ticking: false,
+    // ticking: false,
   }
 
   constructor(props) {
@@ -51,18 +52,10 @@ class BossView extends Component {
     props.fetchBossesAsync(props.params.courseNo, props.params.lessonNo);
     props.fetchSignatureAsync();
     this.localIds = [];
-    console.log('timer!');
-    this.timer = null;
+    this.type = getParameterByName('type') || 'listen';
   }
 
-  componentWillUnmount() {
-    console.log('unmount');
-    if (this.timer) {
-      clearTimeout(this.timer)
-    }
-  }
-
-  beginRecord() {
+  beginRecord = () => {
     this.setState({recording: true})
     wx.startRecord();
     wx.onVoiceRecordEnd({
@@ -80,7 +73,7 @@ class BossView extends Component {
     });
   }
 
-  endRecord() {
+  endRecord = () => {
     this.setState({recording: false})
     wx.stopRecord({
       success: (res) => {
@@ -109,8 +102,10 @@ class BossView extends Component {
     if (!this.props.wxsdk.signature && !this.props.wxsdk.nowechat) {
       return history.pushState(null, backUrl);
     }
-    this.setState({ticking: true, started: true})
-    this.beginRecord()
+    this.setState({started: true})
+    if (this.type == 'translate') {
+      this.beginRecord()
+    }
   }
 
   timeoutCb = (bassAnswerAddr) => {
@@ -120,42 +115,17 @@ class BossView extends Component {
     }
     setTimeout(()=> {
       this.setState({bossNo: this.state.bossNo+1})
-      this.beginRecord()
+      if (this.type == 'translate') {
+        this.beginRecord()
+      }
     }, 2000)
   }
 
-  setBossTimeout(timeLimit, bassAnswerAddr) {
-    if (this.timer) {
-      return
-    }
-
-    this.beginRecord()
-
-    const step = 100;
-    this.timer = setInterval(() => {
-      if (this.state.progress >= timeLimit) {
-        clearInterval(this.timer)
-
-        this.endRecord()
-        setTimeout(()=> {
-          // history.pushState(null);
-          this.timer = null
-          this.state.progress = 0;
-          console.log(this.state.bossNo);
-          console.log(this.props.bosses.docs.length);
-          if (this.state.bossNo == this.props.bosses.docs.length) {
-            return history.pushState(null, bassAnswerAddr);
-          }
-          this.setState({bossNo: this.state.bossNo+1})
-
-        }, 1000)
-      }
-      this.setState({progress: this.state.progress + step})
-    }, step)
-  }
+  // audioPlayEnd = () => {
+  //   this.beginRecord()
+  // }
 
   render() {
-
     const {bosses, shifting, wxsdk} = this.props;
     const {showCollectionModal, showMethodModal, showReviewModal, showFeedbackModal} = bosses;
     const {courseNo, lessonNo} = this.props.params;
@@ -172,8 +142,8 @@ class BossView extends Component {
     const prevId = bossNo - 1;
     const currentProgress = (bossNo + 0.001) / bosses.docs.length * 100
 
-    const {query} = this.props.location;
-    const type = query.type || 'listen';
+    // const {query} = this.props.location;
+    const type = this.type
 
     const instructionMsg = type == 'listen'? '请跟读每个句子': '请翻译每个句子';
 
@@ -254,7 +224,10 @@ class BossView extends Component {
           >
           <div className="modal-body">
           { wxsdk.signature ?
+              type=='translate' ?
               <p>口语练习的打boss形式为逐个翻译每个句子，并且有时间限制，你准备好了吗</p>
+              :
+              <p>跟读练习的打boss形式为逐个跟读每个句子，并且有时间限制，你准备好了吗</p>
             :
               wxsdk.noWechat ?
               <div className="small">
@@ -280,7 +253,8 @@ class BossView extends Component {
             </div>
             :
             <div className="text-xs-center">
-              <AudioPlayer audios={[boss.audio]} autoplay key={boss.audio}>
+            { this.state.started && !this.state.recording &&
+              <AudioPlayer audios={[boss.audio]} key={boss.sentenceNo} onEnd={this.beginRecord}>
                 <div className="audio-btn">
                   <i className="icon-pause" />
                 </div>
@@ -288,11 +262,12 @@ class BossView extends Component {
                   <i className="icon-play" />
                 </div>
               </AudioPlayer>
+            }
             </div>
           }
           </div>
           <div className='clearfix'> </div>
-          { this.state.ticking ?
+          { this.state.recording ?
             <TimerProgress
               duration={duration}
               done={()=>this.timeoutCb(`/home/courses/${courseNo}/lessons/${lessonNo}/boss_answer?type=${type}`)}
@@ -307,11 +282,11 @@ class BossView extends Component {
           <div className="col-xs-offset-4 col-xs-4 text-xs-center no-padding-col">
           {
             this.state.recording ?
-            <a className="action-button record-button recording" onClick={e => this.endRecord(e)}>
+            <a className="action-button record-button recording">
               <i className="icon-mic" />
             </a>
             :
-            <a className="action-button record-button" onClick={e => this.beginRecord(e)}>
+            <a className="action-button record-button">
               <i className="icon-mic" />
             </a>
           }
