@@ -113,12 +113,13 @@ class BossView extends Component {
     if (this.state.bossNo == this.props.bosses.docs.length) {
       return history.pushState(null, bassAnswerAddr);
     }
+    // TODO: add callback to endRecord, use it instead of setTimeout
     setTimeout(()=> {
       this.setState({bossNo: this.state.bossNo+1})
       if (this.type == 'translate') {
         this.beginRecord()
       }
-    }, 2000)
+    }, 1000)
   }
 
   // audioPlayEnd = () => {
@@ -282,7 +283,7 @@ class BossView extends Component {
           <div className="col-xs-offset-4 col-xs-4 text-xs-center no-padding-col">
           {
             this.state.recording ?
-            <a className="action-button record-button recording">
+            <a className="action-button record-button recording" onClick={()=>this.timeoutCb(`/home/courses/${courseNo}/lessons/${lessonNo}/boss_answer?type=${type}`)}>
               <i className="icon-mic" />
             </a>
             :

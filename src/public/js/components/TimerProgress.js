@@ -29,6 +29,13 @@ class TimerProgress extends Component {
     }, step);
   }
 
+  componentWillUnmount() {
+    if (this.timer) {
+      clearInterval(this.timer)
+      this.timer = null
+    }
+  }
+
   render() {
     const currentProgress = this.state.elapsed / this.props.duration * 100;
     return (
