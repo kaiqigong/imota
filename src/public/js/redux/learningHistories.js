@@ -49,7 +49,7 @@ export const actions = {
 // ------------------------------------
 export default handleActions({
   [LEARNING_HISTORIES_INIT]: () => {
-    return {docs: []};
+    return {docs: [], loading: true};
   },
   [RECEIVED_LEARNING_HISTORIES]: (state, {payload}) => {
     return payload;
@@ -60,4 +60,4 @@ export default handleActions({
     state.docs = unionBy(state.docs, docs, '_id');
     return Object.assign({}, state);
   },
-}, {docs: []});
+}, {docs: [], loading: true});

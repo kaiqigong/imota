@@ -37,12 +37,12 @@ class LearningHistoriesView extends Component {
 
 
   render() {
-    const {docs, todayLearningTime, totalLearningTime, total} = this.props.learningHistories;
+    const {docs, todayLearningTime, totalLearningTime, total, loading} = this.props.learningHistories;
     const auth = this.props.auth;
     const hasMore = docs.length < total;
 
     setTitle('我的主页');
-    if (!todayLearningTime) {
+    if (loading) {
       return <div className="text-muted text-xs-center">加载中，请稍候<i className="icon-loadingdots spin text-bottom"/></div>;
     }
 
