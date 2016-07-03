@@ -148,8 +148,9 @@ class BossView extends Component {
 
     const instructionMsg = type == 'listen'? '请跟读每个句子': '请翻译每个句子';
 
-    const duration = Math.max(boss.duration || 3, 3) * 1000;
+    const duration = Math.max(boss.duration || 4, 4) * 1000;
     const timeLimit = duration * (type === 'listen' ? 1.5 : 2);
+    console.remote('timeLimit', timeLimit);
     const timerProgress = this.state.progress / timeLimit * 100;
 
     const customStyles = {

@@ -22,8 +22,8 @@ class TimerProgress extends Component {
       console.log(this.props.duration);
       if (nextElapsed >= this.props.duration) {
         clearInterval(this.timer)
-        this.setState({elapsed: this.props.duration})
-        return this.props.done()
+        this.setState({elapsed: this.props.duration});
+        return setTimeout(() => this.props.done(), 500);
       }
       this.setState({elapsed: nextElapsed})
     }, step);

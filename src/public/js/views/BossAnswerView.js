@@ -133,11 +133,11 @@ class TranslateBossView extends Component {
                   <div>
                     {bossAnswer.english}
                   </div>
-                  <div className="clearfix" onClick={() => this.props.toggleCollect(bossAnswer, type)}>
+                  <div className="clearfix">
                     {
                       bossAnswer.collected ?
-                      <button className="btn btn-sm btn-default pull-xs-right">已收藏</button> :
-                      <button className="btn btn-sm btn-primary pull-xs-right">收藏</button>
+                      <button onClick={() => this.props.toggleCollect(bossAnswer, type)} className="btn btn-sm btn-default pull-xs-right">已收藏</button> :
+                      <button onClick={() => this.props.toggleCollect(bossAnswer, type)} className="btn btn-sm btn-primary pull-xs-right">收藏</button>
                     }
                     { (bossAnswer.answer && bossAnswer.answer.audio) &&
                       <AudioPlayer audios={[bossAnswer.answer.audio]} key={bossAnswer.answer.audio}>
