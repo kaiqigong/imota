@@ -127,6 +127,9 @@ class TranslateBossView extends Component {
                   <div>
                     {bossAnswer.english}
                   </div>
+                  <div onClick={() => this.props.toggleCollect(bossAnswer)}>
+                    {bossAnswer.collected ? '已收藏' : '收藏'}
+                  </div>
                   { (bossAnswer.answer && bossAnswer.answer.audio) &&
                     <AudioPlayer audios={[bossAnswer.answer.audio]} key={bossAnswer.answer.audio}>
                       <div className="sentence-text">
