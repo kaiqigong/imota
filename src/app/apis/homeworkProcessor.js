@@ -11,7 +11,7 @@ const qiniuHost = 'http://media.learnwithwind.com';
 qiniu.conf.ACCESS_KEY = config.qiniu.ACCESS_KEY;
 qiniu.conf.SECRET_KEY = config.qiniu.SECRET_KEY;
 
-const FILE_DIR = '/data/files/'
+const FILE_DIR = '/data/files/';
 
 const downloadFileFromWechat = async (accessToken, serverId) => {
   return new Promise(function(resolve, reject) {
