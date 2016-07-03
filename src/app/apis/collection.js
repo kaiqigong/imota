@@ -18,6 +18,7 @@ router.get('/', async (req, res, next) => {
 
 router.post('/', verifySession(), async (req, res, next) => {
   try {
+    console.log(req.body);
     const collection = new Collection(req.body);
     collection.accountId = req.user._id;
     await collection.save();

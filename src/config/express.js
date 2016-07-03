@@ -10,7 +10,6 @@ import ejsLocals from 'ejs-locals';
 import session from 'express-session';
 import connectRedis from 'connect-redis';
 import fs from 'fs';
-import FileStreamRotator from 'file-stream-rotator';
 import mongoose from 'mongoose';
 import beat from '../app/middlewares/beat';
 
@@ -83,7 +82,7 @@ export default (app, config) => {
   app.use('/api/pronunciation_courses/', require('../app/apis/pronunciationCourse'));
   app.use('/api/pronunciation_homeworks/', require('../app/apis/pronunciationHomework'));
   app.use('/api/behaviors/', require('../app/apis/behavior'));
-  app.use('/api/collections/', require('../app/apis/collection'));
+  app.use('/api/collecs/', require('../app/apis/collec'));
 
   // 页面路由定义
   app.use('/', require('../app/controllers/home'));
