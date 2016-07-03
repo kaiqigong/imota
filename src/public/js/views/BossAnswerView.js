@@ -133,26 +133,26 @@ class TranslateBossView extends Component {
                   <div>
                     {bossAnswer.english}
                   </div>
-                  <div onClick={() => this.props.toggleCollect(bossAnswer, type)}>
+                  <div className="clearfix" onClick={() => this.props.toggleCollect(bossAnswer, type)}>
                     {
                       bossAnswer.collected ?
-                      <button className="btn btn-xs btn-default pull-xs-right">已收藏</button> :
-                      <button className="btn btn-xs btn-primary pull-xs-right">收藏</button>
+                      <button className="btn btn-sm btn-default pull-xs-right">已收藏</button> :
+                      <button className="btn btn-sm btn-primary pull-xs-right">收藏</button>
+                    }
+                    { (bossAnswer.answer && bossAnswer.answer.audio) &&
+                      <AudioPlayer audios={[bossAnswer.answer.audio]} key={bossAnswer.answer.audio}>
+                        <div className="sentence-text">
+                          <i className="icon-voice"></i>
+                        </div>
+                        <div className="sentence-text">
+                          <i className="icon-voice-mute" />
+                        </div>
+                        <div className="sentence-text">
+                          出错啦！
+                        </div>
+                      </AudioPlayer>
                     }
                   </div>
-                  { (bossAnswer.answer && bossAnswer.answer.audio) &&
-                    <AudioPlayer audios={[bossAnswer.answer.audio]} key={bossAnswer.answer.audio}>
-                      <div className="sentence-text">
-                        <i className="icon-voice"></i>
-                      </div>
-                      <div className="sentence-text">
-                        <i className="icon-voice-mute" />
-                      </div>
-                      <div className="sentence-text">
-                        出错啦！
-                      </div>
-                    </AudioPlayer>
-                  }
                 </div>
               )
             })

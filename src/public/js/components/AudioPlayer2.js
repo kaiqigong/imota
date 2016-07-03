@@ -32,7 +32,7 @@ class AudioPlayer extends Component {
     if (!mp3.length) {
       alert('没有音频');
       ajax.post('/api/behaviors/', {
-        scope: 'audioPlayer',
+        scope: 'audioPlayer2',
         action: 'nosrc',
         value: window.location.href});
       return;
@@ -55,7 +55,7 @@ class AudioPlayer extends Component {
     for (index = 0; index < len; index++) {
       this.audio.children[index].onerror = (e) => {
         ajax.post('/api/behaviors/', {
-          scope: 'audioPlayer',
+          scope: 'audioPlayer2',
           action: 'srcFail',
           value: JSON.stringify({src: e.target.src})});
         this.errCount++;
@@ -63,7 +63,7 @@ class AudioPlayer extends Component {
           this.state.error = e;
           this.setState(this.state);
           ajax.post('/api/behaviors/', {
-            scope: 'audioPlayer',
+            scope: 'audioPlayer2',
             action: 'fail',
             value: JSON.stringify({src: e.target.src})});
         }
@@ -127,7 +127,7 @@ class AudioPlayer extends Component {
 
   _onPlay(e) {
     ajax.post('/api/behaviors/', {
-      scope: 'audioPlayer',
+      scope: 'audioPlayer2',
       action: 'play',
       value: e.target.currentSrc});
     this.state.playing = true;
@@ -138,7 +138,7 @@ class AudioPlayer extends Component {
     this.state.error = e;
     this.setState(this.state);
     ajax.post('/api/behaviors/', {
-      scope: 'audioPlayer',
+      scope: 'audioPlayer2',
       action: 'fail',
       value: JSON.stringify({code: this.audio.error.code, src: e.target.currentSrc})});
   }
