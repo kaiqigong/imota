@@ -10,7 +10,6 @@ import ejsLocals from 'ejs-locals';
 import session from 'express-session';
 import connectRedis from 'connect-redis';
 import fs from 'fs';
-import FileStreamRotator from 'file-stream-rotator';
 import mongoose from 'mongoose';
 import beat from '../app/middlewares/beat';
 
@@ -75,13 +74,15 @@ export default (app, config) => {
   app.use('/api/courses/', require('../app/apis/course'));
   app.use('/api/lessons/', require('../app/apis/lesson'));
   app.use('/api/sentences/', require('../app/apis/sentence'));
+  app.use('/api/bosses/', require('../app/apis/boss'));
+  app.use('/api/boss_answers/', require('../app/apis/bossAnswer'));
   app.use('/api/homeworks/', require('../app/apis/homework'));
   app.use('/api/wechat/', require('../app/apis/wechat'));
   app.use('/api/stats/', require('../app/apis/stats'));
   app.use('/api/pronunciation_courses/', require('../app/apis/pronunciationCourse'));
   app.use('/api/pronunciation_homeworks/', require('../app/apis/pronunciationHomework'));
   app.use('/api/behaviors/', require('../app/apis/behavior'));
-
+  app.use('/api/collections/', require('../app/apis/collection'));
 
   // 页面路由定义
   app.use('/', require('../app/controllers/home'));

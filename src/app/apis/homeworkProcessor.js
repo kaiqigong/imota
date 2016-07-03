@@ -2,6 +2,7 @@ import config from '../../config/config';
 import qiniu from 'qiniu';
 import randomstring from 'randomstring';
 const exec = require('child_process').exec;
+import wechat from '../../utils/wechat';
 
 const http = require('request');
 const fs = require('fs');
@@ -11,7 +12,7 @@ const qiniuHost = 'http://media.learnwithwind.com';
 qiniu.conf.ACCESS_KEY = config.qiniu.ACCESS_KEY;
 qiniu.conf.SECRET_KEY = config.qiniu.SECRET_KEY;
 
-const FILE_DIR = '/data/files/'
+const FILE_DIR = '/data/files/';
 
 const downloadFileFromWechat = async (accessToken, serverId) => {
   return new Promise(function(resolve, reject) {
@@ -85,8 +86,38 @@ const uploadFileToQiniu = async (file) => {
   });
 };
 
+const downloadFileFromWechatWithCache = async (accessToken, serverId) => {
+  const outputFilePath = FILE_DIR + serverId + '.mp3';
+  try {
+    fs.accessSync(outputFilePath, fs.F_OK)
+  } catch (err) {
+    return await downloadFileFromWechat(accessToken, serverId)
+  }
+  return outputFilePath
+}
+
+const concatWechatAudios = async (serverIds) => {
+  const accessToken = await wechat.getAccessToken();
+  console.log(accessToken);
+  // download
+  console.log(`http://file.api.weixin.qq.com/cgi-bin/media/get`, {access_token: accessToken, media_id: serverIds});
+  const files = [];
+  for (let id in serverIds) {
+    const file = await downloadFileFromWechatWithCache(accessToken, serverIds[id]);
+    files.push(file);
+  }
+  console.log(files);
+
+  let audio = await concatAudios(files);
+  if (audio) {
+    audio = await uploadFileToQiniu(audio);
+  }
+  return audio
+}
+
 export default {
   downloadFileFromWechat,
   concatAudios,
   uploadFileToQiniu,
+  concatWechatAudios,
 }

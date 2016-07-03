@@ -16,10 +16,10 @@ export const displayErrors = createAction(HOMEWORK_ERRORS, (payload) => payload)
 export const homeworkInit = createAction(HOMEWORK_INIT);
 export const receivedSingleHomework = createAction(RECEIVED_SINGLE_HOMEWORK, (payload) => payload);
 export const togglePlay = createAction(TOGGLE_PLAY, (payload) => payload);
-export const fetchSingleHomeworkAsync = (homeworkId) => {
+export const fetchSingleHomeworkAsync = (courseNo, lessonNo, type) => {
   return async (dispatch) => {
     try {
-      const response = await ajax.get('/api/homeworks/' + homeworkId);
+      const response = await ajax.get('/api/boss_answers/work', {courseNo, lessonNo, type});
       dispatch(receivedSingleHomework(response));
     } catch (err) {
       console.remote('redux/homework 25', err);
