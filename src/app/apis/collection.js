@@ -34,7 +34,7 @@ router.delete('/', verifySession(), async (req, res, next) => {
       accountId: req.session.loginAccount && req.session.loginAccount._id
     }, req.query);
     await Collection.remove(query);
-    res.status(204);
+    res.status(204).send();
   } catch (err) {
     next(err);
   }
@@ -46,7 +46,7 @@ router.delete('/:id', verifySession(), async (req, res, next) => {
       _id: req.params.id,
       accountId: req.user._id
     });
-    res.status(204);
+    res.status(204).send();
   } catch (err) {
     next(err);
   }
