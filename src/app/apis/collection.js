@@ -28,6 +28,18 @@ router.post('/', verifySession(), async (req, res, next) => {
   }
 });
 
+router.delete('/', verifySession(), async (req, res, next) => {
+  try {
+    const query = Object.assign({
+      accountId: req.session.loginAccount && req.session.loginAccount._id
+    }, req.query);
+    await Collection.remove(query);
+    res.status(204);
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.delete('/:id', verifySession(), async (req, res, next) => {
   try {
     await Collection.remove({

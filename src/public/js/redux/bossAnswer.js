@@ -37,9 +37,9 @@ export const toggleCollect = (bossAnswer) => {
     const {courseNo, lessonNo, sentenceNo, type, collected} = bossAnswer;
     try {
       if (collected) {
-        const response = await ajax.remove('/api/collections/', {courseNo, lessonNo, sentenceNo, type});
-      } else {
         const response = await ajax.del('/api/collections/', {courseNo, lessonNo, sentenceNo, type});
+      } else {
+        const response = await ajax.post('/api/collections/', {courseNo, lessonNo, sentenceNo, type});
       }
       dispatch(collectedBossAnswer(bossAnswer));
     } catch (err) {
