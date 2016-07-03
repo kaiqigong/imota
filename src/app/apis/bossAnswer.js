@@ -1,6 +1,7 @@
 import {Router} from 'express';
 import config from '../../config/config';
 import BossAnswer from '../models/BossAnswer';
+import BossWork from '../models/BossWork';
 import Sentence from '../models/Sentence';
 import wechat from '../../utils/wechat';
 import request from '../../utils/request';
@@ -47,7 +48,7 @@ router.post('/', requireLogin(), async (req, res, next) => {
     }
 
     const bossAnswer = await BossAnswer.update({lessonNo, courseNo, bossNo, userId, type},
-      {lessonNo, courseNo, bossNo, userId, audio, audios, type}, {upsert: true, setDefaultsOnInsert: true}).exec();
+      {lessonNo, courseNo, bossNo, userId, audio, audios, type, serverIds}, {upsert: true, setDefaultsOnInsert: true}).exec();
     res.send(bossAnswer);
   } catch (err) {
     next(err);
@@ -57,10 +58,10 @@ router.post('/', requireLogin(), async (req, res, next) => {
 
 router.get('/', requireLogin(), async (req, res, next) => {
   const userId = req.user.userId;
-  const {lessonNo, courseNo, type} = req.query; // TODO: type?
+  const {lessonNo, courseNo, type} = req.query;
   try {
     const bosses = await Sentence.find({lessonNo, courseNo}).sort({sentenceNo: 1}).lean().exec()
-    const bossAnswers = await BossAnswer.find({lessonNo, courseNo, userId}).sort({bossNo: 1}).exec()
+    const bossAnswers = await BossAnswer.find({lessonNo, courseNo, userId, type}).sort({bossNo: 1}).exec()
 
     bosses.forEach(boss => {
       const bossAnswer = _.find(bossAnswers, {lessonNo: boss.lessonNo, courseNo: boss.courseNo, bossNo: boss.sentenceNo, type})
@@ -68,6 +69,38 @@ router.get('/', requireLogin(), async (req, res, next) => {
     })
 
     res.send({docs: bosses})
+  } catch (err) {
+    next(err);
+  }
+})
+
+
+router.post('/concat', requireLogin(), async (req, res, next) => {
+  const userId = req.user.userId;
+  const {lessonNo, courseNo, type} = req.body;
+  try {
+    const bossAnswers = await BossAnswer.find({lessonNo, courseNo, userId, type}).sort({bossNo: 1}).exec()
+
+    const serverIds = [].concat.apply([], _.map(bossAnswers, 'serverIds'))
+
+    const audios = _.map(bossAnswers, 'audio')
+    const audio = await homeworkProcessor.concatWechatAudios(serverIds)
+
+    const bossWork = await BossWork.update({lessonNo, courseNo, userId, type},
+      {lessonNo, courseNo, userId, type, audio, audios, serverIds}, {upsert: true, setDefaultsOnInsert: true}).exec();
+    res.send(bossWork);
+  } catch (err) {
+    next(err);
+  }
+})
+
+
+router.get('/work', requireLogin(), async (req, res, next) => {
+  const userId = req.user.userId;
+  const {lessonNo, courseNo, type} = req.query;
+  try {
+    const bossWork = await BossWork.findOne({lessonNo, courseNo, userId, type})
+    res.send(bossWork);
   } catch (err) {
     next(err);
   }

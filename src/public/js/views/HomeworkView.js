@@ -6,6 +6,8 @@ import ErrorTip from '../components/ErrorTip';
 import Header from '../components/Header';
 import setTitle from '../common/setTitle';
 import AudioPlayer from '../components/AudioPlayer';
+import getParameterByName from '../common/getParam'
+import Instruction from '../components/Instruction';
 
 const mapStateToProps = ({homework, wxsdk}) => ({
   homework, wxsdk,
@@ -26,11 +28,12 @@ class HomeworkView extends Component {
   constructor(props) {
     super();
     this.localIdMap = {};
+    this.type = getParameterByName('type') || 'listen'
   }
 
   componentDidMount() {
     this.props.homeworkInit();
-    this.props.fetchSingleHomeworkAsync(this.props.params.homeworkId);
+    this.props.fetchSingleHomeworkAsync(this.props.params.courseNo, this.props.params.lessonNo, this.type);
     setTimeout(() => this.props.fetchSignatureAsync(), 400);
   }
 
@@ -71,38 +74,26 @@ class HomeworkView extends Component {
 
   render() {
     const {homework, wxsdk} = this.props;
-    // const {errMsg} = wxsdk;
-    // if (errMsg) {
-    //   console.log('签名失败');
-    // }
-    const {serverIds, errors, lesson, courseNo, nickname, playing, type, created, audio} = homework;
+    const {serverIds, errors, playing, type, created, audio} = homework;
     if (!serverIds) {
       return <div className="text-muted text-xs-center">加载中，请稍候<i className="icon-loadingdots spin text-bottom"/></div>;
     }
     if (serverIds) {
-      setTitle(`${nickname}的${type === 'translate' ? '翻译' : '跟读'}作品`);
+      setTitle(`${type === 'translate' ? '翻译' : '跟读'}作品`);
     }
 
-    let expireDate = new Date(created).valueOf() + 72 * 3600 * 1000;
-    expireDate = new Date(expireDate);
-    expireDate = (expireDate.getMonth() + 1) + '月' + expireDate.getDate() + '日' + expireDate.getHours() + '点';
+    const {courseNo, lessonNo} = this.props.params
 
     return (
       <div className="homework">
-        <div style={{'margin': '0 auto', 'width': '0px', 'height': '0px', 'overflow': 'hidden'}}>
-          <img src={homework.course.shareImageUrl} width="700" />
-        </div>
-        <Header back={`/home/courses/${courseNo}?type=${type}`} />
+        <Header back={`/home/courses/${courseNo}/lessons/${lessonNo}/boss_answer?type=${this.type}`} />
         <div className="container">
+          <Instruction text="我的跟读作品" />
           <div className="col-xs-12 video-block text-xs-center">
-            <h4>{`${lesson.chineseTitle} ${homework.course.chineseTitle}`}</h4>
             {
               audio &&
               <AudioPlayer audios={[audio]} key={audio} />
             }
-            <p className="text-muted">
-              一定要点击微信右上角菜单的分享，分享到微信群，老师才能看到你的作业
-            </p>
           </div>
           <ErrorTip error={errors.server} />
         </div>
