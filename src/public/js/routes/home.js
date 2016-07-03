@@ -35,12 +35,13 @@ export default (
     <Route path="/home/courses/:courseNo/lessons/:lessonNo/quiz/" component={DoingHomeworkView} />
     <Route path="/home/courses/:courseNo/lessons/:lessonNo/newhomework/" component={DoingNewhomeworkView} />
     <Route path="/home/courses/:courseNo" component={LessonsView} />
-    <Route path="/home/homeworks/:homeworkId" component={HomeworkView} />
+    {/*<Route path="/home/homeworks/:homeworkId" component={HomeworkView} />*/}
     <Route path="/home/courses/:courseNo/lessons/:lessonNo/warm/" component={WarmView} />
     <Route path="/home/courses/:courseNo/lessons/:lessonNo/listen/:sentenceNo" component={ListenView} />
     <Route path="/home/courses/:courseNo/lessons/:lessonNo/translate/:sentenceNo" component={TranslateView} />
     <Route path="/home/courses/:courseNo/lessons/:lessonNo/boss" component={BossView} />
     <Route path="/home/courses/:courseNo/lessons/:lessonNo/boss_answer" component={BossAnswerView} />
+    <Route path="/home/courses/:courseNo/lessons/:lessonNo/boss_work" component={HomeworkView} />
     <Route path="/home/learning_histories/" component={LearningHistoriesView} />
     <Redirect from="*" to="/" />
   </Route>

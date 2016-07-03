@@ -1,5 +1,6 @@
 import {createAction, handleActions} from 'redux-actions';
 import ajax from '../common/ajax';
+import history from '../common/history';
 
 // ------------------------------------
 // Constants
@@ -48,9 +49,21 @@ export const toggleCollect = (bossAnswer, type) => {
   };
 };
 
+export const submitWorksAsync = (courseNo, lessonNo, type) => {
+  return async (dispatch) => {
+    try {
+      const response = await ajax.post('/api/boss_answers/concat', {courseNo, lessonNo, type});
+      history.pushState(null, `/home/courses/${courseNo}/lessons/${lessonNo}/boss_work?type=${type}`)
+    } catch (err) {
+      console.remote('redux/bosses 21', err);
+    }
+  };
+}
+
 export const actions = {
   receivedBossAnswers,
   fetchBossAnswersAsync,
+  submitWorksAsync,
   toggleCollectionModal,
   toggleReviewModal,
   toggleMethodModal,

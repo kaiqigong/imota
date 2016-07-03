@@ -26,6 +26,7 @@ class TranslateBossView extends Component {
   static propTypes = {
     params: PropTypes.object,
     fetchBossAnswersAsync: PropTypes.func,
+    submitWorksAsync: PropTypes.func,
     fetchSignatureAsync: PropTypes.func,
     toggleCollectionModal: PropTypes.func,
     toggleSpeeds: PropTypes.func,
@@ -42,14 +43,20 @@ class TranslateBossView extends Component {
 
   state = {
     recording: false,
+    submitting: false,
   }
 
   constructor(props) {
     super();
-    let type = getParameterByName('type') || 'listen'
-    props.fetchBossAnswersAsync(props.params.courseNo, props.params.lessonNo, type);
+    this.type = getParameterByName('type') || 'listen'
+    props.fetchBossAnswersAsync(props.params.courseNo, props.params.lessonNo, this.type);
     props.fetchSignatureAsync();
     this.localIds = [];
+  }
+
+  submitWorks = () => {
+    this.setState({submitting: true})
+    this.props.submitWorksAsync(this.props.params.courseNo, this.props.params.lessonNo, this.type)
   }
 
   render() {
@@ -150,11 +157,19 @@ class TranslateBossView extends Component {
           </div>
 
         </div>
-        {/*<div className="course-buttons">
-          <div className="col-xs-4">
-            <Link className="icon-left side-btn" to={`/home/courses/${courseNo}/lessons/${lessonNo}/boss/${prevId}`} />
+        <div className="course-buttons">
+          <div className="col-xs-offset-4 col-xs-4 text-xs-center">
+          { this.state.submitting? // TODO: add submmtting style
+            <a className='action-button'>
+              正在提交
+            </a>
+            :
+            <a className='action-button' onClick={this.submitWorks}>
+              提交
+            </a>
+          }
           </div>
-        </div>*/}
+        </div>
       </div>
     );
   }

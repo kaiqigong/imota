@@ -14,7 +14,7 @@ const schema = BaseSchema.extend({
   audios: [String],
   // nickname: { type: String },
   // serverId: { type: String },
-  // serverIds: [String],
+  serverIds: [String],
   type: {type: String},
 });
 
