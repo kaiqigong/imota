@@ -13,7 +13,7 @@ import MethodModal from '../components/MethodModal';
 import FeedbackModal from '../components/FeedbackModal';
 import ReviewModal from '../components/ReviewModal';
 import {RATES} from '../redux/shifting';
-import AudioPlayer from '../components/AudioPlayer';
+import AudioPlayer from '../components/AudioPlayer2';
 import Progress from 'react-progress';
 import history from '../common/history';
 import TimerProgress from '../components/TimerProgress';
@@ -141,15 +141,15 @@ class BossView extends Component {
     setTitle(`打Boss`);
 
     const prevId = bossNo - 1;
-    const currentProgress = (bossNo + 0.001) / bosses.docs.length * 100
+    const currentProgress = (bossNo + 0.001) / bosses.docs.length * 100;
 
     // const {query} = this.props.location;
-    const type = this.type
+    const type = this.type || 'listen';
 
     const instructionMsg = type == 'listen'? '请跟读每个句子': '请翻译每个句子';
 
-    const duration = (boss.duration || 4) * 1000;
-    const timeLimit = duration * 1.2;
+    const duration = Math.max(boss.duration || 3, 3) * 1000;
+    const timeLimit = duration * (type === 'listen' ? 1.5 : 2);
     const timerProgress = this.state.progress / timeLimit * 100;
 
     const customStyles = {
@@ -228,7 +228,7 @@ class BossView extends Component {
               type=='translate' ?
               <p>口语练习的打boss形式为逐个翻译每个句子，并且有时间限制，你准备好了吗</p>
               :
-              <p>跟读练习的打boss形式为逐个跟读每个句子，并且有时间限制，你准备好了吗</p>
+              <p>每个句子需要手动点击播放按钮才能开始, 每个句子只能听一遍, 录音有时间限制</p>
             :
               wxsdk.noWechat ?
               <div className="small">

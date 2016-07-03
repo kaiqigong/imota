@@ -6,7 +6,6 @@ import {actions as shiftingActions} from '../redux/shifting';
 import {actions as wxsdkActions} from '../redux/wxsdk';
 import {Link} from 'react-router';
 import ErrorTip from '../components/ErrorTip';
-// import AudioPlayer from '../components/AudioPlayer';
 import Instruction from '../components/Instruction';
 import Header from '../components/Header';
 import setTitle from '../common/setTitle';
@@ -15,7 +14,7 @@ import MethodModal from '../components/MethodModal';
 import FeedbackModal from '../components/FeedbackModal';
 import ReviewModal from '../components/ReviewModal';
 import {RATES} from '../redux/shifting';
-import AudioPlayer from '../components/AudioPlayer';
+import AudioPlayer from '../components/AudioPlayer2';
 import getParameterByName from '../common/getParam'
 
 const mapStateToProps = ({bossAnswers, shifting, wxsdk}) => ({
@@ -135,7 +134,11 @@ class TranslateBossView extends Component {
                     {bossAnswer.english}
                   </div>
                   <div onClick={() => this.props.toggleCollect(bossAnswer, type)}>
-                    {bossAnswer.collected ? '已收藏' : '收藏'}
+                    {
+                      bossAnswer.collected ?
+                      <button className="btn btn-xs btn-default pull-xs-right">已收藏</button> :
+                      <button className="btn btn-xs btn-primary pull-xs-right">收藏</button>
+                    }
                   </div>
                   { (bossAnswer.answer && bossAnswer.answer.audio) &&
                     <AudioPlayer audios={[bossAnswer.answer.audio]} key={bossAnswer.answer.audio}>

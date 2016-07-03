@@ -1,11 +1,14 @@
-import mongoose from 'mongoose';
+import mongoose, {Schema} from 'mongoose';
 import BaseSchema from './BaseSchema';
 
 const schema = BaseSchema.extend({
   courseNo: {type: Number},
   lessonNo: {type: Number},
   bossNo: {type: Number},
-  userId: String,
+  accountId: {
+    type: Schema.Types.ObjectId,
+    ref: 'account',
+  },
   audio: String,
   // courseNo: { type: Number },
   // lessonNo: { type: Number },
