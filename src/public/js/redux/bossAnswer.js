@@ -32,9 +32,9 @@ export const fetchBossAnswersAsync = (courseNo, lessonNo, type) => {
   };
 };
 
-export const toggleCollect = (bossAnswer) => {
+export const toggleCollect = (bossAnswer, type) => {
   return async (dispatch) => {
-    const {courseNo, lessonNo, sentenceNo, type, collected} = bossAnswer;
+    const {courseNo, lessonNo, sentenceNo, collected} = bossAnswer;
     try {
       if (collected) {
         const response = await ajax.del('/api/collections/', {courseNo, lessonNo, sentenceNo, type});
