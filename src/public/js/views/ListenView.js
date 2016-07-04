@@ -139,7 +139,7 @@ class ListenView extends Component {
           <a className="nav-link" onClick={() => this.props.toggleFeedbackModal(true)} >纠错</a>
           <a className="nav-link" onClick={() => location.reload()}>刷新</a>
           <Link className="nav-link"
-            to={`/home/courses/${courseNo}/lessons/${lessonNo}/quiz/?type=listen`}>
+            to={`/home/courses/${courseNo}/lessons/${lessonNo}/boss/?type=listen`}>
             打Boss
           </Link>
         </Header>
@@ -225,7 +225,7 @@ class ListenView extends Component {
                   下一步
                 </Link>
                 :
-                <Link className='main-btn' to={`/home/courses/${courseNo}/lessons/${lessonNo}/newhomework/?type=listen`} >
+                <Link className='main-btn' to={`/home/courses/${courseNo}/lessons/${lessonNo}/boss/?type=listen`} >
                   打Boss
                 </Link>
               )

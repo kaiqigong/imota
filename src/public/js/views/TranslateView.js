@@ -140,7 +140,7 @@ class TranslateView extends Component {
           <a className="nav-link" onClick={() => this.props.toggleFeedbackModal(true)} >纠错</a>
           <a className="nav-link" onClick={() => location.reload()}>刷新</a>
           <Link className="nav-link"
-            to={`/home/courses/${courseNo}/lessons/${lessonNo}/quiz/?type=translate`}>
+            to={`/home/courses/${courseNo}/lessons/${lessonNo}/boss/?type=translate`}>
             打Boss
           </Link>
         </Header>
@@ -200,7 +200,7 @@ class TranslateView extends Component {
                   下一步
                 </Link>
                 :
-                <Link className='main-btn' to={`/home/courses/${courseNo}/lessons/${lessonNo}/newhomework/?type=translate`} >
+                <Link className='main-btn' to={`/home/courses/${courseNo}/lessons/${lessonNo}/boss/?type=translate`} >
                   打Boss
                 </Link>
               )
