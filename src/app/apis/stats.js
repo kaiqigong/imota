@@ -33,7 +33,8 @@ router.get('/learning_histories/', verifySession(), async (req, res, next) => {
     const page = req.query.page || 1;
     const limit = req.query.limit || config.pagination.defaultSize;
     const histories = await LearningHistory.paginate({accountId: req.user._id}, {page, limit, sort: {date: -1}});
-    const todayBeats = await Beat.find({accountId: req.user._id, created: {$gt: moment().add(-1, 'day').set({hour: 5})}}).sort({created: 1}).exec();
+    const todayBegin = moment().add(-5, 'hour').set({hour: 5});
+    const todayBeats = await Beat.find({accountId: req.user._id, created: {$gt: todayBegin}}).sort({created: 1}).exec();
 
     let todayLearningTime = 0; // Milliseconds
     let lastLearningStart = 0; // Milliseconds
