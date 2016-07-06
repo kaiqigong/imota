@@ -149,9 +149,8 @@ class BossView extends Component {
     const instructionMsg = type == 'listen'? '请跟读每个句子': '请翻译每个句子';
 
     const duration = Math.max(boss.duration || 3, 3) * 1000;
-    const timeLimit = duration * (type === 'listen' ? 2 : 2);
+    const timeLimit = duration * (type === 'listen' ? 1.5 : 2);
     console.remote('timeLimit', timeLimit);
-    const timerProgress = this.state.progress / timeLimit * 100;
 
     const customStyles = {
       overlay: {
@@ -243,7 +242,7 @@ class BossView extends Component {
           <div className='clearfix'> </div>
           { this.state.recording ?
             <TimerProgress
-              duration={duration}
+              duration={timeLimit}
               done={()=>this.timeoutCb(`/home/courses/${courseNo}/lessons/${lessonNo}/boss_answer?type=${type}`)}
               key={bossNo}
             />
