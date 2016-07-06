@@ -128,13 +128,16 @@ class BossView extends Component {
 
   render() {
     const {bosses, shifting, wxsdk} = this.props;
-    const {showCollectionModal, showMethodModal, showReviewModal, showFeedbackModal} = bosses;
+    const {errors, showCollectionModal, showMethodModal, showReviewModal, showFeedbackModal} = bosses;
     const {courseNo, lessonNo} = this.props.params;
     const {bossNo} = this.state;
 
     const boss = bosses.docs[bossNo-1];
+    if (errors && errors.list) {
+      return <div className="text-danger text-xs-center">加载失败<i className="icon-cuowutishi text-bottom" /> <a onClick={()=>{location.reload()}}>重试</a></div>;
+    }
     if (!boss) {
-      return <div>Loading...</div>;
+      return <div className="text-muted text-xs-center">加载中，请稍候<i className="icon-loadingdots spin text-bottom" /></div>;
     }
 
     // TODO: course & lesson?
@@ -149,7 +152,7 @@ class BossView extends Component {
     const instructionMsg = type == 'listen'? '请跟读每个句子': '请翻译每个句子';
 
     const duration = Math.max(boss.duration || 3, 3) * 1000;
-    const timeLimit = duration * (type === 'listen' ? 1.5 : 2);
+    const timeLimit = duration * (type === 'listen' ? 1.75 : 2);
     console.remote('timeLimit', timeLimit);
 
     const customStyles = {

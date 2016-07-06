@@ -9,6 +9,8 @@ export const TOGGLE_REVIEW_MODAL = 'TOGGLE_REVIEW_MODAL';
 export const TOGGLE_METHOD_MODAL = 'TOGGLE_METHOD_MODAL';
 export const TOGGLE_FEEDBACK_MODAL = 'TOGGLE_FEEDBACK_MODAL';
 export const TOGGLE_COLLECTION_MODAL = 'TOGGLE_COLLECTION_MODAL';
+export const DISPLAY_ERRORS = 'DISPLAY_ERRORS';
+
 // ------------------------------------
 // Actions
 // ------------------------------------
@@ -17,7 +19,7 @@ export const toggleCollectionModal = createAction(TOGGLE_COLLECTION_MODAL, (payl
 export const toggleReviewModal = createAction(TOGGLE_REVIEW_MODAL, (payload) => payload);
 export const toggleMethodModal = createAction(TOGGLE_METHOD_MODAL, (payload) => payload);
 export const toggleFeedbackModal = createAction(TOGGLE_FEEDBACK_MODAL, (payload) => payload);
-
+export const displayErrors = createAction(DISPLAY_ERRORS, (payload) => payload);
 export const fetchBossesAsync = (courseNo, lessonNo) => {
   return async (dispatch) => {
     try {
@@ -113,6 +115,10 @@ export default handleActions({
   },
   [TOGGLE_FEEDBACK_MODAL]: (state, {payload}) => {
     state.showFeedbackModal = payload;
+    return Object.assign({}, state);
+  },
+  [DISPLAY_ERRORS]: (state, {payload}) => {
+    state.errors = payload;
     return Object.assign({}, state);
   },
 }, {docs: []});
