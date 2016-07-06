@@ -148,8 +148,8 @@ class BossView extends Component {
 
     const instructionMsg = type == 'listen'? '请跟读每个句子': '请翻译每个句子';
 
-    const duration = Math.max(boss.duration || 4, 4) * 1000;
-    const timeLimit = duration * (type === 'listen' ? 1.5 : 2);
+    const duration = Math.max(boss.duration || 3, 3) * 1000;
+    const timeLimit = duration * (type === 'listen' ? 2 : 2);
     console.remote('timeLimit', timeLimit);
     const timerProgress = this.state.progress / timeLimit * 100;
 
@@ -173,34 +173,6 @@ class BossView extends Component {
       <div>
         <Header back={backUrl} currentProgress={currentProgress}>
           <a className="nav-link" onClick={() => this.props.toggleMethodModal(true)} >方法</a>
-          <a className="nav-link" onClick={e => {
-            e.stopPropagation();
-            this.props.toggleSpeeds();
-          }}>难度</a>
-          {
-            shifting.showSpeeds ?
-            <div>
-              {
-                RATES.map((rate) => {
-                  return (
-                    <a className={'nav-link col-xs-12' + (shifting.speed === rate ? ' selected' : '')} key={rate} onClick={() => {
-                      this.props.shiftSpeed(rate);
-                    }}>
-                      {rate}
-                      {
-                        shifting.speed === rate ?
-                        <i className="icon-tick pull-xs-right" />
-                        :
-                        ''
-                      }
-                    </a>
-                  );
-                })
-              }
-            </div>
-            :
-            ''
-          }
           <a className="nav-link" onClick={() => this.props.toggleCollectionModal(true)} >存档</a>
           <a className="nav-link" onClick={() => this.props.toggleReviewModal(true)} >复习</a>
           <a className="nav-link" onClick={() => this.props.toggleFeedbackModal(true)} >纠错</a>

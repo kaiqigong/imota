@@ -253,7 +253,7 @@ router.get('/home/*', async (req, res) => {
 为了安全起见，只允许使用ssh tunnel，需要给我public key  
 ```
 ssh \
--L 27018:localhost:27018 \
+-L 27017:localhost:27017 \
 -i ~/.ssh/id_rsa \
 dbuser@121.201.28.101
 ```

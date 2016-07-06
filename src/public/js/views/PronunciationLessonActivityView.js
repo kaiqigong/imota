@@ -226,23 +226,31 @@ class PronunciationLessonActivityView extends Component {
                                     ? <VideoPlayer videos={[lessonActivity.video]} autoplay key={lessonActivity.video} />
                                     : ''
                                 }
-                                <div className="listen-explain">
-                                  <div dangerouslySetInnerHTML={{__html: lessonActivity.description}}></div>
-                                </div>
                                 {
-                                  lessonActivity.audio && active
-                                    ? <AudioPlayer audios={[lessonActivity.audio]} autoplay key={lessonActivity.audio}>
+                                  lessonActivity.audio && active ?
+                                  <div className="listen-explain">
+                                    <AudioPlayer audios={[lessonActivity.audio]} autoplay key={lessonActivity.audio}>
                                         <div className="sentence-text">
+                                          <div dangerouslySetInnerHTML={{__html: lessonActivity.description}}></div>
                                           <i className="icon-voice"></i>
                                         </div>
                                         <div className="sentence-text">
+                                          <div dangerouslySetInnerHTML={{__html: lessonActivity.description}}></div>
                                           <i className="icon-voice-mute" />
                                         </div>
                                         <div className="sentence-text">
-                                          出错啦！
+                                          <div dangerouslySetInnerHTML={{__html: lessonActivity.description}}></div>
+                                          <i className="icon-cuowutishi" />
                                         </div>
                                       </AudioPlayer>
-                                    : ''
+                                  </div>
+                                  :
+                                  !lessonActivity.audio ?
+                                  <div className="listen-explain">
+                                    <div dangerouslySetInnerHTML={{__html: lessonActivity.description}}></div>
+                                  </div>
+                                  :
+                                  ''
                                 }
                               </ScrollingView>
                             </div>
@@ -259,33 +267,39 @@ class PronunciationLessonActivityView extends Component {
                               </div>
                               <ScrollingView className="course-content" style={scrollStyle}>
                                 <div className="reading-pronunciation">
-                                  <div className="text-xs-center">
                                   {
-                                    lessonActivity.readingText
+                                    lessonActivity.audio && active
+                                    ? <AudioPlayer audios={[lessonActivity.audio]} autoplay key={lessonActivity.audio}>
+                                        <div className="sentence-text">
+                                          <div className="text-xs-center">
+                                          {lessonActivity.readingText}
+                                          </div>
+                                          <div className="text-muted text-xs-center">
+                                          {lessonActivity.readingNote}
+                                          </div>
+                                          <i className="icon-voice"></i>
+                                        </div>
+                                        <div className="sentence-text">
+                                          <div className="text-xs-center">
+                                          {lessonActivity.readingText}
+                                          </div>
+                                          <div className="text-muted text-xs-center">
+                                          {lessonActivity.readingNote}
+                                          </div>
+                                          <i className="icon-voice-mute" />
+                                        </div>
+                                        <div className="sentence-text">
+                                          <div className="text-xs-center">
+                                          {lessonActivity.readingText}
+                                          </div>
+                                          <div className="text-muted text-xs-center">
+                                          {lessonActivity.readingNote}
+                                          </div>
+                                          <i className="icon-cuowutishi" />
+                                        </div>
+                                      </AudioPlayer>
+                                    : ''
                                   }
-                                  </div>
-                                  <div className="text-muted text-xs-center">
-                                  {
-                                    lessonActivity.readingNote
-                                  }
-                                    <div style={{display: 'inline-block'}}>
-                                    {
-                                      lessonActivity.audio && active
-                                      ? <AudioPlayer audios={[lessonActivity.audio]} autoplay key={lessonActivity.audio}>
-                                          <div className="sentence-text">
-                                            <i className="icon-voice"></i>
-                                          </div>
-                                          <div className="sentence-text">
-                                            <i className="icon-voice-mute" />
-                                          </div>
-                                          <div className="sentence-text">
-                                            出错啦！
-                                          </div>
-                                        </AudioPlayer>
-                                      : ''
-                                    }
-                                    </div>
-                                  </div>
                                 </div>
                               </ScrollingView>
                             </div>
