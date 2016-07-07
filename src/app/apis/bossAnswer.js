@@ -1,7 +1,7 @@
 import {Router} from 'express';
 import config from '../../config/config';
 import BossAnswer from '../models/BossAnswer';
-import BossWork from '../models/BossWork';
+import Homework from '../models/Homework';
 import Sentence from '../models/Sentence';
 import wechat from '../../utils/wechat';
 import request from '../../utils/request';
@@ -86,24 +86,12 @@ router.post('/concat', verifySession(), async (req, res, next) => {
     const audios = _.map(bossAnswers, 'audio')
     const audio = await homeworkProcessor.concatWechatAudios(serverIds)
 
-    const bossWork = await BossWork.update({lessonNo, courseNo, accountId, type},
-      {lessonNo, courseNo, accountId, type, audio, audios, serverIds}, {upsert: true, setDefaultsOnInsert: true}).exec();
-    res.send(bossWork);
+    const homework = new Homework({lessonNo, courseNo, accountId, type, audio, audios, serverIds});
+    await homework.save();
+    res.send(homework);
   } catch (err) {
     next(err);
   }
-})
-
-
-router.get('/work', verifySession(), async (req, res, next) => {
-  const accountId = req.user._id;
-  const {lessonNo, courseNo, type} = req.query;
-  try {
-    const bossWork = await BossWork.findOne({lessonNo, courseNo, accountId, type})
-    res.send(bossWork);
-  } catch (err) {
-    next(err);
-  }
-})
+});
 
 export default router;

@@ -53,7 +53,7 @@ export const submitWorksAsync = (courseNo, lessonNo, type) => {
   return async (dispatch) => {
     try {
       const response = await ajax.post('/api/boss_answers/concat', {courseNo, lessonNo, type});
-      history.pushState(null, `/home/courses/${courseNo}/lessons/${lessonNo}/boss_work?type=${type}`)
+      history.pushState(null, `/home/homeworks/${response._id}`);
     } catch (err) {
       console.remote('redux/bosses 21', err);
     }
