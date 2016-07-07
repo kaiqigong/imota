@@ -77,6 +77,7 @@ router.get('/', verifySession(), async (req, res, next) => {
 
 router.post('/concat', verifySession(), async (req, res, next) => {
   const accountId = req.user._id;
+  const nickname = req.user.nickname;
   const {lessonNo, courseNo, type} = req.body;
   try {
     const bossAnswers = await BossAnswer.find({lessonNo, courseNo, accountId, type}).sort({bossNo: 1}).exec()
@@ -86,7 +87,7 @@ router.post('/concat', verifySession(), async (req, res, next) => {
     const audios = _.map(bossAnswers, 'audio')
     const audio = await homeworkProcessor.concatWechatAudios(serverIds)
 
-    const homework = new Homework({lessonNo, courseNo, accountId, type, audio, audios, serverIds});
+    const homework = new Homework({lessonNo, courseNo, accountId, type, audio, audios, serverIds, nickname});
     await homework.save();
     res.send(homework);
   } catch (err) {
