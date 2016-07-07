@@ -17,8 +17,7 @@ export const displayErrors = createAction(HOMEWORK_ERRORS, (payload) => payload)
 export const homeworkInit = createAction(HOMEWORK_INIT);
 export const receivedSingleHomework = createAction(RECEIVED_SINGLE_HOMEWORK, (payload) => payload);
 export const togglePlay = createAction(TOGGLE_PLAY, (payload) => payload);
-export const fetchSingleHomeworkAsync = function(homeworkId) {
-  var args = Array.prototype.slice.call(arguments);
+export const fetchSingleHomeworkAsync = (...args) => {
   if (args.length > 1) {
     console.log(args);
     return async (dispatch) => {
@@ -37,7 +36,7 @@ export const fetchSingleHomeworkAsync = function(homeworkId) {
   }
   return async (dispatch) => {
     try {
-      const response = await ajax.get('/api/homeworks/' + homeworkId);
+      const response = await ajax.get('/api/homeworks/' + args[0]);
       dispatch(receivedSingleHomework(response));
     } catch (err) {
       console.remote('redux/homework 25', err);
