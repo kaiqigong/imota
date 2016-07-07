@@ -17,7 +17,7 @@ export const displayErrors = createAction(HOMEWORK_ERRORS, (payload) => payload)
 export const homeworkInit = createAction(HOMEWORK_INIT);
 export const receivedSingleHomework = createAction(RECEIVED_SINGLE_HOMEWORK, (payload) => payload);
 export const togglePlay = createAction(TOGGLE_PLAY, (payload) => payload);
-export const fetchSingleHomeworkAsync = (homeworkId) => {
+export const fetchSingleHomeworkAsync = function(homeworkId) {
   var args = Array.prototype.slice.call(arguments);
   if (args.length > 1) {
     console.log(args);
