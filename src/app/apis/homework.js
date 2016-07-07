@@ -25,6 +25,16 @@ router.get('/:homeworkId', async (req, res, next) => {
   }
 });
 
+router.get('/', async (req, res, next) => {
+  try {
+    const accountId = req.session.loginAccount && req.session.loginAccount._id;
+    const results = await Homework.find(Object.assign({accountId}, req.query));
+    res.send(results);
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.post('/', async (req, res, next) => {
   try {
     const {serverIds, lessonNo, courseNo, nickname, time, type} = req.body;

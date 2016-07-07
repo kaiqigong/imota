@@ -1,5 +1,6 @@
 import {createAction, handleActions} from 'redux-actions';
 import ajax from '../common/ajax';
+import history from '../common/history';
 
 // ------------------------------------
 // Constants
@@ -16,10 +17,26 @@ export const displayErrors = createAction(HOMEWORK_ERRORS, (payload) => payload)
 export const homeworkInit = createAction(HOMEWORK_INIT);
 export const receivedSingleHomework = createAction(RECEIVED_SINGLE_HOMEWORK, (payload) => payload);
 export const togglePlay = createAction(TOGGLE_PLAY, (payload) => payload);
-export const fetchSingleHomeworkAsync = (courseNo, lessonNo, type) => {
+export const fetchSingleHomeworkAsync = (homeworkId) => {
+  if (arguments.length > 1) {
+    var args = arguments;
+    return async (dispatch) => {
+      try {
+        const response = await ajax.get('/api/homeworks', {
+          courseNo: args[0], lessonNo: args[1], type: args[2]});
+        if (response[0] && response[0]._id) {
+          history.pushState(null, `/home/homeworks/${response[0]._id}`);
+        } else {
+          console.log('redux/homework 29', args);
+        }
+      } catch (err) {
+        console.remote('redux/homework 32', err);
+      }
+    };
+  }
   return async (dispatch) => {
     try {
-      const response = await ajax.get('/api/boss_answers/work', {courseNo, lessonNo, type});
+      const response = await ajax.get('/api/homeworks/' + homeworkId);
       dispatch(receivedSingleHomework(response));
     } catch (err) {
       console.remote('redux/homework 25', err);
