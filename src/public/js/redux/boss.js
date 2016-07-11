@@ -35,7 +35,7 @@ const uploadSingle = async (localId) => {
   return new Promise((resolve, reject) => {
     wx.uploadVoice({
       localId: localId, // 需要上传的音频的本地ID，由stopRecord接口获得
-      isShowProgressTips: 1, // 默认为1，显示进度提示
+      isShowProgressTips: 0, // 默认为1，显示进度提示
       success: async (res) => {
         resolve(res.serverId);
       },
