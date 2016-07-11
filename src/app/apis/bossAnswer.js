@@ -47,8 +47,10 @@ router.post('/', verifySession(), async (req, res, next) => {
       audio = await homeworkProcessor.uploadFileToQiniu(audio);
     }
 
+    const modified = new Date();
+
     const bossAnswer = await BossAnswer.update({lessonNo, courseNo, bossNo, accountId, type},
-      {lessonNo, courseNo, bossNo, accountId, audio, audios, type, serverIds}, {upsert: true, setDefaultsOnInsert: true}).exec();
+      {lessonNo, courseNo, bossNo, accountId, audio, audios, type, serverIds, modified}, {upsert: true, setDefaultsOnInsert: true}).exec();
     res.send(bossAnswer);
   } catch (err) {
     next(err);
@@ -65,7 +67,7 @@ router.get('/', verifySession(), async (req, res, next) => {
 
     bosses.forEach(boss => {
       const bossAnswer = _.find(bossAnswers, {lessonNo: boss.lessonNo, courseNo: boss.courseNo, bossNo: boss.sentenceNo, type})
-      boss.answer = bossAnswer? _.pick(bossAnswer, ['audio', 'type']): bossAnswer;
+      boss.answer = bossAnswer? _.pick(bossAnswer, ['audio', 'type', 'serverIds']): bossAnswer;
     })
 
     res.send({docs: bosses})
