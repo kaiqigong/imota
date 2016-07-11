@@ -1,8 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import { connect } from 'react-redux';
-// import {actions as translateActions} from '../redux/translate';
 import {actions as bossAnswerActions} from '../redux/bossAnswer';
-import {actions as shiftingActions} from '../redux/shifting';
 import {actions as wxsdkActions} from '../redux/wxsdk';
 import {Link} from 'react-router';
 import ErrorTip from '../components/ErrorTip';
@@ -13,12 +11,11 @@ import CollectionModal from '../components/CollectionModal';
 import MethodModal from '../components/MethodModal';
 import FeedbackModal from '../components/FeedbackModal';
 import ReviewModal from '../components/ReviewModal';
-import {RATES} from '../redux/shifting';
 import AudioPlayer from '../components/AudioPlayer2';
 import getParameterByName from '../common/getParam'
 
-const mapStateToProps = ({bossAnswers, shifting, wxsdk}) => ({
-  bossAnswers, shifting, wxsdk,
+const mapStateToProps = ({bossAnswers, wxsdk}) => ({
+  bossAnswers, wxsdk,
 });
 
 class TranslateBossView extends Component {
@@ -32,17 +29,14 @@ class TranslateBossView extends Component {
     toggleMethodModal: PropTypes.func,
     toggleFeedbackModal: PropTypes.func,
     toggleReviewModal: PropTypes.func,
-    shiftSpeed: PropTypes.func,
-    // showTranslateAnswer: PropTypes.func,
-    // translateInit: PropTypes.func,
     bossAnswers: PropTypes.object,
-    // translate: PropTypes.object,
-    shifting: PropTypes.object,
+    wxsdk: PropTypes.object,
   };
 
   state = {
     recording: false,
     submitting: false,
+    playingId: null,
   }
 
   constructor(props) {
@@ -50,7 +44,7 @@ class TranslateBossView extends Component {
     this.type = getParameterByName('type') || 'listen'
     props.fetchBossAnswersAsync(props.params.courseNo, props.params.lessonNo, this.type);
     props.fetchSignatureAsync();
-    this.localIds = [];
+    this.localIdMap = {};
   }
 
   submitWorks = () => {
@@ -58,9 +52,44 @@ class TranslateBossView extends Component {
     this.props.submitWorksAsync(this.props.params.courseNo, this.props.params.lessonNo, this.type)
   }
 
+  play(serverId) {
+    wx.downloadVoice({
+      serverId: serverId, // 需要下载的音频的服务器端ID，由uploadVoice接口获得
+      isShowProgressTips: 1, // 默认为1，显示进度提示
+      success: (res) => {
+        wx.playVoice({
+          localId: res.localId, // 需要播放的音频的本地ID，由stopRecord接口获得
+        });
+        this.localIdMap[serverId] = res.localId;
+        this.setState({playingId: serverId});
+        wx.onVoicePlayEnd({
+          success: (res) => {
+            this.setState({playingId: null});
+          },
+          fail: (err) => {
+            this.setState({playingId: null});
+            console.remote('views/PronunciationHomeworkView 51', err);
+          },
+        });
+      },
+      fail: (err) => {
+        this.setState({playingId: null});
+        console.remote('views/PronunciationHomeworkView 56', err);
+      },
+    });
+  }
+
+  pause(serverId) {
+    const localId = this.localIdMap[serverId];
+    wx.pauseVoice({
+      localId: localId, // 需要播放的音频的本地ID，由stopRecord接口获得
+    });
+    this.setState({playingId: null});
+  }
+
   render() {
 
-    const {bossAnswers, shifting, wxsdk} = this.props;
+    const {bossAnswers, wxsdk} = this.props;
     const {showCollectionModal, showMethodModal, showReviewModal, showFeedbackModal} = bossAnswers;
     const {courseNo, lessonNo, bossNo} = this.props.params;
     const prevId = bossAnswers.docs.length; //TODO:
@@ -74,34 +103,6 @@ class TranslateBossView extends Component {
         {/*<Header back={`/home/courses/${courseNo}?type=translate`} currentProgress={100}>*/}
         <Header back={`/home/courses/${courseNo}?type=${type}`} currentProgress={100}>
           <a className="nav-link" onClick={() => this.props.toggleMethodModal(true)} >方法</a>
-          <a className="nav-link" onClick={e => {
-            e.stopPropagation();
-            this.props.toggleSpeeds();
-          }}>难度</a>
-          {
-            shifting.showSpeeds ?
-            <div>
-              {
-                RATES.map((rate) => {
-                  return (
-                    <a className={'nav-link col-xs-12' + (shifting.speed === rate ? ' selected' : '')} key={rate} onClick={() => {
-                      this.props.shiftSpeed(rate);
-                    }}>
-                      {rate}
-                      {
-                        shifting.speed === rate ?
-                        <i className="icon-tick pull-xs-right" />
-                        :
-                        ''
-                      }
-                    </a>
-                  );
-                })
-              }
-            </div>
-            :
-            ''
-          }
           <a className="nav-link" onClick={() => this.props.toggleCollectionModal(true)} >存档</a>
           <a className="nav-link" onClick={() => this.props.toggleReviewModal(true)} >复习</a>
           <a className="nav-link" onClick={() => this.props.toggleFeedbackModal(true)} >纠错</a>
@@ -139,18 +140,17 @@ class TranslateBossView extends Component {
                       <button onClick={() => this.props.toggleCollect(bossAnswer, type)} className="btn btn-sm btn-default pull-xs-right">已收藏</button> :
                       <button onClick={() => this.props.toggleCollect(bossAnswer, type)} className="btn btn-sm btn-primary pull-xs-right">收藏</button>
                     }
-                    { (bossAnswer.answer && bossAnswer.answer.audio) &&
-                      <AudioPlayer audios={[bossAnswer.answer.audio]} key={bossAnswer.answer.audio}>
-                        <div className="sentence-text">
-                          <i className="icon-voice"></i>
-                        </div>
-                        <div className="sentence-text">
-                          <i className="icon-voice-mute" />
-                        </div>
-                        <div className="sentence-text">
-                          出错啦！
-                        </div>
-                      </AudioPlayer>
+                    { (bossAnswer.answer && bossAnswer.answer.serverIds) &&
+                      bossAnswer.answer.serverIds.map((serverId) => {
+                        return (<div className="sentence-text" key={serverId}>
+                          {
+                            this.state.playingId === serverId ?
+                            <i className="icon-voice" onTouchStart={() => this.pause(serverId)} />
+                            :
+                            <i className="icon-voice-mute" onTouchStart={() => this.play(serverId)} />
+                          }
+                        </div>);
+                      })
                     }
                   </div>
                 </div>
@@ -178,4 +178,4 @@ class TranslateBossView extends Component {
   }
 }
 
-export default connect(mapStateToProps, Object.assign(bossAnswerActions, shiftingActions, wxsdkActions))(TranslateBossView);
+export default connect(mapStateToProps, Object.assign(bossAnswerActions, wxsdkActions))(TranslateBossView);
