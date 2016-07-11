@@ -53,15 +53,13 @@ class TranslateBossView extends Component {
   }
 
   play(serverId) {
-    wx.downloadVoice({
-      serverId: serverId, // 需要下载的音频的服务器端ID，由uploadVoice接口获得
-      isShowProgressTips: 1, // 默认为1，显示进度提示
-      success: (res) => {
-        wx.playVoice({
-          localId: res.localId, // 需要播放的音频的本地ID，由stopRecord接口获得
+    if (this.localIdMap[serverId]) {
+      wx.playVoice({
+          localId: this.localIdMap[serverId], // 需要播放的音频的本地ID，由stopRecord接口获得
         });
-        this.localIdMap[serverId] = res.localId;
-        this.setState({playingId: serverId});
+        setTimeout(() => {
+          this.setState({playingId: serverId});
+        }, 300);
         wx.onVoicePlayEnd({
           success: (res) => {
             this.setState({playingId: null});
@@ -71,12 +69,34 @@ class TranslateBossView extends Component {
             console.remote('views/PronunciationHomeworkView 51', err);
           },
         });
-      },
-      fail: (err) => {
-        this.setState({playingId: null});
-        console.remote('views/PronunciationHomeworkView 56', err);
-      },
-    });
+    } else {
+      wx.downloadVoice({
+        serverId: serverId, // 需要下载的音频的服务器端ID，由uploadVoice接口获得
+        isShowProgressTips: 1, // 默认为1，显示进度提示
+        success: (res) => {
+          wx.playVoice({
+            localId: res.localId, // 需要播放的音频的本地ID，由stopRecord接口获得
+          });
+          this.localIdMap[serverId] = res.localId;
+          setTimeout(() => {
+            this.setState({playingId: serverId});
+          }, 300);
+          wx.onVoicePlayEnd({
+            success: (res) => {
+              this.setState({playingId: null});
+            },
+            fail: (err) => {
+              this.setState({playingId: null});
+              console.remote('views/PronunciationHomeworkView 51', err);
+            },
+          });
+        },
+        fail: (err) => {
+          this.setState({playingId: null});
+          console.remote('views/PronunciationHomeworkView 56', err);
+        },
+      });
+    }
   }
 
   pause(serverId) {
