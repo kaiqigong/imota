@@ -115,8 +115,8 @@ class BossView extends Component {
       return;
     }
     // TODO: add callback to endRecord, use it instead of setTimeout
-    this.setState({bossNo: this.state.bossNo + 1});
     setTimeout(()=> {
+      this.setState({bossNo: this.state.bossNo + 1});
       if (this.type == 'translate') {
         this.beginRecord();
       }
