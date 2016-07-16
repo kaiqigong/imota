@@ -17,10 +17,11 @@ const FILE_DIR = '/data/files/';
 const downloadFileFromWechat = async (accessToken, serverId) => {
   const retry = async (fun, times) => {
     try {
-      return fun();
+      return await fun();
     } catch (err) {
       if (times) {
-        return retry(fun, times--);
+        console.log('retry times left: ', times);
+        return await retry(fun, --times);
       }
       throw(err);
     }
