@@ -49,8 +49,6 @@ const downloadFileFromWechat = async (accessToken, serverId) => {
             console.error(outputFilePath + ' An error occurred Converting : ' , error);
             return reject(error);
           }
-          console.log(`stdout: ${stdout}`);
-          console.log(`stderr: ${stderr}`);
           resolve(outputFilePath);
         });
         // 异步上传amr
@@ -72,8 +70,6 @@ const concatAudios = async (audios) => {
         console.error(`exec error: ${error}`);
         return reject(error);
       }
-      console.log(`stdout: ${stdout}`);
-      console.log(`stderr: ${stderr}`);
       resolve(outputPath);
     });
   });
