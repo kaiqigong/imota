@@ -64,7 +64,7 @@ const uploadSingle = async (localId) => {
         resolve(res.serverId);
       },
       fail: (err) => {
-        console.log('redux/doingHomework 68', err);
+        console.log('redux/doingHomework 67', err);
         reject(err);
       },
     });

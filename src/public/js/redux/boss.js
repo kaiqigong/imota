@@ -40,7 +40,7 @@ const uploadSingle = async (localId) => {
         resolve(res.serverId);
       },
       fail: (err) => {
-        console.remote('redux/doingHomework 68', err);
+        console.remote('redux/boss 43', err);
         reject(err);
       },
     });

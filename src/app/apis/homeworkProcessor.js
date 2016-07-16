@@ -30,6 +30,7 @@ const downloadFileFromWechat = async (accessToken, serverId) => {
       console.log(`finish download: ${filename}`);
       const outputFilePath = FILE_DIR + serverId + '.mp3';
       // ffmpeg -i ZV5P9L_vrfzlzPmy3H3BVKPNvioOzBMRCca3i21NHE8X158R9D8-AlDVS7yALeYp.amr -vn -ar 8000 -ac 2 -ab 192k -f mp3 ZV5P9L_vrfzlzPmy3H3BVKPNvioOzBMRCca3i21NHE8X158R9D8-AlDVS7yALeYp.mp3
+      // -y 防止文件存在，加-y覆盖原文件
       const cmd = `ffmpeg -i ${filename} -y -vn -ar 8000 -ac 1 -ab 320k -f mp3 ${outputFilePath}`;
       exec(cmd, (error, stdout, stderr) => {
         if (error) {
