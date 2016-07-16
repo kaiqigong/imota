@@ -37,7 +37,7 @@ router.post('/', verifySession(), async (req, res, next) => {
     }
     console.log(audios);
 
-    const audio = await homeworkProcessor.concatAudios(files);
+    let audio = await homeworkProcessor.concatAudios(files);
 
     if (audio) {
       audio = await homeworkProcessor.uploadFileToQiniu(audio);
