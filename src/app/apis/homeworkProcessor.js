@@ -26,7 +26,7 @@ const downloadFileFromWechat = async (accessToken, serverId) => {
       throw(err);
     }
   };
-  return retry(() => {
+  return await retry(() => {
     return new Promise(function(resolve, reject) {
       let filename = FILE_DIR + serverId + '.amr';
       let stream = http(`http://file.api.weixin.qq.com/cgi-bin/media/get?access_token=${encodeURIComponent(accessToken)}&media_id=${encodeURIComponent(serverId)}`)
