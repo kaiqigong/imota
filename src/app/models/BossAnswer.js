@@ -10,13 +10,7 @@ const schema = BaseSchema.extend({
     ref: 'account',
   },
   audio: String,
-  // courseNo: { type: Number },
-  // lessonNo: { type: Number },
-  // time: {type: Number },
-  // audio: { type: String },
   audios: [String],
-  // nickname: { type: String },
-  // serverId: { type: String },
   serverIds: [String],
   type: {type: String},
 });

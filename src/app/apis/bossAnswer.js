@@ -17,6 +17,7 @@ const router = new Router();
 router.post('/', verifySession(), async (req, res, next) => {
   try {
     const {serverIds, lessonNo, courseNo, bossNo, type} = req.body;
+    console.log(req.body);
     const accountId = req.user._id;
     const accessToken = await wechat.getAccessToken();
     // download
@@ -57,7 +58,6 @@ router.post('/', verifySession(), async (req, res, next) => {
   }
 });
 
-
 router.get('/', verifySession(), async (req, res, next) => {
   const accountId = req.user._id;
   const {lessonNo, courseNo, type} = req.query;
@@ -75,7 +75,6 @@ router.get('/', verifySession(), async (req, res, next) => {
     next(err);
   }
 })
-
 
 router.post('/concat', verifySession(), async (req, res, next) => {
   const accountId = req.user._id;

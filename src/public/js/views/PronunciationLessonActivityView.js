@@ -59,7 +59,6 @@ class PronunciationLessonActivityView extends Component {
   startRecord() {
     wx.startRecord({
       success: () => {
-        console.remote('views/PronunciationLessonActivityView 82-0', 'Start Recording');
 
         // 录音超过55s后自动开始新的录音
         this.timeoutId = setTimeout(() => {
@@ -100,8 +99,6 @@ class PronunciationLessonActivityView extends Component {
     wx.stopRecord({
       success: (res) => {
         this.localIds.push(res.localId);
-        console.remote('views/PronunciationLessonActivityView 82-6', 'Stop ' + this.localIds + ' Recording Success');
-
         // todo: end quiz
         this.props.endRecord(this.localIds);
         this.props.endPronunciationHomeworkAsync(this.localIds.slice());

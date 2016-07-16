@@ -153,7 +153,6 @@ class BossView extends Component {
 
     const duration = Math.max(boss.duration || 3, 3) * 1000;
     const timeLimit = duration * (type === 'listen' ? 1.75 : 2);
-    console.remote('timeLimit', timeLimit);
 
     const customStyles = {
       overlay: {
