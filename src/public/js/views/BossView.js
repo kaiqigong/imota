@@ -111,15 +111,16 @@ class BossView extends Component {
   timeoutCb = (bassAnswerAddr) => {
     this.endRecord()
     if (this.state.bossNo == this.props.bosses.docs.length) {
-      return history.pushState(null, bassAnswerAddr);
+      setTimeout(() => history.pushState(null, bassAnswerAddr), 1000);
+      return;
     }
     // TODO: add callback to endRecord, use it instead of setTimeout
+    this.setState({bossNo: this.state.bossNo + 1});
     setTimeout(()=> {
-      this.setState({bossNo: this.state.bossNo+1})
       if (this.type == 'translate') {
-        this.beginRecord()
+        this.beginRecord();
       }
-    }, 1000)
+    }, 1000);
   }
 
   // audioPlayEnd = () => {
