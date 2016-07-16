@@ -107,6 +107,24 @@ class HomeworkView extends Component {
               audio &&
               <AudioPlayer audios={[audio]} key={audio} />
             }
+            {
+              new Date(created).valueOf() + 72 * 3600 * 1000 > new Date().valueOf() &&
+              <div>
+                小播放按钮为微信原始音质, 比较清晰, 但是只能保留3天。本录音将于{expireDate}过期
+                {
+                  serverIds.map((serverId) => {
+                    return (<div className="text-xs-center" key={serverId}>
+                      {
+                        playing[serverId] ?
+                        <i className="icon-pause audio-btn-sm" onTouchStart={() => this.pause(serverId)} />
+                        :
+                        <i className="icon-play audio-btn-sm" onTouchStart={() => this.play(serverId)} />
+                      }
+                    </div>);
+                  })
+                }
+              </div>
+            }
             <p className="text-muted">
               一定要点击微信右上角菜单的分享，分享到微信群，老师才能看到你的作业
             </p>
