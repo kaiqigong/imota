@@ -119,7 +119,7 @@ class AudioPlayer extends Component {
 
   _onEnded() {
     this.state.playing = false;
-    this.props.onEnd && this.props.onEnd()
+    this.props.onEnd && this.props.onEnd();
     this.setState(this.state);
   }
 
@@ -152,6 +152,8 @@ class AudioPlayer extends Component {
 
   togglePlay() {
     const playing = !this.state.playing;
+    this.state.playing = playing;
+    this.setState(this.state);
     if (playing) {
       audio.play();
     } else {
