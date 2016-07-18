@@ -71,23 +71,29 @@ class AudioPlayer extends Component {
   }
 
   componentDidMount() {
-    audio.addEventListener('play', this::this._onPlay);
-    audio.addEventListener('pause', this::this._onPause);
-    audio.addEventListener('error', this::this._onError);
-    audio.addEventListener('ended', this::this._onEnded);
-    audio.addEventListener('canplay', this::this._onLoaded);
-    audio.addEventListener('cancel', this::this._onEvent);
+    this.onPlay = this::this._onPlay;
+    this.onPause = this::this._onPause;
+    this.onError = this::this._onError;
+    this.onEnded = this::this._onEnded;
+    this.onLoaded = this::this._onLoaded;
+    this.onEvent = this::this._onEvent;
+    audio.addEventListener('play', this.onPlay);
+    audio.addEventListener('pause', this.onPause);
+    audio.addEventListener('error', this.onError);
+    audio.addEventListener('ended', this.onEnded);
+    audio.addEventListener('canplay', this.onLoaded);
+    audio.addEventListener('cancel', this.onEvent);
     this.initDate = new Date();
     audio.load();
   }
 
   componentWillUnmount() {
-    audio.removeEventListener('play', this::this._onPlay);
-    audio.removeEventListener('pause', this::this._onPause);
-    audio.removeEventListener('error', this::this._onError);
-    audio.removeEventListener('ended', this::this._onEnded);
-    audio.removeEventListener('canplay', this::this._onLoaded);
-    audio.removeEventListener('cancel', this::this._onEvent);
+    audio.removeEventListener('play', this.onPlay);
+    audio.removeEventListener('pause', this.onPause);
+    audio.removeEventListener('error', this.onError);
+    audio.removeEventListener('ended', this.onEnded);
+    audio.removeEventListener('canplay', this.onLoaded);
+    audio.removeEventListener('cancel', this.onEvent);
     audio.pause();
   }
 
