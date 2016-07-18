@@ -21,7 +21,6 @@ router.get('/:courseNo/lessons', async (req, res, next) => {
   try {
     const page = req.query.page || 1;
     const limit = req.query.limit || config.pagination.defaultSize;
-    console.log(req.params.courseNo);
 
     const query = {};
     query.courseNo = req.params.courseNo;

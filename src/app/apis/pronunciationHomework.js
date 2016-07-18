@@ -34,13 +34,11 @@ router.post('/', async (req, res, next) => {
     const {serverIds, nickname, time, lessonActivityId} = req.body;
     const accessToken = await wechat.getAccessToken();
     // download
-    console.log(`http://file.api.weixin.qq.com/cgi-bin/media/get`, {access_token: accessToken, media_id: serverIds});
     const files = [];
     for (let id in serverIds) {
       const file = await homeworkProcessor.downloadFileFromWechat(accessToken, serverIds[id]);
       files.push(file);
     }
-    console.log(files);
 
     const audios = [];
 
@@ -48,7 +46,6 @@ router.post('/', async (req, res, next) => {
       const audio = await homeworkProcessor.uploadFileToQiniu(files[id]);
       audios.push(audio);
     }
-    console.log(audios);
 
     let audio;
     try {

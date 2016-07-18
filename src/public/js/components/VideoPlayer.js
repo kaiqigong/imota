@@ -85,7 +85,6 @@ class VideoPlayer extends Component {
     for (i = 0; i < len; i++) {
       videos.push(videos[i].replace('https://o3f47rda5.qnssl.com', 'http://media.learnwithwind.com'));
     }
-    console.log(videos);
     return (
       <div className="video-player">
         { videos && videos.length ?

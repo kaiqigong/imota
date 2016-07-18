@@ -39,7 +39,6 @@ const downloadFileFromWechat = async (accessToken, serverId) => {
         });
 
       stream.on('finish', () => {
-        console.log(`finish download: ${filename}`);
         const outputFilePath = FILE_DIR + serverId + '.mp3';
         // ffmpeg -i ZV5P9L_vrfzlzPmy3H3BVKPNvioOzBMRCca3i21NHE8X158R9D8-AlDVS7yALeYp.amr -vn -ar 8000 -ac 2 -ab 192k -f mp3 ZV5P9L_vrfzlzPmy3H3BVKPNvioOzBMRCca3i21NHE8X158R9D8-AlDVS7yALeYp.mp3
         // -y 防止文件存在，加-y覆盖原文件
@@ -108,15 +107,12 @@ const downloadFileFromWechatWithCache = async (accessToken, serverId) => {
 
 const concatWechatAudios = async (serverIds) => {
   const accessToken = await wechat.getAccessToken();
-  console.log(accessToken);
   // download
-  console.log(`http://file.api.weixin.qq.com/cgi-bin/media/get`, {access_token: accessToken, media_id: serverIds});
   const files = [];
   for (let id in serverIds) {
     const file = await downloadFileFromWechatWithCache(accessToken, serverIds[id]);
     files.push(file);
   }
-  console.log(files);
 
   let audio = await concatAudios(files);
   if (audio) {

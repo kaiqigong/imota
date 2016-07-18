@@ -18,8 +18,6 @@ class TimerProgress extends Component {
     const step = 100;
     this.timer = setInterval(()=> {
       const nextElapsed = this.state.elapsed + step
-      console.log(nextElapsed);
-      console.log(this.props.duration);
       if (nextElapsed >= this.props.duration) {
         clearInterval(this.timer)
         this.setState({elapsed: this.props.duration});

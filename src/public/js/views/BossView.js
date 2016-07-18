@@ -88,7 +88,6 @@ class BossView extends Component {
   }
 
   submit() {
-    console.log('submit!');
     const {courseNo, lessonNo} = this.props.params;
     const {bossNo} = this.state;
     const {query} = this.props.location;

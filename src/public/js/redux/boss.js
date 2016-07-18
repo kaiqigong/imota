@@ -98,7 +98,6 @@ export const actions = {
 // ------------------------------------
 export default handleActions({
   [RECEIVED_BOSSES]: (state, {payload}) => {
-    console.log(payload);
     return payload;
   },
   [TOGGLE_COLLECTION_MODAL]: (state, {payload}) => {

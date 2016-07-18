@@ -19,7 +19,6 @@ export const receivedSingleHomework = createAction(RECEIVED_SINGLE_HOMEWORK, (pa
 export const togglePlay = createAction(TOGGLE_PLAY, (payload) => payload);
 export const fetchSingleHomeworkAsync = (...args) => {
   if (args.length > 1) {
-    console.log(args);
     return async (dispatch) => {
       try {
         const response = await ajax.get('/api/homeworks', {

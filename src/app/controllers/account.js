@@ -81,7 +81,6 @@ const generateWechatAuthUrl = (state) => {
 router.get('/weixin/', async (req, res, next) => {
   try {
     const {code} = req.query;
-    console.log('code: ', code);
     const result = await request.get('https://api.weixin.qq.com/sns/oauth2/access_token', {
       'appid': config.weixin.appid,
       'secret': config.weixin.secret,
@@ -89,7 +88,6 @@ router.get('/weixin/', async (req, res, next) => {
       'grant_type': 'authorization_code',
     });
     // https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN
-    console.log('code: ', result);
     // find user, if no, create one
     let existed = await Account.findOne({'weixinAuth.openid': result.openid});
     const weixinAccount = await request.get('https://api.weixin.qq.com/sns/userinfo', {
@@ -99,7 +97,6 @@ router.get('/weixin/', async (req, res, next) => {
     });
     if (!existed) {
       // 创建用户，并且从微信中取用户数据
-      console.log(weixinAccount);
       existed = new Account();
       // 初始化数据
       existed.nickname = weixinAccount.nickname;
