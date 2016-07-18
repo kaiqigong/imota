@@ -8,6 +8,7 @@ class AudioPlayer extends Component {
     audios: PropTypes.array.isRequired,
     autoplay: PropTypes.bool,
     children: PropTypes.array,
+    onEnd: PropTypes.func,
   };
 
   constructor(props) {
@@ -70,23 +71,23 @@ class AudioPlayer extends Component {
   }
 
   componentDidMount() {
-    audio.onplay = this::this._onPlay;
-    audio.onpause = this::this._onPause;
-    audio.onerror = this::this._onError;
-    audio.onended = this::this._onEnded;
-    audio.oncanplay = this::this._onLoaded;
-    audio.oncancel = this::this._onEvent;
+    audio.addEventListener('play', this::this._onPlay);
+    audio.addEventListener('pause', this::this._onPause);
+    audio.addEventListener('error', this::this._onError);
+    audio.addEventListener('ended', this::this._onEnded);
+    audio.addEventListener('canplay', this::this._onLoaded);
+    audio.addEventListener('cancel', this::this._onEvent);
     this.initDate = new Date();
     audio.load();
   }
 
   componentWillUnmount() {
-    audio.onplay = null;
-    audio.onpause = null;
-    audio.onerror = null;
-    audio.onended = null;
-    audio.oncanplay = null;
-    audio.oncancel = null;
+    audio.removeEventListener('play', this::this._onPlay);
+    audio.removeEventListener('pause', this::this._onPause);
+    audio.removeEventListener('error', this::this._onError);
+    audio.removeEventListener('ended', this::this._onEnded);
+    audio.removeEventListener('canplay', this::this._onLoaded);
+    audio.removeEventListener('cancel', this::this._onEvent);
     audio.pause();
   }
 
@@ -112,6 +113,7 @@ class AudioPlayer extends Component {
 
   _onEnded() {
     this.state.playing = false;
+    this.props.onEnd && this.props.onEnd()
     this.setState(this.state);
   }
 

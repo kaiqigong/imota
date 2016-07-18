@@ -13,7 +13,7 @@ import MethodModal from '../components/MethodModal';
 import FeedbackModal from '../components/FeedbackModal';
 import ReviewModal from '../components/ReviewModal';
 import {RATES} from '../redux/shifting';
-import AudioPlayer from '../components/AudioPlayer2';
+import AudioPlayer from '../components/AudioPlayer';
 import Progress from 'react-progress';
 import history from '../common/history';
 import TimerProgress from '../components/TimerProgress';

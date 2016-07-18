@@ -11,7 +11,6 @@ import CollectionModal from '../components/CollectionModal';
 import MethodModal from '../components/MethodModal';
 import FeedbackModal from '../components/FeedbackModal';
 import ReviewModal from '../components/ReviewModal';
-import AudioPlayer from '../components/AudioPlayer2';
 import getParameterByName from '../common/getParam'
 
 const mapStateToProps = ({bossAnswers, wxsdk}) => ({

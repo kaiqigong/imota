@@ -69,14 +69,11 @@ class DoingHomeworkView extends Component {
   startRecord() {
     wx.startRecord({
       success: (err) => {
-        console.remote('views/DoingHomeworkView 100-0', 'Start Recording');
         // 录音超过55s后自动开始新的录音
         this.timeoutId = setTimeout(() => {
           wx.stopRecord({
             success: (res) => {
               this.localIds.push(res.localId);
-              console.remote('views/PronunciationLessonActivityView 100-8', 'Stop ' + this.localIds + ' more than 55s');
-
               clearTimeout(this.timeoutId);
               this.startRecord();
             },
@@ -103,8 +100,6 @@ class DoingHomeworkView extends Component {
     wx.stopRecord({
       success: (res) => {
         this.localIds.push(res.localId);
-        console.remote('views/DoingHomeworkView 100-6', 'Stop ' + this.localIds + 'Recording Success');
-
         // todo: end quiz
         this.props.endQuiz(this.localIds);
         this.props.endTranslateQuizAsync(this.localIds.slice());
@@ -137,7 +132,6 @@ class DoingHomeworkView extends Component {
     wx.stopRecord({
       success: (res) => {
         this.localIds = [];
-        console.remote('views/DoingHomeworkView 100-7', 'Stop Recording And Reload');
         location.reload();
       },
       fail: (err) => {
