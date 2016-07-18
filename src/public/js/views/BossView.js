@@ -78,7 +78,7 @@ class BossView extends Component {
     wx.stopRecord({
       success: (res) => {
         this.localIds.push(res.localId);
-        this.submit()
+        this.submit();
       },
       fail: (err) => {
         console.log(err);

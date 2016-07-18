@@ -65,8 +65,6 @@ class PronunciationLessonActivityView extends Component {
           wx.stopRecord({
             success: (res) => {
               this.localIds.push(res.localId);
-              console.remote('views/PronunciationLessonActivityView 82-8', 'Stop ' + this.localIds + ' more than 55s');
-
               clearTimeout(this.timeoutId);
               this.startRecord();
             },

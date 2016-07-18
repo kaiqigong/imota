@@ -2,6 +2,9 @@ import request from 'superagent';
 
 const generateError = (err) => {
   console.remote('ajax 4', err);
+  if (err.status === 401) {
+    location.reload();
+  }
   return Object.assign(err.response ? err.response.body : {code: err.code}, err.response ? err.response.error : {status: 501, message: 'timeout'}, {raw: err});
 };
 
