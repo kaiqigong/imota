@@ -160,7 +160,7 @@ class ListenView extends Component {
           <div className="col-xs-12 answer-block">
             <div className="center-block">
             {
-              () => {
+              (() => {
                 switch (true) {
                 case viewAnswer && !!audios:
                   return (
@@ -200,7 +200,7 @@ class ListenView extends Component {
                 default:
                   return '';
                 }
-              }()
+              })()
             }
             </div>
           </div>

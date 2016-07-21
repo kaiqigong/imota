@@ -2,9 +2,7 @@
 
 #### 安装 node
 ```
-  - 0.12.x
-  - 5.4.0
-  - 5.9.0
+  - 6.3.x
 ```
 
 #### 安装 redis
@@ -32,7 +30,6 @@ bower install
 ```
 注意：
 
- * babel 6有bug，所以项目默认使用babel 5.8.23  
  * 执行npm install时，如果node-canvas安装失败，执行
  
 ```

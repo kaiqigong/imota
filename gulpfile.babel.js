@@ -1,3 +1,4 @@
+import 'babel-polyfill'; // eslint-disable-line no-unused-vars
 import copy from './tools/copy';
 import runSequence from 'run-sequence';
 import path from 'path';

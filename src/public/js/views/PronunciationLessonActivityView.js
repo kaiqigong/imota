@@ -4,7 +4,6 @@ import {actions} from '../redux/pronunciationLessonActivity';
 import {actions as wxsdkActions} from '../redux/wxsdk';
 import {Link} from 'react-router';
 import Slider from 'react-slick';
-import Progress from 'react-progress';
 import Instruction from '../components/Instruction';
 import AudioPlayer from '../components/AudioPlayer';
 import VideoPlayer from '../components/VideoPlayer';
@@ -59,7 +58,6 @@ class PronunciationLessonActivityView extends Component {
   startRecord() {
     wx.startRecord({
       success: () => {
-
         // 录音超过55s后自动开始新的录音
         this.timeoutId = setTimeout(() => {
           wx.stopRecord({
@@ -73,17 +71,15 @@ class PronunciationLessonActivityView extends Component {
               alert('录音失败！请联系老师');
             },
           });
-
-        }, 55000)
+        }, 55000);
       },
       fail: (err) => {
         console.remote('views/PronunciationLessonActivityView 82-1', err);
-      }
+      },
     });
   }
 
   beginRecord() {
-
     this.props.beginRecord();
 
     this.startRecord();
@@ -208,159 +204,149 @@ class PronunciationLessonActivityView extends Component {
                   const active = index === activityIndex;
                   return (
                     <div key={lessonActivity.index}>
-                      {() => {
-                        if (lessonActivity.type === '讲解' && shouldShow) {
-                          return (
-                            <div className="activity-item">
-                              <div className="clearfix">
-                              <Instruction text="请听讲解" />
+                      {
+                        lessonActivity.type === '讲解' && shouldShow &&
+                        <div className="activity-item">
+                          <div className="clearfix">
+                          <Instruction text="请听讲解" />
+                          </div>
+                          <ScrollingView className="course-content" style={scrollStyle}>
+                            {
+                              lessonActivity.video && active
+                                ? <VideoPlayer videos={[lessonActivity.video]} autoplay key={lessonActivity.video} />
+                                : ''
+                            }
+                            {
+                              lessonActivity.audio && active ?
+                              <div className="listen-explain">
+                                <AudioPlayer audios={[lessonActivity.audio]} autoplay key={lessonActivity.audio}>
+                                    <div className="sentence-text">
+                                      <div dangerouslySetInnerHTML={{__html: lessonActivity.description}}></div>
+                                      <i className="icon-voice"></i>
+                                    </div>
+                                    <div className="sentence-text">
+                                      <div dangerouslySetInnerHTML={{__html: lessonActivity.description}}></div>
+                                      <i className="icon-voice-mute" />
+                                    </div>
+                                    <div className="sentence-text">
+                                      <div dangerouslySetInnerHTML={{__html: lessonActivity.description}}></div>
+                                      <i className="icon-cuowutishi" />
+                                    </div>
+                                  </AudioPlayer>
                               </div>
-                              <ScrollingView className="course-content" style={scrollStyle}>
-                                {
-                                  lessonActivity.video && active
-                                    ? <VideoPlayer videos={[lessonActivity.video]} autoplay key={lessonActivity.video} />
-                                    : ''
-                                }
-                                {
-                                  lessonActivity.audio && active ?
-                                  <div className="listen-explain">
-                                    <AudioPlayer audios={[lessonActivity.audio]} autoplay key={lessonActivity.audio}>
-                                        <div className="sentence-text">
-                                          <div dangerouslySetInnerHTML={{__html: lessonActivity.description}}></div>
-                                          <i className="icon-voice"></i>
-                                        </div>
-                                        <div className="sentence-text">
-                                          <div dangerouslySetInnerHTML={{__html: lessonActivity.description}}></div>
-                                          <i className="icon-voice-mute" />
-                                        </div>
-                                        <div className="sentence-text">
-                                          <div dangerouslySetInnerHTML={{__html: lessonActivity.description}}></div>
-                                          <i className="icon-cuowutishi" />
-                                        </div>
-                                      </AudioPlayer>
-                                  </div>
-                                  :
-                                  !lessonActivity.audio ?
-                                  <div className="listen-explain">
-                                    <div dangerouslySetInnerHTML={{__html: lessonActivity.description}}></div>
-                                  </div>
-                                  :
-                                  ''
-                                }
-                              </ScrollingView>
-                            </div>
-                          );
+                              :
+                              !lessonActivity.audio ?
+                              <div className="listen-explain">
+                                <div dangerouslySetInnerHTML={{__html: lessonActivity.description}}></div>
+                              </div>
+                              :
+                              ''
+                            }
+                          </ScrollingView>
+                        </div>
                         }
-                      }()}
 
-                      {() => {
-                        if (lessonActivity.type === '朗读' && shouldShow) {
-                          return (
-                            <div className="activity-item">
-                              <div className="clearfix">
-                              <Instruction text="请朗读" />
-                              </div>
-                              <ScrollingView className="course-content" style={scrollStyle}>
-                                <div className="reading-pronunciation">
-                                  {
-                                    lessonActivity.audio && active
-                                    ? <AudioPlayer audios={[lessonActivity.audio]} autoplay key={lessonActivity.audio}>
-                                        <div className="sentence-text">
-                                          <div className="text-xs-center">
-                                          {lessonActivity.readingText}
-                                          </div>
-                                          <div className="text-muted text-xs-center">
-                                          {lessonActivity.readingNote}
-                                          </div>
-                                          <i className="icon-voice"></i>
-                                        </div>
-                                        <div className="sentence-text">
-                                          <div className="text-xs-center">
-                                          {lessonActivity.readingText}
-                                          </div>
-                                          <div className="text-muted text-xs-center">
-                                          {lessonActivity.readingNote}
-                                          </div>
-                                          <i className="icon-voice-mute" />
-                                        </div>
-                                        <div className="sentence-text">
-                                          <div className="text-xs-center">
-                                          {lessonActivity.readingText}
-                                          </div>
-                                          <div className="text-muted text-xs-center">
-                                          {lessonActivity.readingNote}
-                                          </div>
-                                          <i className="icon-cuowutishi" />
-                                        </div>
-                                      </AudioPlayer>
-                                    : ''
-                                  }
-                                </div>
-                              </ScrollingView>
-                            </div>
-                          );
-                        }
-                      }()}
-
-                      {() => {
-                        if (lessonActivity.type === '打Boss' && shouldShow) {
-                          return (
-                            <div className="activity-item">
-                              <div className="clearfix">
-                                {
-                                  localIds ?
-                                  <Instruction text="请提交录音" />
-                                  :
-                                  <Instruction text="请朗读整段文本" />
-                                }
-                              </div>
+                      {
+                        lessonActivity.type === '朗读' && shouldShow &&
+                        <div className="activity-item">
+                          <div className="clearfix">
+                          <Instruction text="请朗读" />
+                          </div>
+                          <ScrollingView className="course-content" style={scrollStyle}>
+                            <div className="reading-pronunciation">
                               {
-                                uploadingRecord ?
-                                <div className="loading-mask">
-                                  <i className="icon-loadingdots spin"/>
-                                </div>
-                                :
-                                localIds ?
-                                <div className="col-xs-12">
-                                  <div className="form-group row">
-                                    <label htmlFor="nickname" className="col-xs-3 form-control-label">昵称</label>
-                                    <div className="col-xs-6">
-                                      <input type="text" ref="nickname" className="form-control" id="nickname" placeholder="请输入英文名" />
+                                lessonActivity.audio && active
+                                ? <AudioPlayer audios={[lessonActivity.audio]} autoplay key={lessonActivity.audio}>
+                                    <div className="sentence-text">
+                                      <div className="text-xs-center">
+                                      {lessonActivity.readingText}
+                                      </div>
+                                      <div className="text-muted text-xs-center">
+                                      {lessonActivity.readingNote}
+                                      </div>
+                                      <i className="icon-voice"></i>
                                     </div>
-                                  </div>
-                                  <div className="row">
-                                    <div className="col-xs-6 col-xs-offset-3">
-                                      <ErrorTip error={errors && errors.nickname} />
+                                    <div className="sentence-text">
+                                      <div className="text-xs-center">
+                                      {lessonActivity.readingText}
+                                      </div>
+                                      <div className="text-muted text-xs-center">
+                                      {lessonActivity.readingNote}
+                                      </div>
+                                      <i className="icon-voice-mute" />
                                     </div>
-                                  </div>
-                                  <ErrorTip error={errors && errors.server} />
-                                </div>
-                                :
-                                <ScrollingView className="course-content" style={scrollStyle}>
-                                  <div className="reading-pronunciation">
-                                    <div dangerouslySetInnerHTML={{__html: lessonActivity.description}}></div>
-                                  </div>
-                                  {
-                                    lessonActivity.audio && active
-                                    ? <AudioPlayer audios={[lessonActivity.audio]} key={lessonActivity.audio}>
-                                        <div className="sentence-text">
-                                          <i className="icon-voice"></i>
-                                        </div>
-                                        <div className="sentence-text">
-                                          <i className="icon-voice-mute" />
-                                        </div>
-                                        <div className="sentence-text">
-                                          出错啦！
-                                        </div>
-                                      </AudioPlayer>
-                                    : ''
-                                  }
-                                </ScrollingView>
+                                    <div className="sentence-text">
+                                      <div className="text-xs-center">
+                                      {lessonActivity.readingText}
+                                      </div>
+                                      <div className="text-muted text-xs-center">
+                                      {lessonActivity.readingNote}
+                                      </div>
+                                      <i className="icon-cuowutishi" />
+                                    </div>
+                                  </AudioPlayer>
+                                : ''
                               }
                             </div>
-                          );
-                        }
-                      }()}
+                          </ScrollingView>
+                        </div>
+                      }
+                      {
+                        lessonActivity.type === '打Boss' && shouldShow &&
+                        <div className="activity-item">
+                          <div className="clearfix">
+                            {
+                              localIds ?
+                              <Instruction text="请提交录音" />
+                              :
+                              <Instruction text="请朗读整段文本" />
+                            }
+                          </div>
+                          {
+                            uploadingRecord ?
+                            <div className="loading-mask">
+                              <i className="icon-loadingdots spin"/>
+                            </div>
+                            :
+                            localIds ?
+                            <div className="col-xs-12">
+                              <div className="form-group row">
+                                <label htmlFor="nickname" className="col-xs-3 form-control-label">昵称</label>
+                                <div className="col-xs-6">
+                                  <input type="text" ref="nickname" className="form-control" id="nickname" placeholder="请输入英文名" />
+                                </div>
+                              </div>
+                              <div className="row">
+                                <div className="col-xs-6 col-xs-offset-3">
+                                  <ErrorTip error={errors && errors.nickname} />
+                                </div>
+                              </div>
+                              <ErrorTip error={errors && errors.server} />
+                            </div>
+                            :
+                            <ScrollingView className="course-content" style={scrollStyle}>
+                              <div className="reading-pronunciation">
+                                <div dangerouslySetInnerHTML={{__html: lessonActivity.description}}></div>
+                              </div>
+                              {
+                                lessonActivity.audio && active
+                                ? <AudioPlayer audios={[lessonActivity.audio]} key={lessonActivity.audio}>
+                                    <div className="sentence-text">
+                                      <i className="icon-voice"></i>
+                                    </div>
+                                    <div className="sentence-text">
+                                      <i className="icon-voice-mute" />
+                                    </div>
+                                    <div className="sentence-text">
+                                      出错啦！
+                                    </div>
+                                  </AudioPlayer>
+                                : ''
+                              }
+                            </ScrollingView>
+                          }
+                        </div>
+                      }
                     </div>
                   );
                 })}

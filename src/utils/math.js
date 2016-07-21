@@ -12,11 +12,10 @@ import times from 'lodash/times';
  * @returns {*} string '123456'
  */
 export const randomSeed = (num) => {
-  return Array.apply(0, Array(num)).map(() => {
-    return ((charset) => {
-      return charset.charAt(Math.floor(Math.random() * charset.length));
-    }('0123456789'));
-  }).join('');
+  const charset = '0123456789';
+  return Array.apply(0, Array(num)).map(() =>
+    charset.charAt(Math.floor(Math.random() * charset.length))
+  ).join('');
 };
 
 export const generateRandomId = (count) => {
