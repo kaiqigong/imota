@@ -1,7 +1,7 @@
+import polyfill from 'babel-polyfill'; // eslint-disable-line no-unused-vars
 import express from 'express';
 import config from './config/config';
 import configExpress from './config/express';
-import polyfill from 'babel-polyfill'; // eslint-disable-line no-unused-vars
 import logger from './utils/logger';
 import RedisCache from './redis/RedisCache'; // eslint-disable-line no-unused-vars
 import http from 'http';

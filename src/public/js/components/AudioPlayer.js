@@ -114,7 +114,6 @@ class AudioPlayer extends Component {
     ajax.post('/api/behaviors/', {
       scope: 'audioLoadedTime',
       value: loadingTime});
-    _hmt.push(['_trackEvent', 'audio', 'load', e.target.currentSrc, loadingTime]);
     audio.removeEventListener('canplay', this.onLoaded);
   }
 

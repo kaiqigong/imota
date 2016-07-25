@@ -71,6 +71,7 @@ gulp.task('es6', () => {
       profile: './src/public/js/profile.js',
       register: './src/public/js/register.js',
       forgot: './src/public/js/forgot.js',
+      imota: './src/public/js/imota.js',
     },
     devtool: DEBUG ? 'source-map' : false,
     output: {

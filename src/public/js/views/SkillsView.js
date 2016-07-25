@@ -21,7 +21,7 @@ class SkillsView extends Component {
   }
 
   render() {
-    setTitle('Wind教口语');
+    setTitle('Imota');
     const auth = this.props.auth;
     return (
       <div className="skill-list">
@@ -32,7 +32,7 @@ class SkillsView extends Component {
             <Link to="/home/learning_histories/">学习轨迹</Link>
           </Dropdown>
         }
-        <h2 className="text-xs-center slogan">Wind教口语</h2>
+        <h2 className="text-xs-center slogan">Imota</h2>
         <Link className="text-xs-center skill-link pronunciation-item" to="/home/pronunciation_courses/">
           <img src="/img/skill_1.png" alt="发音语调训练" />
         </Link>

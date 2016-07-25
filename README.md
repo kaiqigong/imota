@@ -71,13 +71,13 @@ openssl rsa -in server.pem -pubout -out server.pub
 ### 测试
 ```
 NODE_ENV=test gulp build --release # 测试环境编译
-NODE_ENV=test pm2 start build/app.js --name "scott-test"
+NODE_ENV=test pm2 start build/app.js --name "imota-test"
 ```
 
 ### 真实
 ```
 NODE_ENV=production gulp build --release # 发布环境编译
-NODE_ENV=production pm2 start build/app.js --name "scott-prod"
+NODE_ENV=production pm2 start build/app.js --name "imota-prod"
 ```
 或者
 ```
@@ -260,7 +260,7 @@ ssh \
 -i ~/.ssh/id_rsa \
 dbuser@121.201.28.101
 ```
-测试环境连接localhost:27018/wind-cms-dev
+测试环境连接localhost:27018/imota-cms-dev
 
 ## [Roadmap](./Roadmap.md)
 
@@ -268,7 +268,7 @@ dbuser@121.201.28.101
 
 
 ## CMS
-该文档用于wind-cms  
+该文档用于imota-cms  
 ### 环境
 - node // 我们使用nvm来管理node版本
 - mongo // 绑定到本地端口访问，提高安全性
@@ -319,8 +319,7 @@ npm start
 ```
 
 ### 发布地址
-正式: learnwithwind.com
-测试: test.holdqq.com
+正式: learnwithimota.com
 注意，正式和测试使用的都是真实数据库，本地开发使用的是测试数据库。
 
 ### 查看线上log（需要链接dbuser）

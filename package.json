@@ -1,5 +1,5 @@
 {
-  "name": "scott",
+  "name": "imota",
   "version": "0.0.1",
   "private": true,
   "engines": {
@@ -46,6 +46,7 @@
     "qs": "6.0.1",
     "randomstring": "1.1.4",
     "react": "0.14.3",
+    "react-contextmenu": "^1.6.2",
     "react-dom": "0.14.3",
     "react-infinite-scroll": "0.1.5",
     "react-modal": "0.6.1",

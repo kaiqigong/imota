@@ -1,9 +1,9 @@
 FORMAT: 1A
-HOST: http://test.holdqq.com/
+HOST: http://imota.com/
 
-# scott
+# imota
 
-Scott is an English Learning program. Including listening, translating, pronunciation. 
+Scott is an English Learning program. Including listening, translating, pronunciation.
 
 ## Principles
 - RESTful
@@ -260,14 +260,14 @@ audio: 句子对应的视频链接，后面可以加变速参数，或者改后�
 
 + Request (application/json)
 
-    + Body 
+    + Body
 
             {
-                "serverIds": ["xxxxxxx", "xxxxxx"], 
-                "lessonNo": 1, 
-                "courseNo": 2, 
-                "nickname": "test", 
-                "time": 12, 
+                "serverIds": ["xxxxxxx", "xxxxxx"],
+                "lessonNo": 1,
+                "courseNo": 2,
+                "nickname": "test",
+                "time": 12,
                 "type": "translate"
             }
 
@@ -290,14 +290,14 @@ audio: 句子对应的视频链接，后面可以加变速参数，或者改后�
                 "modified":"2016-03-27T09:00:18.009Z",
                 "created":"2016-03-27T09:00:18.009Z"
             }
-   
+
 
 ## Homework Detail [/api/homeworks/{id}]
 
 + Parameters
-    
+
     + id (string) - Homework id
-    
+
 
 ### Get Homework Detail [GET]
 
@@ -355,13 +355,13 @@ timestamp: 为微信设置的timestamp，js timestamp / 1000
 
 
 + Response 200 (application/json)
-    
+
     + Body
-    
+
             {
-                "appId": "config.weixin.appid", 
-                "signature": "xafdaewqrq", 
-                "timestamp": 1459072805, 
+                "appId": "config.weixin.appid",
+                "signature": "xafdaewqrq",
+                "timestamp": 1459072805,
                 "nonceStr": "noncestr"
             }
 
@@ -373,7 +373,7 @@ timestamp: 为微信设置的timestamp，js timestamp / 1000
 + Parameters
 
   + page (number, optional) - page of the Courses, start from 1
-  + limit (number, optional) - length of page 
+  + limit (number, optional) - length of page
   + sort (string, optional) - sorting field, sort=courseNo, not implemented yet
 
 ### List All Courses [GET]

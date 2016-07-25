@@ -39,7 +39,6 @@ class VideoPlayer extends Component {
           scope: 'videoPlayer',
           action: 'fail',
           value: JSON.stringify(err)});
-        _hmt.push(['_trackEvent', 'video', 'fail']);
       }
     };
     for (let i = 0; i < length; i++) {
@@ -65,7 +64,6 @@ class VideoPlayer extends Component {
       scope: 'videoPlayer',
       action: 'play',
       value: e.target.currentSrc});
-    _hmt.push(['_trackEvent', 'video', 'play', e.target.currentSrc]);
   }
 
   _onPause(e) {

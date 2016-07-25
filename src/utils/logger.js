@@ -32,7 +32,7 @@ log4js.configure({
   'appenders': [
     {
       'type': 'dateFile',
-      'filename': logDirectory + '/scott',
+      'filename': logDirectory + '/imota',
       'pattern': '-yyyy-MM-dd.log',
       'alwaysIncludePattern': true,
     },

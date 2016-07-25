@@ -3,7 +3,7 @@ import compose from 'composable-middleware';
 /**
  * Set token cookie directly for oAuth strategies
  */
-const verifySession = () => {
+export const verifySession = () => {
   return compose()
   .use((req, res, next) => {
     if (req.session.loginAccount) {
@@ -14,7 +14,7 @@ const verifySession = () => {
   });
 };
 
-const requireLogin = () => {
+export const requireLogin = () => {
   return compose()
   .use((req, res, next) => {
     if (req.session.loginAccount) {
@@ -28,7 +28,7 @@ const requireLogin = () => {
 /**
  * Checks if the user role meets the minimum requirements of the route
  */
-const hasRole = (roleRequired) => {
+export const hasRole = (roleRequired) => {
   if (!roleRequired) {
     throw new Error('Required role needs to be set');
   }

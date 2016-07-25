@@ -3,7 +3,7 @@ import {requireLogin} from '../middlewares/authChecker';
 
 const router = new Router();
 
-router.get('/', requireLogin(), async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     res.render('index', {});
   } catch (err) {
@@ -17,7 +17,7 @@ router.get('/iframe', async (req, res) => {
   res.status(200).send('', {maxAge: 604800000});
 });
 
-router.get('/home/*', requireLogin(), async (req, res) => {
+router.get('/home/*', async (req, res) => {
   try {
     res.render('index', {});
   } catch (err) {

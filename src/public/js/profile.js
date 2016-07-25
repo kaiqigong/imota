@@ -27,12 +27,9 @@ const hideError = (element) => {
   errorSpan.hide();
 };
 
-_hmt.push(['_trackEvent', 'pageView', 'profile']);
-
 profileForm.on('submit', (e) => {
   const formDataStr = profileForm.serialize();
   const formData = qs.parse(formDataStr);
-  _hmt.push(['_trackEvent', 'profile', 'submit']);
   // validate
   let valid = false;
   valid = validateForm(formData);
