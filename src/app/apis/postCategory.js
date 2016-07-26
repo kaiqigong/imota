@@ -29,7 +29,7 @@ router.post('/', verifySession(), async (req, res, next) => {
         await postCategory.save();
         saved = true;
       } catch (err) {
-        if (err && err.message.indexOf('$name_1_accountId_1 dup key')) {
+        if (err && err.message && err.message.indexOf('$name_1_accountId_1 dup key') > -1) {
           postCategory.name = '新建文件夹' + inc;
           inc++;
         } else {
@@ -49,10 +49,11 @@ router.put('/:id', verifySession(), async (req, res, next) => {
     const accountId = req.user._id;
     const _id = req.params.id;
     if (!_id) {
-      throw new Error({status: 400, message: '参数错误'});
+      return next({status: 400, message: '参数错误'});
     }
     const result = await PostCategory.update({accountId, _id}, {...req.body});
-    res.send(result);
+    const postCategory = await PostCategory.findOne({accountId, _id});
+    res.send(postCategory);
   } catch (err) {
     next(err);
   }

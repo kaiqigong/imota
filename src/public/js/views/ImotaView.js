@@ -8,7 +8,7 @@ import CategoryList from '../components/CategoryList';
 import PostList from '../components/PostList';
 
 const mapStateToProps = (state) => ({
-  ...state
+  ...state,
 });
 
 class ImotaView extends Component {
@@ -18,16 +18,16 @@ class ImotaView extends Component {
   constructor(props) {
     super();
     props.fetchMeAsync();
+    setTitle('Imota');
   }
 
   render() {
-    setTitle('Imota');
     const { auth, categories } = this.props;
     return (
       <div>
         <TopBar auth={auth} className="top-bar" />
         <CategoryList />
-        <PostList />
+        <PostList params={this.props.params} />
       </div>
     );
   }

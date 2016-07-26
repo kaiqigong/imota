@@ -30,6 +30,7 @@ class CategoryContextMenu extends Component {
       this.props.createCategoryAsync();
       break;
     case data.action === 'rename':
+      this.props.renameCategory(data.category);
     default:
       break;
     }

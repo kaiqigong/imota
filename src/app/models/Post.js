@@ -11,13 +11,13 @@ const schema = BaseSchema.extend({
     type: Schema.Types.ObjectId,
     ref: 'PostCategory',
   },
-  state: { type: String }, // draft, published, archived
+  state: { type: String, default: 'draft' }, // draft, published, archived
   publishedDate: { type: Date, index: true },
   content: {
     type: String
   },
 });
 
-schema.index({ name: 1, accountId: 1 }, { unique: true });
+schema.index({ name: 1, accountId: 1, category: 1 }, { unique: true });
 
 export default mongoose.model('Post', schema);

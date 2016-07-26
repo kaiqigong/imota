@@ -6,6 +6,7 @@ import {actions as currentCategoryActions} from '../redux/currentCategory';
 import { ContextMenu, MenuItem, ContextMenuLayer } from "react-contextmenu";
 import CategoryContextMenu from './CategoryContextMenu';
 import { Link } from 'react-router';
+import ExtTextInput from './ExtTextInput';
 
 const InfiniteScroll = reactInfiniteScroll(React);
 
@@ -29,7 +30,7 @@ class CategoryList extends Component {
 
   render() {
     const {categories} = this.props;
-    const { docs, total } = categories;
+    const { docs, total, editing } = categories;
     const hasMore = docs.length < total;
     return <div {...this.props}>
       <div>
@@ -45,7 +46,11 @@ class CategoryList extends Component {
         {docs.map((category) => {
           return (
             <Link to={`/categories/${category._id}`} onClick={() => this.props.setCurrentCategory(category)} key={category._id}>
-              <CategoryItem category={category} />
+              { category === editing ?
+                <ExtTextInput focus defaultValue={category.name} onBlur={(e) => this._onBlur(e, category)} onKeyPress={(e) => this._onKeyPress(e, category)} onEsc={e => this._onEsc(e, category)} />
+                :
+                <CategoryItem category={category} />
+              }
             </Link>
           );
         })}
@@ -57,6 +62,20 @@ class CategoryList extends Component {
         </a>
       </div>
     </div>;
+  }
+
+  _onKeyPress(e, category) {
+    if (e.key === 'Enter') {
+      this.props.updateCategoryAsync({...category, name: e.target.value});
+    }
+  }
+
+  _onBlur(e, category) {
+    this.props.updateCategoryAsync({...category, name: e.target.value});
+  }
+
+  _onEsc(e, category) {
+    this.props.renameCategory(null);
   }
 }
 
