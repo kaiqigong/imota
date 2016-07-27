@@ -1,0 +1,21 @@
+.top-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2rem;
+  border-bottom: 0.0625rem solid #eee;
+  box-shadow: 0 0.0625rem 1rem 0.0625rem #eee;
+
+  .avatar-link {
+    display: inline-block;
+    margin: 0.2rem 1rem;
+    .avatar {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+    .dropdown-toggle::after {
+      display: none;
+    }
+  }
+}

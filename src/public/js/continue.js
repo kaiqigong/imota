@@ -19,7 +19,7 @@ class Home extends Component {
       const user = await ajax.get('/api/auth/me/');
       this.setState({user});
       this.oldUser = clone(user, true);
-    } catch(err) {
+    } catch (err) {
       console.log(err);
     }
   }

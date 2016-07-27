@@ -24,8 +24,8 @@ class PostList extends Component {
 
   constructor(props) {
     super();
-    if (props.params && props.params.category) {
-      props.fetchPostsAsync(props.params.category);
+    if (props.params && props.params.categoryId) {
+      props.fetchPostsAsync(props.params.categoryId);
       return;
     }
     props.fetchPostsAsync();
@@ -58,14 +58,14 @@ class PostList extends Component {
         </div>}>
         {docs.map((post) => {
           return (
-            <Link to={`/categories/${currentCategoryId}/posts/${post._id}`} onClick={() => this.props.setCurrentPost(post)} key={post._id}>
+            <Link className="item-link" to={`/categories/${currentCategoryId}/posts/${post._id}`} onClick={() => this.props.setCurrentPost(post)} key={post._id}>
               <PostItem post={post} />
             </Link>
           );
         })}
       </InfiniteScroll>
       <PostContextMenu current={currentPost} />
-      <div>
+      <div className="new-post">
         <a onClick={() => this.props.createPostAsync(currentCategoryId)}>
           新建备忘录
         </a>

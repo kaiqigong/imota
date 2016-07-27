@@ -20,7 +20,7 @@ export const postsInit = createAction(POST_INIT);
 export const fetchPostsAsync = (category) => {
   return async (dispatch) => {
     try {
-      const query = category ? {page: 1, category} : {page: 1}
+      const query = category ? {page: 1, category} : {page: 1};
       const response = await ajax.get('/api/posts/', query);
       dispatch(receivedPosts(response));
     } catch (err) {

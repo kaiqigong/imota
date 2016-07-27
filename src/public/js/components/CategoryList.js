@@ -45,7 +45,7 @@ class CategoryList extends Component {
         </div>}>
         {docs.map((category) => {
           return (
-            <Link to={`/categories/${category._id}`} onClick={() => this.props.setCurrentCategory(category)} key={category._id}>
+            <Link className="item-link" to={`/categories/${category._id}`} onClick={() => this.props.setCurrentCategory(category)} key={category._id}>
               { category === editing ?
                 <ExtTextInput focus defaultValue={category.name} onBlur={(e) => this._onBlur(e, category)} onKeyPress={(e) => this._onKeyPress(e, category)} onEsc={e => this._onEsc(e, category)} />
                 :
@@ -56,7 +56,7 @@ class CategoryList extends Component {
         })}
       </InfiniteScroll>
       <CategoryContextMenu current={this.props.currentCategory} />
-      <div>
+      <div className="new-category">
         <a onClick={this.props.createCategoryAsync}>
           新建文件夹
         </a>

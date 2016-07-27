@@ -1,11 +1,11 @@
-import React, {Component} from 'react';
-import {Link} from 'react-router';
+import React, { Component, PropTypes } from 'react';
 import setTitle from '../common/setTitle';
 import { connect } from 'react-redux';
 import {actions as authActions} from '../redux/auth';
 import TopBar from '../components/TopBar';
 import CategoryList from '../components/CategoryList';
 import PostList from '../components/PostList';
+import PostEditor from '../components/PostEditor';
 
 const mapStateToProps = (state) => ({
   ...state,
@@ -13,6 +13,9 @@ const mapStateToProps = (state) => ({
 
 class ImotaView extends Component {
   static propTypes = {
+    fetchMeAsync: PropTypes.func,
+    auth: PropTypes.object,
+    params: PropTypes.object,
   };
 
   constructor(props) {
@@ -22,12 +25,13 @@ class ImotaView extends Component {
   }
 
   render() {
-    const { auth, categories } = this.props;
+    const { auth } = this.props;
     return (
       <div>
         <TopBar auth={auth} className="top-bar" />
-        <CategoryList />
-        <PostList params={this.props.params} />
+        <CategoryList className="category-list" />
+        <PostList params={this.props.params} className="post-list" />
+        <PostEditor params={this.props.params} className="post-editor" />
       </div>
     );
   }

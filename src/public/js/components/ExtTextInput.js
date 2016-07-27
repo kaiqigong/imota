@@ -2,18 +2,24 @@ import React, {Component, PropTypes} from 'react';
 
 class ExtTextInput extends Component {
 
+  static propTypes = {
+    onEsc: PropTypes.func, // 键盘按下esc触发事件
+  };
+
   componentDidMount() {
     // document listen keypress
     const self = this;
     this.handler = (e) => {
-      if (e.keyCode === 27) {
-        self.props.onEsc && self.props.onEsc(e);
+      if (e.keyCode === 27 && self.props.onEsc) {
+        self.props.onEsc(e);
       }
-    }
+    };
     document.addEventListener('keydown', this.handler);
     if (self.props.focus) {
-      console.dir(self.refs.input.select);
-      setTimeout(() => {self.refs.input.focus();self.refs.input.select();}, 100);
+      setTimeout(() => {
+        self.refs.input.focus();
+        self.refs.input.select();
+      }, 100);
     }
   }
 
@@ -25,7 +31,7 @@ class ExtTextInput extends Component {
   render() {
     return (
       <input ref="input" {...this.props} />
-    )
+    );
   }
 }
 

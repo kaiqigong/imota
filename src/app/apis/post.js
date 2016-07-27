@@ -19,10 +19,27 @@ router.get('/', verifySession(), async (req, res, next) => {
   }
 });
 
+router.get('/:id', verifySession(), async (req, res, next) => {
+  try {
+    const accountId = req.user._id;
+    const _id = req.params.id;
+    if (!_id) {
+      return next({status: 400, message: '参数错误'});
+    }
+    const result = await Post.findOne({accountId, _id});
+    if (!result) {
+      return next({status: 404, message: '备忘录不存在'});
+    }
+    res.send(result);
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.post('/', verifySession(), async (req, res, next) => {
   try {
     const accountId = req.user._id;
-    const { category, content } = req.body;
+    const { category } = req.body;
     // need to check category
     if (category) {
       const categoryObj = await PostCategory.findOne({_id: category, accountId});
@@ -62,10 +79,13 @@ router.put('/:id', verifySession(), async (req, res, next) => {
     const accountId = req.user._id;
     const _id = req.params.id;
     if (!_id) {
-      throw new Error('参数错误');
+      return next('参数错误');
     }
-    const result = await Post.update({accountId, _id}, {...req.body});
-    res.send(result);
+    const post = await Post.findOneAndUpdate({accountId, _id}, { ...req.body });
+    if (!post) {
+      return next({status: 404, message: '备忘录不存在'});
+    }
+    res.send(post);
   } catch (err) {
     next(err);
   }
